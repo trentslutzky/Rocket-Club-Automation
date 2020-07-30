@@ -1,0 +1,15 @@
+[Unit]
+Description=uWSGI instance to serve rc_site
+After=network.target
+
+[Service]
+User=curriculum
+Group=www-data
+WorkingDirectory=/home/curriculum/Rocket-Club-Automation/Site
+Evironment="PATH=/home/curriculum/Rocket-Club-Automation/Site/rc-venv/bin"
+ExecStart=/home/curriculum/Rocket-Club-Automation/Site/rc-venv/bin/uwsgi --ini rc_site.ini
+
+[Install]
+WantedBy=multi-user.target
+
+
