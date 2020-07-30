@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RF</title>
+</head>
+
+<body>
+    <div class="gate">
+        <img src="{{url_for('static', filename='rc_helmet.png')}}" class="cover" />
+        <div class="spacer"></div>
+        <form action="stats" method="POST">
+            <label for="member-id" class="prompt">Member Id:</label>
+            <div class="entry">
+                <input type="text" id="member-id" name="member-id" style="width: 50%;">
+                <input type="submit" value="Submit">
+            </div>
+        </form> 
+    </div>
+
+</body>
+
+</html>

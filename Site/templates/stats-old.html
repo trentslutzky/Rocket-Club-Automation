@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stats-style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RF</title>
+</head>
+
+<body>
+    {% if name %}
+        <div class="member-card">
+            <img src="{{url_for('static', filename='rc_helmet.png')}}" class="stats-helmet"/>
+            <div class="name-div-team">
+                <p class="name">{{ name }}</p>
+                <p class="line1">
+                    <span class="division">{{ division }}</span>
+                    team 
+                    <span class="team">{{ team }}</span>
+                </p>
+            </div>
+        </div>
+        <p class="line2">
+            Total Rocket Fuel: 
+            <span class="rocket-fuel">{{ rf }}</span>
+        </p>
+    {% else %}
+        <h1>Invalid member ID!</h1>
+    {% endif %}
+
+
+</body>
+
+</html>
