@@ -32,8 +32,8 @@ def main():
     os.system('clear')
     scanTriviaWinners.main()
     scanRCLAttendance.main()
-    scanVirtualMissions.main()
     scanParentsNight.main()
+    scanVirtualMissions.main()
     injectFormulas.main()
     final_time = datetime.now()
     time_difference = final_time - start_time
