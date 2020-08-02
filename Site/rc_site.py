@@ -37,10 +37,15 @@ def show_stats():
         #Get totals for virtual mission categories
         vm_total = rcdata.get_member_info(member_data,member_id,'virtual_missions') 
         #vm_master_sheet = rcdata.get_cells(rcdata.vm_master_sheet_id, 'A2:1000')
-        vm_coding = rcdata.get_member_info(member_data,member_id,'vm_coding')
-        vm_robotics = rcdata.get_member_info(member_data,member_id,'vm_robotics') 
-        vm_engineering = rcdata.get_member_info(member_data,member_id,'vm_engineering') 
-        vm_business = rcdata.get_member_info(member_data,member_id,'vm_business') 
+        #vm_coding = rcdata.get_member_info(member_data,member_id,'vm_coding')
+        #vm_robotics = rcdata.get_member_info(member_data,member_id,'vm_robotics') 
+        #vm_engineering = rcdata.get_member_info(member_data,member_id,'vm_engineering') 
+        #vm_business = rcdata.get_member_info(member_data,member_id,'vm_business') 
+
+        vm_coding = 0
+        vm_robotics = 0
+        vm_engineering = 0
+        vm_business = 0
 
         if(member_name != 'null'):
             #member_rf =str(format(int(member_rf),','))
