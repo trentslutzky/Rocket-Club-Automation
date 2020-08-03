@@ -83,7 +83,7 @@ def do_total_column():
     total_column_num = vm_master_sheet[0].index('vm_total')
     for row in vm_master_sheet:
         r = str(vm_master_sheet.index(row)+2)
-        formula = '=SUM(D' + r + ':' + r + ')'
+        formula = '=SUM(D' + r + ':' + r + ') - I' + r 
         if(int(r) > 2):
             row[total_column_num] = formula
     print(Fore.GREEN + 'Refreshing Totals Column -> ',end = '')

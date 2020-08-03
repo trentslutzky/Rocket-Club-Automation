@@ -6,12 +6,12 @@ import RCData as rcdata
 
 ##### Formulas for the different columns in master sheet ########
 total_rf_formula = '=SUM(F#:P#)-E#'
-status_formula = '=VLOOKUP(A#,\'Base RF\'!A#:100#,4,False)'
+status_formula = '=VLOOKUP(A#,\'Base RF\'!A1:100#,4,False)'
 virtual_missions_formula = '=IMPORTRANGE(\"1rVblBZu9FXzM9guC9R5CxQEtYlTN_NGfFiv2X4ivh70\",\"C#\")'
-class_formula = '=VLOOKUP(A#,\'Base RF\'!A#:100#,8,False)'
-wheel_of_names_formula = '=VLOOKUP(A#,\'Base RF\'!A#:100#,7,False)'
-rc_talent_formula = '=VLOOKUP(A#,\'Base RF\'!A#:100#,13,False)'
-boost_formula = '=VLOOKUP(A#,\'Base RF\'!A#:100#,14,False)' 
+class_formula = '=VLOOKUP(A#,\'Base RF\'!A1:100#,8,False)'
+wheel_of_names_formula = '=VLOOKUP(A#,\'Base RF\'!A1:100#,7,False)'
+rc_talent_formula = '=VLOOKUP(A#,\'Base RF\'!A1:100#,13,False)'
+boost_formula = '=VLOOKUP(A#,\'Base RF\'!A1:100#,14,False)' 
 #################################################################
 
 def addNumber(formula, number):
