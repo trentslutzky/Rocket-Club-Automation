@@ -1,0 +1,164 @@
+progress {
+  width:100%;
+  background-color:#232327;
+  border:none;
+}
+progress::-webkit-progress-bar {
+  background-color:#232327;
+}
+progress::-webkit-progress-value {
+  background-color:#0064B4;
+}
+progress::-moz-progress-bar {
+
+  background-color:#0064B4;
+}
+
+
+.card-box{
+  padding-bottom:2vh !important;
+	padding-top:2vh !important;
+}
+
+html {
+    display: table;
+    margin: auto;
+    width:100%;
+    background-color: black;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    align-content:middle;
+    color:white;
+    text-align: center;
+    font-family: 'Orbitron';
+    width:100%;
+}
+
+@font-face{
+    font-family:'Orbitron';
+    src: url('Orbitron-Regular.ttf');
+}
+
+.cover{
+    display:table-cell;
+    margin:0;
+    width:100%;
+}
+
+.spacer{
+    display:table-cell;
+    height:100%;
+    width:2vw;
+}
+
+.gate{
+    margin-top:15vw;
+    display:table;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.prompt{
+    font-size:4vw;
+    display:block;
+    text-align: left;
+}
+
+form{
+    width:70%;
+    height:100%;
+    display:table-cell;
+    vertical-align: middle;
+}
+
+.entry{
+    width:100%;
+    display:table;
+    margin-top:2vw;
+    text-align: left;
+}
+
+input[type=text], select {
+    font-family:'Orbitron';
+    font-size:2vw;
+    padding: 1vw;
+    display: table-cell;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    box-sizing: border-box;
+    margin-right: 1vw;
+  }
+
+  input[type=submit] {
+    font-family:'Orbitron';
+    font-size:2vw;
+    background-color: #ca9b02;
+    color: black;
+    padding: 1vw;
+    border: none;
+    border: 1px solid #fdc60a;
+    border-radius: 1px;
+    cursor: pointer;
+    display: table-cell;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #fdc60a;
+  }
+
+.member-name{
+    margin-top:5vw;
+    display:table;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1vw;
+    
+}
+
+.stats-helmet{
+    display: table-cell;
+    height: 20vw;
+}
+
+.name-div-team{
+    display: table-cell;
+}
+
+.name{
+    color:yellow;
+    font-size: 6vw;
+    margin:0;
+}
+
+.division{
+    color: yellow;
+    font-size:2.3vw;
+}
+
+.team{
+    color: yellow;
+    font-size:2.3vw;
+}
+
+.rocket-fuel{
+    color:orange;
+    font-size:5vw;
+}
+
+.line1{
+    font-size: 2vw;
+    margin-top:2vw;
+    margin-bottom:2vw;
+}
+.line2{
+    font-size: 3vw;
+    margin:0;
+}
+
+
+
