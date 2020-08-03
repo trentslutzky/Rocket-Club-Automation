@@ -14,27 +14,6 @@ init()
 from colorama import Fore, Back, Style
 ####################################################
 
-'''
-Trent Slutzky
-Rocket Club
-16 July 2020
-
-This script scans the folder of Virtual Missions Google Forms responses 
-and automatically adds rocket fuel to the master sheet.
-
-Requirements:
-    Forms/Responses folder organized like the example.
-    Master Sheet organized in a specific (simple) way.
-
-TO DO:
-    [x] Automate adding Virtual Missions rocket fuel to master sheet
-        [ ] Implement weekly totals for use in leaderboards - WORKING ON
-    [ ] Instead of hard-coding ranges, use table titles to figure out where data is...
-    [x] Implement RC Live Winners
-        [ ] Optimize the way the spreadsheet is dealth with 
-    [ ] Print to the console the Rocket Fuel leader afeter refreshing
-
-'''
 ####################  global_variables  ####################
 #google drive IDs for crucial items -- IMPORTANT
     #folders
@@ -183,6 +162,7 @@ def get_member_info(member_stats_data, member_id, stat):
     column = member_stats_data[0].index(stat)
     output = 'null'
     for row in member_stats_data:
-        if row[0] == str(member_id):
+        print(row[0])
+        if str(row[0]) == str(member_id):
             output = row[column]
     return output
