@@ -7,6 +7,9 @@ init()
 from colorama import Fore, Back, Style
 ########### Virtual Missions Folder IDs ############
 coding_vm_folder_id = "'1SG63RmmC42yQ_eR_-dq9IPfWC83DsRbg'"
+vm_robotics_overview_folder_id = "'1PLs-Uu77I2TTZifpH7MmNwEg2u4YUzsl'"
+python_1_folder_id = "'18f6ymu1kSSkQ4Pjh5HcEgsTGTxINYlUn'"
+robotics_1_folder_id = "'1JGJGuxyur9Jyl_GZjMa6qjNQBU4tOjcp'"
 ########## Virtual Missions Main Sheet ID ##########
 vm_master_sheet_id = '1rVblBZu9FXzM9guC9R5CxQEtYlTN_NGfFiv2X4ivh70'
 member_stats_sheet_id = '1UkJKMY735oTSohu8X5eM_rvFp267KBbaEiVg4SXaki8'
@@ -17,8 +20,8 @@ def parse_score(scoreString):
     score = int(scoreSplit[0])
     return score
 
-def scan_folder(keyword,folder_id,num_column):
-    print(Fore.BLUE + 'Scanning ' + Fore.GREEN + keyword)
+def scan_folder(keyword,folder_id,num_column,vm_name):
+    print(Fore.BLUE + 'Scanning ' + Fore.YELLOW + vm_name)
     print(Fore.GREEN + 'Fetch master VM sheet -> ', end = ' ')
     vm_master_data = rcdata.get_cells(vm_master_sheet_id,'A2:1000')
     member_stats_data = rcdata.get_cells(member_stats_sheet_id,'A2:1000')
@@ -55,6 +58,7 @@ def scan_folder(keyword,folder_id,num_column):
                             if master_row[id_col] == member_id:
                                 master_row[score_col] = str(int(master_row[score_col]) + score)
                         row[id_index] = '#' + row[id_index]
+                        scores_updated += 1
                         # update number of vms completed in member stats:
                         vm_num_data = add_vm_totals(member_stats_data,vm_num_data,member_id,num_column)
             if sheet_needs_updating:
@@ -62,18 +66,19 @@ def scan_folder(keyword,folder_id,num_column):
                 rcdata.set_cells(sheet['id'],'A1:1000',current_sheet)
             else:
                 print(Fore.WHITE + '    No new data.')
-    print(Fore.BLUE + 'Finished Scanning ' + Fore.GREEN + keyword + '!')
-    print(Fore.GREEN + 'Updating Master Sheet -> ',end = '')
-    rcdata.set_cells(vm_master_sheet_id,'A2:1000',vm_master_data)
-    rcdata.set_cells(member_stats_sheet_id,'vm_nums',vm_num_data)
+    print(Fore.BLUE + 'Finished Scanning ' + Fore.GREEN + keyword + ' with ' + str(scores_updated) + ' updates.')
+    if(scores_updated > 0):
+        print(Fore.GREEN + 'Updating Master Sheet -> ',end = '')
+        rcdata.set_cells(vm_master_sheet_id,'A2:1000',vm_master_data)
+        rcdata.set_cells(member_stats_sheet_id,'vm_nums',vm_num_data)
 
 # Search for member id in member_stats sheet then use index to sed number in vm_nums range
 def add_vm_totals(member_stats_data,num_data,member_id,num_column):
     for member in member_stats_data:
         if member[0] == str(member_id):
             member_index = member_stats_data.index(member)
-    column_index = num_data[0].index(num_column)
-    num_data[member_index][column_index] = str(int(num_data[member_index][column_index])+1)
+            column_index = num_data[0].index(num_column)
+            num_data[member_index][column_index] = str(int(num_data[member_index][column_index])+1)
     return num_data
 
 
@@ -93,7 +98,10 @@ def main():
     print(Fore.BLUE + '#####################################')
     print(Fore.BLUE + '###   Updating Virtual Missions   ###')
     print(Fore.BLUE + '#####################################')
-    scan_folder('vm_coding_overview',coding_vm_folder_id,'num_coding_overview')
+    scan_folder('vm_robotics_overview',vm_robotics_overview_folder_id,'num_robotics_overview','Overview Of Robotics')
+    scan_folder('vm_coding_overview',coding_vm_folder_id,'num_coding_overview','Overview of Coding')
+    scan_folder('vm_python_1',python_1_folder_id,'num_python_1','Python 1')
+    scan_folder('vm_robotics_1',robotics_1_folder_id,'num_robotics_1','Robotics 1')
     do_total_column()
 
 if __name__ == '__main__':

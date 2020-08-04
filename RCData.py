@@ -90,7 +90,7 @@ sheets_service = auth_sheets() # store sheets authorization
 
 sheet = sheets_service.spreadsheets()
 
-base_delay = 1
+base_delay = .1
 base_delay_site = .1
 error_delay = 5
 
@@ -111,7 +111,8 @@ def get_cells(sheet_id, newRange):
                 print('Range not found.')
                 return 
             else:
-                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
+                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id[:10] + '... '
+                        + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
                 return values
         except Exception as error:
             print(str(error))
@@ -128,7 +129,8 @@ def site_get_cells(sheet_id, newRange):
                 print('Range not found.')
                 return 
             else:
-                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
+                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id[:10] + '... '
+                        + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
                 return values
         except Exception as error:
             print(str(error))
@@ -151,7 +153,8 @@ def set_cells(sheet_id, newRange, values):
             time.sleep(base_delay/4)
             print('.', end = ' ')
             time.sleep(base_delay/4)
-            print(Fore.CYAN + 'Set cells for ' + Fore.WHITE + sheet_id + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
+            print(Fore.CYAN + 'Set cells for ' + Fore.WHITE + sheet_id[:10] + '... ' 
+                    + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
             return
         except:
             print(Fore.RED + '    Quota Hit ' + Fore.WHITE + '- Waiting')
