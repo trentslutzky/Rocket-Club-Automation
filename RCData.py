@@ -90,7 +90,7 @@ sheets_service = auth_sheets() # store sheets authorization
 
 sheet = sheets_service.spreadsheets()
 
-base_delay = .1
+base_delay = 1
 base_delay_site = .1
 error_delay = 5
 
