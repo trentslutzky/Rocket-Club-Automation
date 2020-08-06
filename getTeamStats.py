@@ -5,17 +5,20 @@ member_stats_sheet_id = '1UkJKMY735oTSohu8X5eM_rvFp267KBbaEiVg4SXaki8'
 
 def get_team(team_name):
     team_info = rcdata.site_get_cells(team_stats_sheet_id,'team_stats')
-    num_col = team_info[0].index('num')
-    inst_col = team_info[0].index('instructor')
-    n1_col = team_info[0].index('num_robotics_overview')
-    n1_col = team_info[0].index('num_coding_overview')
-    n1_col = team_info[0].index('num_python_1')
-    n1_col = team_info[0].index('num_robotics_1')
-    n1_col = team_info[0].index('num_entre_1')
-
+    
     for row in team_info:
         if row[0] == team_name:
             return row
+
+def get_weekly_totals(team_name):
+    team_weekly_nums = rcdata.site_get_cells(team_stats_sheet_id,'weekly_totals')
+    for row in team_weekly_nums:
+        if row[0] == team_name:
+            return row
+
+def get_weekly_missions():
+    weekly_missions = rcdata.get_cells(team_stats_sheet_id,'weekly_missions')
+    return weekly_missions
 
 def get_members(team_name):
     team_members = []
@@ -27,8 +30,6 @@ def get_members(team_name):
             team_members.append(row[name_col])
     return team_members
 
-def main():
-    print(get_members('Supernovas'))
-
+        
 if __name__ == '__main__':
     main()

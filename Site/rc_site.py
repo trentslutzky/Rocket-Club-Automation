@@ -79,10 +79,45 @@ def show_team_stats(team_name):
     print('Loading information for team: '+team_name)
     team_data = getteamstats.get_team(team_name)
     member_names = getteamstats.get_members(team_name)
+    weekly_nums = getteamstats.get_weekly_totals(team_name)
+    weekly_missions = getteamstats.get_weekly_missions()
     return render_template('team_stats.html',
             team_name=team_name,
             instructor_name=team_data[1],
-            member_names=member_names
+            member_names=member_names,
+            num_members=team_data[2],
+            total_rf=team_data[3],
+            
+            num_robotics_overview=team_data[4],
+            robotics_total = int(team_data[2]) * 30,
+            robotics_percent = int(team_data[4])/(int(team_data[2])*30)*100,
+            num_coding_overview=team_data[5],
+            coding_overview_total = int(team_data[2]) * 30,
+            coding_percent = int(team_data[5])/(int(team_data[2])*30)*100,
+            num_python_1 = team_data[6],
+            python_total = int(team_data[2]) * 50,
+            python_percent = int(team_data[6])/(int(team_data[2])*30)*100,
+            num_robotics_1 = team_data[7],
+            robotics_1_total = int(team_data[2]) * 30,
+            robotics_1_percent = int(team_data[7])/(int(team_data[2])*30)*100,
+            num_entre_1 = team_data[8],
+            entre_total = int(team_data[2]) * 15,
+            entre_percent = int(team_data[8])/(int(team_data[2])*30)*100,
+            total_vm_num = team_data[9],
+            
+            num_1 = weekly_nums[1],
+            num_1_percent = int(weekly_nums[1])/int(team_data[2])*100,
+            num_2 = weekly_nums[2],
+            num_2_percent = int(weekly_nums[2])/int(team_data[2])*100,
+            num_3 = weekly_nums[3],
+            num_3_percent = int(weekly_nums[3])/int(team_data[2])*100,
+            num_4 = weekly_nums[4],
+            num_4_percent = int(weekly_nums[4])/int(team_data[2])*100,
+
+            mission_1 = weekly_missions[0][0],
+            mission_2 = weekly_missions[1][0],
+            mission_3 = weekly_missions[2][0],
+            mission_4 = weekly_missions[3][0]
             )
 
 

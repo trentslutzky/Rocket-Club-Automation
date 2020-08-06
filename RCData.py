@@ -137,6 +137,25 @@ def site_get_cells(sheet_id, newRange):
             print('    ', end='')
             time.sleep(error_delay)
 
+def batch_get(sheet_id, ranges):
+    while True:
+        try:
+            result = sheet.values().batchGet(spreadsheetId=sheet_id, ranges=ranges).execute()
+            time.sleep(base_delay)
+            values = result.get('values', [])
+            if not values:
+                print('Range not found.')
+                return 
+            else:
+                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id[:10] + '... '
+                        + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
+                return values
+        except Exception as error:
+            print(str(error))
+            print('    ', end='')
+            time.sleep(error_delay)
+
+
 def set_cells(sheet_id, newRange, values):
     while True:
         try:

@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-md-6" style="margin-bottom: 20px;margin-top: 20px;">
-		    <div style="width: 100%;text-align: center;background-color: rgba(0,0,0,0.46);border-radius: 9px;"><a class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button" style="width: 100%;font-family: Orbitron, sans-serif;border-style: none;background-color: rgb(253,216,3);border-radius: 5px;color: rgb(0,0,0);">{{team_num}} Team Members</a>
+		    <div style="width: 100%;text-align: center;background-color: rgba(0,0,0,0.46);border-radius: 9px;"><a class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button" style="width: 100%;font-family: Orbitron, sans-serif;border-style: none;background-color: rgb(253,216,3);border-radius: 5px;color: rgb(0,0,0);">{{num_members}} Team Members</a>
                     <div
                         class="collapse" id="collapse-2">
 {% for para in member_names %}
@@ -74,26 +74,34 @@
                         </div>
                     </div>
                     <div class="row" style="height: 80px;margin-bottom: 40px;">
-                        <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Mission 1</span>
+			    <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">{{mission_1}}</span>
                             <div
                                 class="progress d-md-flex justify-content-md-start" style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;">
-                                <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:50%;">50%</div>
-                        </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">5/10</span></div>
+				    <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{num_1_percent}}%;min-width:0.5%"></div>
+			    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_1}}/{{num_members}}</span></div>
                 </div>
                 <div class="row" style="height: 80px;margin-bottom: 40px;">
-                    <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Mission 2</span>
+			<div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">{{mission_2}}</span>
                         <div class="progress d-md-flex justify-content-md-start"
                             style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;color: #007bff;">
-                            <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:20%;">50%</div>
-                        </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">2/10</span></div>
+				<div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{num_2_percent}}%;min-width:0.5%"></div>
+			</div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_2}}/{{num_members}}</span></div>
                 </div>
                 <div class="row" style="height: 80px;margin-bottom: 40px;">
-                    <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Mission 3</span>
+			<div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">{{mission_3}}</span>
                         <div class="progress d-md-flex justify-content-md-start"
                             style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;color: rgb(105,160,215);">
-                            <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:100%;">50%</div>
-                        </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">10/10</span></div>
+				<div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{num_3_percent}}%;min-width:0.5%"></div>
+			</div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_3}}/{{num_members}}</span></div>
                 </div>
+                <div class="row" style="height: 80px;margin-bottom: 40px;">
+			<div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">{{mission_4}}</span>
+                        <div class="progress d-md-flex justify-content-md-start"
+                            style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;color: rgb(105,160,215);">
+				<div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{num_4_percent}}%;min-width:0.5%"></div>
+			</div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_4}}/{{num_members}}</span></div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -112,36 +120,36 @@
                         <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Overview of Robotics</span>
                             <div
                                 class="progress d-md-flex justify-content-md-start" style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;">
-                                <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:6%;">50%</div>
-                        </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">20/330</span></div>
+				    <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{robotics_percent}}%; min-width:1%"></div>
+			    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_robotics_overview}}/{{robotics_total}}</span></div>
                 </div>
                 <div class="row" style="height: 80px;margin-bottom: 40px;">
                     <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Overview of Coding</span>
                         <div
                             class="progress d-md-flex justify-content-md-start" style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;">
-                            <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:76%;">50%</div>
-                    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">250/330</span></div>
+				<div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{coding_percent}}%;min-width:1%"></div>
+			</div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_coding_overview}}/{{coding_overiew_total}}</span></div>
             </div>
             <div class="row" style="height: 80px;margin-bottom: 40px;">
                 <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Python 1</span>
                     <div class="progress d-md-flex justify-content-md-start"
                         style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;">
-                        <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:22%;">50%</div>
-                    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">120/550</span></div>
+			    <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{python_percent}}%;min-width:1%"></div>
+		    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_python_1}}/{{python_total}}</span></div>
             </div>
             <div class="row" style="height: 80px;margin-bottom: 40px;">
                 <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Robotics 1</span>
                     <div class="progress d-md-flex justify-content-md-start"
                         style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;">
-                        <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:100%;">50%</div>
-                    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">330/330</span></div>
+			    <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{robotics_1_percent}}%;min-width:1%"></div>
+		    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_robotics_1}}/{{robotics_1_total}}</span></div>
             </div>
             <div class="row" style="height: 80px;margin-bottom: 40px;">
                 <div class="col d-xl-flex justify-content-xl-center align-items-xl-center"><span class="d-md-flex justify-content-md-start justify-content-xl-center" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 20xp;font-size: 24px;width: 350px;">Entrepreneurship 1</span>
                     <div
                         class="progress d-md-flex justify-content-md-start" style="width: 100%;font-family: Orbitron, sans-serif;border-radius: 2px;margin-top: 10px;margin-bottom: 10px;background-color: #3b4252;">
-                        <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:0%;">50%</div>
-                </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">0/165</span></div>
+			    <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="color:#007bff; width:{{entre_percent}}%;min-width:1%"></div>
+		    </div><span class="d-flex d-md-flex justify-content-end justify-content-md-end" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: center;margin-right: 0;font-size: 24px;margin-left: 20px;">{{num_entre_1}}/{{entre_total}}</span></div>
         </div>
     </div>
     </div>
