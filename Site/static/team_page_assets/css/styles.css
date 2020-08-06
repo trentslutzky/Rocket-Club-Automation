@@ -1,0 +1,30 @@
+@media (max-width: 550px) {
+  #team-name {
+    font-size: 12vw !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  #team-name {
+    font-size: 70px !important;
+  }
+}
+
+@media (min-width: 774px) {
+  #collapse-1 {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  #block-title {
+    font-size: 10vw !important;
+  }
+}
+
+@media (min-width: 1132px) {
+  #block-title {
+    font-size: 60px !important;
+  }
+}
+

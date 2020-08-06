@@ -6,6 +6,7 @@ import os,sys
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 import RCData as rcdata
+import getTeamStats as getteamstats
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
@@ -73,6 +74,16 @@ def show_stats():
         else:
             return render_template('oops.html')
 
+@app.route('/team/<string:team_name>')
+def show_team_stats(team_name):
+    print('Loading information for team: '+team_name)
+    team_data = getteamstats.get_team(team_name)
+    member_names = getteamstats.get_members(team_name)
+    return render_template('team_stats.html',
+            team_name=team_name,
+            instructor_name=team_data[1],
+            member_names=member_names
+            )
 
 
 if __name__ == '__main__':
