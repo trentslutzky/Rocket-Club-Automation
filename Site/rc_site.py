@@ -81,6 +81,7 @@ def show_team_stats(team_name):
     member_names = getteamstats.get_members(team_name)
     weekly_nums = getteamstats.get_weekly_totals(team_name)
     weekly_missions = getteamstats.get_weekly_missions()
+    print(weekly_nums)
     return render_template('team_stats.html',
             team_name=team_name,
             instructor_name=team_data[1],
@@ -104,7 +105,6 @@ def show_team_stats(team_name):
             entre_total = int(team_data[2]) * 15,
             entre_percent = int(team_data[8])/(int(team_data[2])*30)*100,
             total_vm_num = team_data[9],
-            
             num_1 = weekly_nums[1],
             num_1_percent = int(weekly_nums[1])/int(team_data[2])*100,
             num_2 = weekly_nums[2],
@@ -119,6 +119,101 @@ def show_team_stats(team_name):
             mission_3 = weekly_missions[2][0],
             mission_4 = weekly_missions[3][0]
             )
+
+@app.route('/leaderboard')
+def show_leaderboard():
+    lb_data = rcdata.get_cells('1t8hVPvUQ_Wca1nIiVMovsZFb20I2kcYjJGfp8E7ctS0','full_leaderboard')
+    #get top ten table
+
+    return render_template('leaderboard.html',
+            ttn1=lb_data[0][0],
+            ttn2=lb_data[1][0],
+            ttn3=lb_data[2][0],
+            ttn4=lb_data[3][0],
+            ttn5=lb_data[4][0],
+            ttn6=lb_data[5][0],
+            ttn7=lb_data[6][0],
+            ttn8=lb_data[7][0],
+            ttn9=lb_data[8][0],
+            ttn10=lb_data[9][0],
+            ttrf1=lb_data[0][1],
+            ttrf2=lb_data[1][1],
+            ttrf3=lb_data[2][1],
+            ttrf4=lb_data[3][1],
+            ttrf5=lb_data[4][1],
+            ttrf6=lb_data[5][1],
+            ttrf7=lb_data[6][1],
+            ttrf8=lb_data[7][1],
+            ttrf9=lb_data[8][1],
+            ttrf10=lb_data[9][1],
+
+            d1n1=lb_data[0][2],
+            d1n2=lb_data[1][2],
+            d1n3=lb_data[2][2],
+            d1rf1=lb_data[0][3],
+            d1rf2=lb_data[1][3],
+            d1rf3=lb_data[2][3],
+
+            d2n1=lb_data[0][4],
+            d2n2=lb_data[1][4],
+            d2n3=lb_data[2][4],
+            d2rf1=lb_data[0][5],
+            d2rf2=lb_data[1][5],
+            d2rf3=lb_data[2][5],
+
+            d3n1=lb_data[0][6],
+            d3n2=lb_data[1][6],
+            d3n3=lb_data[2][6],
+            d3rf1=lb_data[0][7],
+            d3rf2=lb_data[1][7],
+            d3rf3=lb_data[2][7],
+
+            tvn1=lb_data[0][8],
+            tvn2=lb_data[1][8],
+            tvn3=lb_data[2][8],
+            tvn4=lb_data[3][8],
+            tvn5=lb_data[4][8],
+            tvn6=lb_data[5][8],
+            tvn7=lb_data[6][8],
+            tvn8=lb_data[7][8],
+            tvn9=lb_data[8][8],
+            tvn10=lb_data[9][8],
+
+            tvp1=lb_data[0][9],
+            tvp2=lb_data[1][9],
+            tvp3=lb_data[2][9],
+            tvp4=lb_data[3][9],
+            tvp5=lb_data[4][9],
+            tvp6=lb_data[5][9],
+            tvp7=lb_data[6][9],
+            tvp8=lb_data[7][9],
+            tvp9=lb_data[8][9],
+            tvp10=lb_data[9][9],
+
+            trn1=lb_data[0][10],
+            trn2=lb_data[1][10],
+            trn3=lb_data[2][10],
+            trn4=lb_data[3][10],
+            trn5=lb_data[4][10],
+            trn6=lb_data[5][10],
+            trn7=lb_data[6][10],
+            trn8=lb_data[7][10],
+            trn9=lb_data[8][10],
+            trn10=lb_data[9][10],
+
+            trp1=lb_data[0][11],
+            trp2=lb_data[1][11],
+            trp3=lb_data[2][11],
+            trp4=lb_data[3][11],
+            trp5=lb_data[4][11],
+            trp6=lb_data[5][11],
+            trp7=lb_data[6][11],
+            trp8=lb_data[7][11],
+            trp9=lb_data[8][11],
+            trp10=lb_data[9][11],
+
+            )
+
 
 
 if __name__ == '__main__':
