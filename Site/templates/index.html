@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Leaderboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard_assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard_assets/css/Color-Rainbow-Border-Shadow-with-Icon-Round-Animated.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard_assets/css/SliderFade.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard_assets/css/styles.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard_assets/css/animated.css')}}">
+    <link rel="stylesheet" href="assets/css/Color-Rainbow-Border-Shadow-with-Icon-Round-Animated.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/SliderFade.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body style="background-color: rgba(255,255,255,0);">
@@ -24,14 +24,14 @@
         </div>
     </div>
     <div style="margin-bottom: 10px;">
-	    <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}}) center;">
+        <div class="container" style="background: url(assets/img/backdrop.png) center;">
             <div class="row" style="background-color: rgba(13,26,86,0.8);">
-		    <div class="col-md-12"><img class="img-fluid pulse animated" src="{{ url_for('static', filename='leaderboard_assets/img/Title.png')}}" style="width: 100%;"></div>
+                <div class="col-md-12"><img class="img-fluid pulse animated" src="assets/img/Title.png" style="width: 100%;"></div>
             </div>
         </div>
     </div>
     <div>
-	    <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) top;">
+        <div class="container" style="background: url(assets/img/mbr-1920x1078.png) top;">
             <div class="row" style="background-color: rgba(23,45,147,0.63);">
                 <div class="col" style="border: 18px none rgb(0,0,0);padding: 14px;">
                     <h1 class="standings-heading" style="text-align: center;font-family: Orbitron, sans-serif;width: 100%;color: #fdd803;"><strong>Team Standings</strong></h1>
@@ -43,113 +43,113 @@
     <div style="padding-top: 5px;">
         <div class="container">
             <div class="row d-md-flex justify-content-md-center">
-                <div class="col-md-8 col-lg-4 col-xl-4" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}});border: 5px solid rgb(0,0,0);">
-                    <div class="row" style="border-style: none;background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}});background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
+                <div class="col-md-8 col-lg-4 col-xl-4" style="background: url(assets/img/backdrop.png);border: 5px solid rgb(0,0,0);">
+                    <div class="row" style="border-style: none;background: url(assets/img/mbr-1920x1078.png);background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
                         <div class="col-md-12" style="background-color: rgba(0,0,0,0);border: 12px none rgb(0,0,0);padding: 9px;">
                             <p class="text-center standings-subtitle" style="font-family: Orbitron, sans-serif;text-align: center;color: rgb(255,255,255);margin-bottom: 6px;">7,8,9 Division</p>
                         </div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/1.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="pulse animated infinite leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t1vn1}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t1vp1}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/2.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t1vn2}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t1vp2}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/3.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t1vn3}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t1vp3}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/4.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/4.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t1vn4}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t1vp4}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/5.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/5.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t1vn5}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t1vp5}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/6.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/6.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t1vn6}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t1vp6}}%</span></div>
                     </div>
                 </div>
-                <div class="col-md-8 col-lg-4 col-xl-4" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}});border: 5px solid rgb(0,0,0);">
-                    <div class="row" style="border-style: none;background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}});background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
+                <div class="col-md-8 col-lg-4 col-xl-4" style="background: url(assets/img/backdrop.png);border: 5px solid rgb(0,0,0);">
+                    <div class="row" style="border-style: none;background: url(assets/img/mbr-1920x1078.png);background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
                         <div class="col-md-12" style="background-color: rgba(0,0,0,0);border: 12px none rgb(0,0,0);padding: 9px;">
                             <p class="text-center standings-subtitle" style="font-family: Orbitron, sans-serif;text-align: center;color: rgb(255,255,255);margin-bottom: 6px;">10,11 Division</p>
                         </div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/1.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="pulse animated infinite leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t2vn1}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t2vp1}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/2.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t2vn2}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t2vp2}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/3.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t2vn3}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t2vp3}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/4.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/4.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t2vn4}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t2vp4}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/5.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/5.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t2vn5}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t2vp5}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/6.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/6.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t2vn6}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t2vp6}}%</span></div>
                     </div>
                 </div>
-                <div class="col-md-8 col-lg-4 col-xl-4" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}});border: 5px solid rgb(0,0,0);">
-                    <div class="row" style="border-style: none;background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}});background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
+                <div class="col-md-8 col-lg-4 col-xl-4" style="background: url(assets/img/backdrop.png);border: 5px solid rgb(0,0,0);">
+                    <div class="row" style="border-style: none;background: url(assets/img/mbr-1920x1078.png);background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
                         <div class="col-md-12" style="background-color: rgba(0,0,0,0);border: 12px none rgb(0,0,0);padding: 9px;">
                             <p class="text-center standings-subtitle" style="font-family: Orbitron, sans-serif;text-align: center;color: rgb(255,255,255);margin-bottom: 6px;">12,13,14 Division</p>
                         </div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/1.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="pulse animated infinite leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t3vn1}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t3vp1}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/2.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t3vn2}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t3vp2}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/3.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t3vn3}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t3vp3}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/4.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/4.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t3vn4}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t3vp4}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/5.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/5.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t3vn5}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t3vp5}}%</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/6.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/6.png"></div>
                         <div class="col-6 col-sm-7 col-md-6 col-lg-7 col-xl-5 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{t3vn6}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{t3vp16}}%</span></div>
                     </div>
@@ -158,7 +158,7 @@
         </div>
     </div>
     <div style="margin-top: 5px;margin-bottom: 11px;">
-        <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) top;">
+        <div class="container" style="background: url(assets/img/mbr-1920x1078.png) top;">
             <div class="row" style="background-color: rgba(23,45,147,0.63);border-radius: 0;">
                 <div class="col" style="border: 18px none rgb(0,0,0);padding: 14px;">
                     <h1 class="standings-heading" style="text-align: center;font-family: Orbitron, sans-serif;width: 100%;color: #fdd803;"><strong>Division Top 3</strong></h1>
@@ -167,74 +167,74 @@
         </div>
     </div>
     <div>
-        <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}}) center;">
+        <div class="container" style="background: url(assets/img/backdrop.png) center;">
             <div class="row d-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-center" style="margin-top: 10px;">
-                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url(assets/img/mbr-1920x1078.png) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
                     <div class="row text-center d-xl-flex" style="background-color: rgba(4,29,65,0.61);margin: 0px;">
                         <div class="col-xl-12 d-xl-flex justify-content-xl-center align-items-xl-center" style="padding: 20px;">
                             <p class="d-xl-flex justify-content-xl-center align-items-xl-center standings-subtitle" style="color: rgb(255,255,255);font-family: Orbitron, sans-serif;text-align: center;margin-bottom: 0px;"><strong>Divisions&nbsp;7, 8, 9&nbsp;</strong></p>
                         </div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/1.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="pulse animated infinite small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d1n1}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d1rf1}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/2.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d1n2}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d1rf2}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/3.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d1n3}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d1rf3}}</span></div>
                     </div>
                 </div>
             </div>
             <div class="row d-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-center" style="margin-top: 10px;">
-                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url(assets/img/mbr-1920x1078.png) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
                     <div class="row text-center d-xl-flex" style="background-color: rgba(4,29,65,0.61);margin: 0px;">
                         <div class="col-xl-12 d-xl-flex justify-content-xl-center align-items-xl-center" style="padding: 20px;">
                             <p class="d-xl-flex justify-content-xl-center align-items-xl-center standings-subtitle" style="color: rgb(255,255,255);font-family: Orbitron, sans-serif;text-align: center;margin-bottom: 0px;"><strong>Divisions&nbsp;10, 11&nbsp;</strong></p>
                         </div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/1.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="pulse animated infinite small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2n1}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2rf1}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/2.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2n2}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2rf2}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}" style="/*width: 60px;*/"></div>
-                        <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2n3}}</span></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/3.png" style="/*width: 60px;*/"></div>
+                        <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2n1}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d2rf3}}</span></div>
                     </div>
                 </div>
             </div>
             <div class="row d-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-center" style="margin-top: 10px;">
-                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url(assets/img/mbr-1920x1078.png) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
                     <div class="row text-center d-xl-flex" style="background-color: rgba(4,29,65,0.61);margin: 0px;">
                         <div class="col-xl-12 d-xl-flex justify-content-xl-center align-items-xl-center" style="padding: 20px;">
                             <p class="d-xl-flex justify-content-xl-center align-items-xl-center standings-subtitle" style="color: rgb(255,255,255);font-family: Orbitron, sans-serif;text-align: center;margin-bottom: 0px;"><strong>Divisions&nbsp;12, 13, 14&nbsp;</strong></p>
                         </div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/1.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="pulse animated infinite small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d3n1}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d3rf1}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/2.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d3n2}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d3rf2}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/3.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d3n3}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{d3rf3}}</span></div>
                     </div>
@@ -243,7 +243,7 @@
         </div>
     </div>
     <div style="margin-top: 5px;margin-bottom: 11px;">
-        <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) top;">
+        <div class="container" style="background: url(assets/img/mbr-1920x1078.png) top;">
             <div class="row" style="background-color: rgba(23,45,147,0.63);border-radius: 0;">
                 <div class="col" style="border: 18px none rgb(0,0,0);padding: 14px;">
                     <h1 class="standings-heading" style="text-align: center;font-family: Orbitron, sans-serif;width: 100%;color: #fdd803;"><strong>Legacy Leaders</strong></h1>
@@ -252,56 +252,56 @@
         </div>
     </div>
     <div>
-        <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}}) center;">
+        <div class="container" style="background: url(assets/img/backdrop.png) center;">
             <div class="row d-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-md-center justify-content-lg-center justify-content-xl-center" style="margin-top: 10px;">
-                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
+                <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background: url(assets/img/mbr-1920x1078.png) left / auto;padding: 0px;border-style: none;border-radius: 10px;">
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/1.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="pulse animated infinite small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn1}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf1}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/2.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn2}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf2}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/3.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn3}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf3}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/4.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/4.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn4}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf4}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/5.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/5.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn5}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf5}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/6.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/6.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn6}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf6}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/7.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/7.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn7}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf7}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/8.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/8.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn8}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf8}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/9.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/9.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn9}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf9}}</span></div>
                     </div>
                     <div class="row" style="background-color: rgba(4,29,65,0.58);margin: 0px;">
-                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="{{ url_for('static', filename='leaderboard_assets/img/10.png')}}" style="/*width: 60px;*/"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-xl-2 d-flex d-md-flex justify-content-start align-items-center align-items-md-center"><img class="small_icon" src="assets/img/10.png" style="/*width: 60px;*/"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-6 col-xl-7 d-flex d-md-flex d-xl-flex align-items-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttn10}}</span></div>
                         <div class="col-3 col-md-2 col-xl-2 d-flex d-md-flex d-xl-flex justify-content-end align-items-center justify-content-md-center align-items-md-center align-items-xl-center"><span class="small-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);">{{ttrf10}}</span></div>
                     </div>
@@ -310,7 +310,7 @@
         </div>
     </div>
     <div style="margin-top: 5px;margin-bottom: 11px;">
-        <div class="container" style="background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}}) top;">
+        <div class="container" style="background: url(assets/img/mbr-1920x1078.png) top;">
             <div class="row" style="background-color: rgba(23,45,147,0.63);border-radius: 0;">
                 <div class="col" style="border: 18px none rgb(0,0,0);padding: 14px;">
                     <h1 class="standings-heading" style="text-align: center;font-family: Orbitron, sans-serif;width: 100%;color: #fdd803;"><strong>Rocket Club Live</strong></h1>
@@ -321,66 +321,66 @@
     <div style="padding-top: 5px;">
         <div class="container">
             <div class="row d-md-flex justify-content-md-center">
-                <div class="col-md-9 col-lg-6 col-xl-6" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}});border: 5px solid rgb(0,0,0);">
-                    <div class="row" style="border-style: none;background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}});background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
+                <div class="col-md-9 col-lg-6 col-xl-6" style="background: url(assets/img/backdrop.png);border: 5px solid rgb(0,0,0);">
+                    <div class="row" style="border-style: none;background: url(assets/img/mbr-1920x1078.png);background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
                         <div class="col-md-12" style="background-color: rgba(0,0,0,0);border: 12px none rgb(0,0,0);padding: 9px;">
                             <p class="text-center standings-subtitle" style="font-family: Orbitron, sans-serif;text-align: center;color: rgb(255,255,255);margin-bottom: 6px;">Trivia Winnings</p>
                         </div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/1.png"></div>
                         <div class="col-5 col-sm-7 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="pulse animated infinite leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{trivian1}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{triviarf1}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/2.png"></div>
                         <div class="col-5 col-sm-7 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{trivian2}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{triviarf2}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/3.png"></div>
                         <div class="col-5 col-sm-7 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{trivian3}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{triviarf3}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/4.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/4.png"></div>
                         <div class="col-5 col-sm-7 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{trivian4}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{triviarf4}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/5.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/5.png"></div>
                         <div class="col-5 col-sm-7 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{trivian5}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{triviarf5}}</span></div>
                     </div>
                 </div>
-                <div class="col-md-9 col-lg-6 col-xl-6" style="background: url({{ url_for('static', filename='leaderboard_assets/img/backdrop.png')}});border: 5px solid rgb(0,0,0);">
-                    <div class="row" style="border-style: none;background: url({{ url_for('static', filename='leaderboard_assets/img/mbr-1920x1078.png')}});background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
+                <div class="col-md-9 col-lg-6 col-xl-6" style="background: url(assets/img/backdrop.png);border: 5px solid rgb(0,0,0);">
+                    <div class="row" style="border-style: none;background: url(assets/img/mbr-1920x1078.png);background-color: rgba(92,53,58,0.71);border-radius: 5px;margin-bottom: 20px;">
                         <div class="col-md-12" style="background-color: rgba(0,0,0,0);border: 12px none rgb(0,0,0);padding: 9px;">
                             <p class="text-center standings-subtitle" style="font-family: Orbitron, sans-serif;text-align: center;color: rgb(255,255,255);margin-bottom: 6px;">Parents Night</p>
                         </div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/1.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/1.png"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="pulse animated infinite leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{parentsn1}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{parentsrf1}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/2.png')}}"></div>
-                        <div class="col-6 col-sm-6 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{parentsn2}}</span></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/2.png"></div>
+                        <div class="col-6 col-sm-6 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{parentns}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{parentsrf2}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/3.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/3.png"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{parentsn3}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{parentsrf3}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/4.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/4.png"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{parentsn4}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{parentsrf4}}</span></div>
                     </div>
                     <div class="row d-flex d-xl-flex justify-content-start align-items-sm-center justify-content-md-start align-items-md-center justify-content-lg-start justify-content-xl-start" style="background-color: rgba(4,6,65,0.37);">
-			    <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="{{ url_for('static', filename='leaderboard_assets/img/5.png')}}"></div>
+                        <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 d-flex d-xl-flex justify-content-start justify-content-md-end justify-content-lg-start justify-content-xl-end align-items-xl-center"><img class="place-img" src="assets/img/5.png"></div>
                         <div class="col-6 col-sm-6 col-md-5 col-lg-7 col-xl-6 d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(255,255,255);text-align: left;">{{parentsn5}}</span></div>
                         <div class="col-2 col-md-3 col-lg-2 col-xl-3 d-flex d-xl-flex align-items-center justify-content-lg-end justify-content-xl-end align-items-xl-center"><span class="leaderboard-entry" style="font-family: Orbitron, sans-serif;color: rgb(122,122,122);text-align: left;">{{parentsrf5}}</span></div>
                     </div>
@@ -397,8 +397,8 @@
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='leaderboard_assets/js/jquery.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='leaderboard_assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
