@@ -10,6 +10,7 @@ coding_vm_folder_id = "'1SG63RmmC42yQ_eR_-dq9IPfWC83DsRbg'"
 vm_robotics_overview_folder_id = "'1PLs-Uu77I2TTZifpH7MmNwEg2u4YUzsl'"
 python_1_folder_id = "'18f6ymu1kSSkQ4Pjh5HcEgsTGTxINYlUn'"
 robotics_1_folder_id = "'1JGJGuxyur9Jyl_GZjMa6qjNQBU4tOjcp'"
+ent_1_folder_id = "'1ETN-kZrBEygQfHkcP70uIH9sHMW5Iw93'"
 ########## Virtual Missions Main Sheet ID ##########
 vm_master_sheet_id = '1rVblBZu9FXzM9guC9R5CxQEtYlTN_NGfFiv2X4ivh70'
 member_stats_sheet_id = '1UkJKMY735oTSohu8X5eM_rvFp267KBbaEiVg4SXaki8'
@@ -102,6 +103,7 @@ def main():
     scan_folder('vm_coding_overview',coding_vm_folder_id,'num_coding_overview','Overview of Coding')
     scan_folder('vm_python_1',python_1_folder_id,'num_python_1','Python 1')
     scan_folder('vm_robotics_1',robotics_1_folder_id,'num_robotics_1','Robotics 1')
+    scan_folder('vm_ent_1',ent_1_folder_id,'num_entre_1','Entrepreneurship 1')
     do_total_column()
 
 if __name__ == '__main__':

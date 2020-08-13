@@ -24,7 +24,7 @@ def main():
     status_col = master_sheet[0].index('status')
     vm_col = master_sheet[0].index('virtual_missions')
     class_col = master_sheet[0].index('class')
-    wheel_col = master_sheet[0].index('wheel_of_names')
+#    wheel_col = master_sheet[0].index('wheel_of_names')
     talent_col = master_sheet[0].index('rc_talent')
     boost_col = master_sheet[0].index('boost')
     for row in master_sheet:
@@ -34,7 +34,7 @@ def main():
             row[status_col] = addNumber(status_formula,r)
             row[vm_col] = addNumber(virtual_missions_formula,r)
             row[class_col] = addNumber(class_formula,r)
-            row[wheel_col] = addNumber(wheel_of_names_formula,r)
+ #           row[wheel_col] = addNumber(wheel_of_names_formula,r)
             row[talent_col] = addNumber(rc_talent_formula,r)
             row[boost_col] = addNumber(boost_formula,r)
     
