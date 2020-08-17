@@ -25,32 +25,30 @@ def show_stats():
         #Get member name, team, division
         member_id = request.form['member-id']
         print('Loading stats page for ' + member_id)
-        '''
         # Get the data from the member stats sheet -->
-        member_data = rcdata.site_get_cells(rcdata.member_stats_sheet_id, 'A2:1000')
+        #member_data = rcdata.site_get_cells(rcdata.member_stats_sheet_id, 'A2:1000')
         
-        member_name = rcdata.get_member_info(member_data,member_id,'member_name')
-        member_division = rcdata.get_member_info(member_data,member_id,'division')
-        member_team = rcdata.get_member_info(member_data,member_id,'team')  
+        #member_name = rcdata.get_member_info(member_data,member_id,'member_name')
+        #member_division = rcdata.get_member_info(member_data,member_id,'division')
+        #member_team = rcdata.get_member_info(member_data,member_id,'team')  
         #Get rocket fuel stuff
         #master_rf_sheet = rcdata.get_cells(rcdata.master_sheet_id, 'A2:1000')
-        member_rf = rcdata.get_member_info(member_data,member_id,'total_rf') 
-        trivia_rf = rcdata.get_member_info(member_data,member_id,'rc_live_trivia') 
-        won_rf = rcdata.get_member_info(member_data,member_id,'wheel_of_names') 
-        vm_rcl_attendance = rcdata.get_member_info(member_data,member_id,'rc_live_attendance') 
-        boost_rf = rcdata.get_member_info(member_data,member_id,'boost') 
-        rcgt_rf = rcdata.get_member_info(member_data,member_id,'rc_talent') 
-        parents_rf = rcdata.get_member_info(member_data,member_id,'rc_live_pn')
-        class_rf = rcdata.get_member_info(member_data,member_id,'class') 
+        #member_rf = rcdata.get_member_info(member_data,member_id,'total_rf') 
+        #trivia_rf = rcdata.get_member_info(member_data,member_id,'rc_live_trivia') 
+        #won_rf = rcdata.get_member_info(member_data,member_id,'wheel_of_names') 
+        #vm_rcl_attendance = rcdata.get_member_info(member_data,member_id,'rc_live_attendance') 
+        #boost_rf = rcdata.get_member_info(member_data,member_id,'boost') 
+        #rcgt_rf = rcdata.get_member_info(member_data,member_id,'rc_talent') 
+        #parents_rf = rcdata.get_member_info(member_data,member_id,'rc_live_pn')
+        #class_rf = rcdata.get_member_info(member_data,member_id,'class') 
         #Get totals for virtual mission categories
-        vm_total = rcdata.get_member_info(member_data,member_id,'virtual_missions') 
+        #vm_total = rcdata.get_member_info(member_data,member_id,'virtual_missions') 
 
-        num_robotics_overview = rcdata.get_member_info(member_data,member_id,'num_robotics_overview')
-        num_coding = rcdata.get_member_info(member_data,member_id,'num_coding_overview')
-        num_python = rcdata.get_member_info(member_data,member_id,'num_python_1')
-        num_robotics_1 = rcdata.get_member_info(member_data,member_id,'num_robotics_1')
-        num_entre = rcdata.get_member_info(member_data,member_id,'num_entre_1')
-        '''
+        #num_robotics_overview = rcdata.get_member_info(member_data,member_id,'num_robotics_overview')
+        #num_coding = rcdata.get_member_info(member_data,member_id,'num_coding_overview')
+        #num_python = rcdata.get_member_info(member_data,member_id,'num_python_1')
+        #num_robotics_1 = rcdata.get_member_info(member_data,member_id,'num_robotics_1')
+        #num_entre = rcdata.get_member_info(member_data,member_id,'num_entre_1')
             
         # Member info from pgtool
         member_info = pgtool.get_member_info(member_id)
@@ -94,12 +92,7 @@ def show_stats():
 @app.route('/team/<string:team_name>')
 def show_team_stats(team_name):
     print('Loading information for team: '+team_name)
-    '''
-    team_data = getteamstats.get_team(team_name)
-    member_names = getteamstats.get_members(team_name)
-    weekly_nums = getteamstats.get_weekly_totals(team_name)
-    weekly_missions = getteamstats.get_weekly_missions()
-    '''
+    
     member_names = pgtool.get_team_members(team_name)
     num_members = len(member_names)
     instructor = pgtool.get_instructor(team_name)

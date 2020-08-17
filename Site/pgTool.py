@@ -84,7 +84,7 @@ def get_weekly_missions():
     return result
 
 ## get the member name, team, and division based on member_id
-def get_member_info(member_i):
+def get_member_info(member_id):
     ps = db.prepare('SELECT name,team,division FROM members WHERE member_id=:v')
     result = ps.run(v=member_id)
     return result1
