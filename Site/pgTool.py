@@ -95,6 +95,7 @@ def get_member_info(member_id):
 ###########################################################################
 
 def get_member_info(member_id):
+    db.run("DEALLOCATE ALL")
     ps = db.prepare("SELECT name,division,team from members where member_id = :a")
     result = ps.run(a=member_id)
     result[0][1] = 'Division ' + str(result[0][1])
@@ -152,6 +153,7 @@ def get_member_misc_rf(member_id):
 ###########################################################################
 
 def get_team_members(team_name):
+    db.run("DEALLOCATE ALL")
     result = []
     ps = db.prepare("SELECT name FROM members where team=:a")
     names = ps.run(a=team_name)

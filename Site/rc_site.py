@@ -9,6 +9,7 @@ import RCData as rcdata
 import getTeamStats as getteamstats
 
 import pgTool as pgtool
+import time
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
@@ -62,7 +63,7 @@ def show_stats():
         rcl_rf = pgtool.get_member_rcl_rf(member_id)
         # MISC RF
         misc_rf = pgtool.get_member_misc_rf(member_id)
-
+        
         try:
             member_rf =str(format(int(member_rf),','))
             return render_template('stats.html', 
