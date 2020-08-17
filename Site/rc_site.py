@@ -8,6 +8,8 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 import RCData as rcdata
 import getTeamStats as getteamstats
 
+import pgTool as pgtool
+
 @app.route('/', methods=['GET', 'POST'])
 def hello():
     if request.method == 'POST':
@@ -19,9 +21,11 @@ def hello():
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
     if request.method == 'POST':
+        
         #Get member name, team, division
         member_id = request.form['member-id']
-        print(member_id)
+        print('Loading stats page for ' + member_id)
+        '''
         # Get the data from the member stats sheet -->
         member_data = rcdata.site_get_cells(rcdata.member_stats_sheet_id, 'A2:1000')
         
@@ -46,78 +50,97 @@ def show_stats():
         num_python = rcdata.get_member_info(member_data,member_id,'num_python_1')
         num_robotics_1 = rcdata.get_member_info(member_data,member_id,'num_robotics_1')
         num_entre = rcdata.get_member_info(member_data,member_id,'num_entre_1')
+        '''
+            
+        # Member info from pgtool
+        member_info = pgtool.get_member_info(member_id)
+        # Member total RF
+        member_rf = pgtool.get_member_total(member_id)
+        # Member Virtual Mission RF
+        vm_total = pgtool.get_vm_total_rf(member_id)
+        # VMs completed
+        vm_completions = pgtool.get_member_vms_completed(member_id)
+        # RCL RF
+        rcl_rf = pgtool.get_member_rcl_rf(member_id)
+        # MISC RF
+        misc_rf = pgtool.get_member_misc_rf(member_id)
 
-
-        if(member_name != 'null'):
+        try:
             member_rf =str(format(int(member_rf),','))
             return render_template('stats.html', 
-            name = member_name, 
-            division = member_division, 
-            team = member_team, 
+            name = member_info[0], 
+            division = member_info[1], 
+            team = member_info[2], 
             rf_total = member_rf,
             rf_vm = vm_total,
-            n_robotics = num_robotics_overview,
-            n_coding = num_coding,
-            n_python = num_python,
-            n_robotics_1 = num_robotics_1,
-            n_entre = num_entre,
-            rf_rcl_attendance = vm_rcl_attendance,
-            rf_trivia = trivia_rf,
-            rf_won = won_rf,
-            rf_rcl_total = str(int(vm_rcl_attendance) + int(trivia_rf) + int(won_rf)),
+            n_robotics = vm_completions[0],
+            n_coding = vm_completions[1],
+            n_python = vm_completions[2],
+            n_robotics_1 = vm_completions[3],
+            n_entre = vm_completions[4],
+            rf_rcl_attendance = rcl_rf[1],
+            rf_trivia = rcl_rf[2],
+            rf_won = misc_rf[2],
+            rf_rcl_total = rcl_rf[0],
 #            rf_rcl_total = 0,
-            rf_boost = boost_rf,
-            rf_rcgt = rcgt_rf,
-            rf_parents = parents_rf,
-            rf_class = class_rf
+            rf_boost = misc_rf[0],
+            rf_rcgt = misc_rf[1],
+            rf_parents = rcl_rf[3],
+            rf_class = misc_rf[3]
             )
-        else:
+        except:
             return render_template('oops.html')
 
 @app.route('/team/<string:team_name>')
 def show_team_stats(team_name):
     print('Loading information for team: '+team_name)
+    '''
     team_data = getteamstats.get_team(team_name)
     member_names = getteamstats.get_members(team_name)
     weekly_nums = getteamstats.get_weekly_totals(team_name)
     weekly_missions = getteamstats.get_weekly_missions()
-    print(team_data)
+    '''
+    member_names = pgtool.get_team_members(team_name)
+    num_members = len(member_names)
+    instructor = pgtool.get_instructor(team_name)
+    
+    weekly_missions = pgtool.get_weekly_missions()
+    weekly_completions = pgtool.get_current_weekly_missions_completed(team_name)
+    vms_completed = pgtool.get_team_vms_completed(team_name)
+
     return render_template('team_stats.html',
             team_name=team_name,
-            instructor_name=team_data[1],
+            instructor_name=instructor,
             member_names=member_names,
-            num_members=team_data[3],
-            total_rf=team_data[4],
+            num_members=num_members,
             
-            num_robotics_overview=team_data[5],
-            robotics_total = int(team_data[3]) * 30,
-            robotics_percent = int(team_data[5])/(int(team_data[3])*30)*100,
-            num_coding_overview=team_data[6],
-            coding_overview_total = int(team_data[3]) * 30,
-            coding_percent = int(team_data[6])/(int(team_data[3])*30)*100,
-            num_python_1 = team_data[7],
-            python_total = int(team_data[3]) * 50,
-            python_percent = int(team_data[7])/(int(team_data[3])*30)*100,
-            num_robotics_1 = team_data[8],
-            robotics_1_total = int(team_data[3]) * 30,
-            robotics_1_percent = int(team_data[8])/(int(team_data[3])*30)*100,
-            num_entre_1 = team_data[9],
-            entre_total = int(team_data[3]) * 15,
-            entre_percent = int(team_data[9])/(int(team_data[2])*30)*100,
-            total_vm_num = team_data[10],
-            num_1 = weekly_nums[1],
-            num_1_percent = int(weekly_nums[1])/int(team_data[3])*100,
-            num_2 = weekly_nums[2],
-            num_2_percent = int(weekly_nums[2])/int(team_data[3])*100,
-            num_3 = weekly_nums[3],
-            num_3_percent = int(weekly_nums[3])/int(team_data[3])*100,
-            num_4 = weekly_nums[4],
-            num_4_percent = int(weekly_nums[4])/int(team_data[3])*100,
+            num_robotics_overview=vms_completed[0],
+            robotics_total = int(num_members) * 30,
+            robotics_percent = int(vms_completed[0])/(int(num_members)*30)*100,
 
-            mission_1 = weekly_missions[0][0],
-            mission_2 = weekly_missions[1][0],
-            mission_3 = weekly_missions[2][0],
-            mission_4 = weekly_missions[3][0]
+            num_coding_overview=vms_completed[1],
+            coding_overview_total = int(num_members) * 30,
+            coding_percent = int(vms_completed[1])/(int(num_members)*30)*100,
+            
+            num_python_1 = vms_completed[2],
+            python_total = int(num_members) * 50,
+            python_percent = int(vms_completed[2])/(int(num_members)*30)*100,
+            
+            num_robotics_1 = vms_completed[3],
+            robotics_1_total = int(num_members) * 30,
+            robotics_1_percent = int(vms_completed[3])/(int(num_members)*30)*100,
+            
+            num_entre_1 = vms_completed[4],
+            entre_total = int(num_members) * 15,
+            entre_percent = int(vms_completed[4])/(int(num_members)*30)*100,
+            
+            num_1 = weekly_completions[0],
+            num_1_percent = int(weekly_completions[0])/int(num_members)*100,
+            num_2 = weekly_completions[1],
+            num_2_percent = int(weekly_completions[1])/int(num_members)*100,
+
+            mission_1 = weekly_missions[0],
+            mission_2 = weekly_missions[1]
             )
 
 @app.route('/leaderboard')
