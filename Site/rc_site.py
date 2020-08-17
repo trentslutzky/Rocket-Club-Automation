@@ -64,31 +64,32 @@ def show_stats():
         # MISC RF
         misc_rf = pgtool.get_member_misc_rf(member_id)
         
-        try:
+        if member_rf is None:
+            member_rf = 0
+        else:
             member_rf =str(format(int(member_rf),','))
-            return render_template('stats.html', 
-            name = member_info[0], 
-            division = member_info[1], 
-            team = member_info[2], 
-            rf_total = member_rf,
-            rf_vm = vm_total,
-            n_robotics = vm_completions[0],
-            n_coding = vm_completions[1],
-            n_python = vm_completions[2],
-            n_robotics_1 = vm_completions[3],
-            n_entre = vm_completions[4],
-            rf_rcl_attendance = rcl_rf[1],
-            rf_trivia = rcl_rf[2],
-            rf_won = misc_rf[2],
-            rf_rcl_total = rcl_rf[0],
+        
+        return render_template('stats.html', 
+        name = member_info[0], 
+        division = member_info[1], 
+        team = member_info[2], 
+        rf_total = member_rf,
+        rf_vm = vm_total,
+        n_robotics = vm_completions[0],
+        n_coding = vm_completions[1],
+        n_python = vm_completions[2],
+        n_robotics_1 = vm_completions[3],
+        n_entre = vm_completions[4],
+        rf_rcl_attendance = rcl_rf[1],
+        rf_trivia = rcl_rf[2],
+        rf_won = misc_rf[2],
+        rf_rcl_total = rcl_rf[0],
 #            rf_rcl_total = 0,
-            rf_boost = misc_rf[0],
-            rf_rcgt = misc_rf[1],
-            rf_parents = rcl_rf[3],
-            rf_class = misc_rf[3]
-            )
-        except:
-            return render_template('oops.html')
+        rf_boost = misc_rf[0],
+        rf_rcgt = misc_rf[1],
+        rf_parents = rcl_rf[3],
+        rf_class = misc_rf[3]
+        )
 
 @app.route('/team/<string:team_name>')
 def show_team_stats(team_name):
