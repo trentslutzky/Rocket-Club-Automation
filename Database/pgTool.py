@@ -198,13 +198,7 @@ def get_team_vms_completed(team_name):
 
 @timer
 def main():
-    print('main')
-    print(get_team_members('Supernovas'))
-    print(get_instructor('Supernovas'))
-    print(get_weekly_missions())
-    print(get_current_weekly_missions_completed('Supernovas'))
-    print(get_team_vms_completed('Supernovas'))
-
+    add_rf_transaction(3115,'wheel_of_names','',5000)
 
 if __name__ == '__main__':
     main()
