@@ -20,6 +20,7 @@ db = pg8000.connect("postgres",
 year = datetime.date.today().year
 week_number = datetime.date.today().isocalendar()[1]
 week_string = str(year)+str(week_number)
+week_int = int(week_string)
 
 def qprep(string):
     db.run("DEALLOCATE ALL")
@@ -209,13 +210,19 @@ def get_team_standings():
     result = []
     standing = []
     for d in range(1,4):
-        ps = qprep("SELECT team,count(DISTINCT vm_completions.member_uuid) FROM vm_completions LEFT JOIN members ON members.member_uuid = vm_completions.member_uuid LEFT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag WHERE members.division=:a AND virtual_missions.week = '202034' GROUP BY team ORDER BY count(DISTINCT vm_completions.member_uuid) desc limit 6;")
-        standing = ps.run(a=d)
+        ps = qprep("SELECT team,count(DISTINCT vm_completions.member_uuid) FROM vm_completions LEFT JOIN members ON members.member_uuid = vm_completions.member_uuid LEFT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag LEFT JOIN rf_transactions ON rf_transactions.member_uuid = members.member_uuid WHERE members.division=:a AND amount>20 AND virtual_missions.week = :w GROUP BY team ORDER BY count(DISTINCT vm_completions.member_uuid) desc limit 6;")
+        standing = ps.run(a=d,w=str(week_int-1))
         for team in standing:
             ps = qprep("SELECT COUNT(*) FROM members WHERE team=:a")
             team.append(ps.run(a=team[0])[0][0])
-         
-        result.append(standing)   
+        
+        standing_percentage = []
+        for team in standing:
+            percentage = (team[1]/team[2]) * 100
+            percentage = int(round(percentage, -1))
+            standing_percentage.append([team[0],percentage])
+
+        result.append(standing_percentage)   
     return result
 
 def get_division_standings():
@@ -251,7 +258,7 @@ def get_parents_night_leaders():
 
 @timer
 def main():
-    print(get_parents_night_standings())
+    print(get_team_standings())
 
 if __name__ == '__main__':
     main()
