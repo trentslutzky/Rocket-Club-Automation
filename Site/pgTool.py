@@ -1,4 +1,4 @@
-#########################  IMPORTS  #################################
+#################/ ########  IMPORTS  #################################
 import pg8000
 import time
 import datetime
@@ -209,7 +209,7 @@ def get_team_standings():
     result = []
     standing = []
     for d in range(1,4):
-        ps = qprep("SELECT team,count(vm_completions) FROM vm_completions RIGHT JOIN members ON members.member_uuid = vm_completions.member_uuid RIGHT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag WHERE members.division=:a AND virtual_missions.week = '202034' GROUP BY team ORDER BY count(vm_completions) desc limit 6;")
+        ps = qprep("SELECT team,count(DISTINCT vm_completions.member_uuid) FROM vm_completions LEFT JOIN members ON members.member_uuid = vm_completions.member_uuid LEFT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag WHERE members.division=:a AND virtual_missions.week = '202034' GROUP BY team ORDER BY count(DISTINCT vm_completions.member_uuid) desc limit 6;")
         standing = ps.run(a=d)
         for team in standing:
             ps = qprep("SELECT COUNT(*) FROM members WHERE team=:a")
@@ -225,9 +225,33 @@ def get_division_standings():
         result.append(ps.run(a=d))
     return result
 
+def get_legacy_leaders():
+    ps = qprep('SELECT members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN members ON members.member_uuid = rf_transactions.member_uuid GROUP BY members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 10;')
+    result = ps.run()
+    for member in result:
+        member[1] =str(format(int(member[1]),','))
+
+    return result
+
+def get_trivia_leaders():
+    ps = qprep("SELECT members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN members ON members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'trivia' GROUP BY members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
+    result = ps.run()
+    for member in result:
+        member[1] =str(format(int(member[1]),','))
+
+    return result
+
+def get_parents_night_leaders():
+    ps = qprep("SELECT members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN members ON members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'parents_night' GROUP BY members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
+    result = ps.run()
+    for member in result:
+        member[1] =str(format(int(member[1]),','))
+
+    return result
+
 @timer
 def main():
-    print(get_member_total(4405))
+    print(get_parents_night_standings())
 
 if __name__ == '__main__':
     main()
