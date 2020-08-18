@@ -222,6 +222,8 @@ def get_team_standings():
             percentage = int(round(percentage, -1))
             standing_percentage.append([team[0],percentage])
 
+        standing_percentage = sorted(standing_percentage, key=lambda standing_percentage: standing_percentage[1], reverse=True)
+
         result.append(standing_percentage)   
     return result
 
