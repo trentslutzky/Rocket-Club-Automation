@@ -1,6 +1,7 @@
 import RCData as rcdata
 from colorama import Fore, Back, Style
 from datetime import datetime
+import pgTool as pgtool
 
 rcl_attendance_folder_id = "'1eReiKr3gCD0G6W8SUGfWfzhFWW7WCvHM'"
 
@@ -38,17 +39,18 @@ def scan_sheets():
                 new_score = parse_score(row[score_index])
                 member_id = row[id_index]
                 if('#' not in member_id):
-                    sheet_needs_updating = True
                     data.append([int(member_id),new_score])
-                    row[id_index] = '#' + row[id_index]
-        if sheet_needs_updating:
-            print(Fore.WHITE + '    Updating sheet -> ', end = '  ')
-            #rcdata.set_cells(sheet['id'],'A1:1000',current_sheet)
-        else:
-            print(Fore.WHITE + '    No new data.')
 
-    for row in data:
-        print('Give ' + str(row[0]) + ' ' + str(row[1]) + ' for RCL Attendance.')
+                    uuid = pgtool.get_member_uuid(member_id)
+                    if(uuid != -1):
+                        pgtool.add_rf_transaction(int(member_id),'rcl','attendance',int(new_score))
+                        row[id_index] = '#' + row[id_index]
+                        sheet_needs_updating = True
+                    else:
+                        print('[' + Fore.YELLOW + '  warn  ' + Fore.WHITE + ']' + 
+                                ' invalid member id: ' + member_id)
+        if sheet_needs_updating:
+            rcdata.set_cells(sheet['id'],'A1:1000',current_sheet)
 
 def main():
     print(Fore.BLUE + '###################################')

@@ -98,7 +98,8 @@ def get_cells(sheet_id, newRange):
     while True:
         try:
             result = sheet.values().get(spreadsheetId=sheet_id, range=newRange).execute()
-            print(Fore.WHITE + 'Getting cells', end = '')
+            print(Fore.WHITE + '[' + Fore.GREEN + ' google ' + Fore.WHITE+']'+
+                    ' getting cells', end = '')
             time.sleep(base_delay/4)
             print('.', end = '')
             time.sleep(base_delay/4)
@@ -115,46 +116,12 @@ def get_cells(sheet_id, newRange):
                         + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
                 return values
         except Exception as error:
-            print(str(error))
-            print('    ', end='')
-            time.sleep(error_delay)
-
-def site_get_cells(sheet_id, newRange):
-    while True:
-        try:
-            result = sheet.values().get(spreadsheetId=sheet_id, range=newRange).execute()
-            time.sleep(base_delay_site)
-            values = result.get('values', [])
-            if not values:
-                print('Range not found.')
-                return 
+            print(Fore.WHITE+'['+Fore.RED+' error  '+Fore.WHITE+']',end=' ')
+            if 'Read requests' in str(error):
+                print('100 per second read request quota hit. Waiting 5 seconds...')
             else:
-                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id[:10] + '... '
-                        + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
-                return values
-        except Exception as error:
-            print(str(error))
-            print('    ', end='')
+                print(str(error))
             time.sleep(error_delay)
-
-def batch_get(sheet_id, ranges):
-    while True:
-        try:
-            result = sheet.values().batchGet(spreadsheetId=sheet_id, ranges=ranges).execute()
-            time.sleep(base_delay)
-            values = result.get('values', [])
-            if not values:
-                print('Range not found.')
-                return 
-            else:
-                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id[:10] + '... '
-                        + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
-                return values
-        except Exception as error:
-            print(str(error))
-            print('    ', end='')
-            time.sleep(error_delay)
-
 
 def set_cells(sheet_id, newRange, values):
     while True:
@@ -164,7 +131,8 @@ def set_cells(sheet_id, newRange, values):
                                             range=newRange,
                                             valueInputOption='USER_ENTERED',
                                             body=body).execute()
-            print(Fore.WHITE + 'Setting cells', end = '')
+            print(Fore.WHITE+'['+Fore.GREEN+' google '+Fore.WHITE+']'+
+                    ' setting cells', end = '')
             time.sleep(base_delay/4)
             print('.', end = '')
             time.sleep(base_delay/4)
@@ -175,9 +143,12 @@ def set_cells(sheet_id, newRange, values):
             print(Fore.CYAN + 'Set cells for ' + Fore.WHITE + sheet_id[:10] + '... ' 
                     + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
             return
-        except:
-            print(Fore.RED + '    Quota Hit ' + Fore.WHITE + '- Waiting')
-            print('    ', end='')
+        except Exception as error:
+            print(Fore.WHITE+'['+Fore.RED+' error  '+Fore.WHITE+']',end=' ')
+            if 'Read requests' in str(error):
+                print('100 per second read request quota hit. Waiting 5 seconds...')
+            else:
+                print(str(error))
             time.sleep(error_delay)
     
 def get_member_info(member_stats_data, member_id, stat):

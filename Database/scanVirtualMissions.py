@@ -56,11 +56,11 @@ def scan_folder(category,folder_id):
                         else:
                             print('no new data for ' + str(member_id))
                     else:
-                        print(Fore.RED + 'Invalid Member ID Detected...  ' + str(member_id))
+                        print(Fore.WHITE+'['+Fore.YELLOW+'  warn  '+Fore.WHITE+']'+
+                                ' invalid member id: ' + str(member_id))
                     row[id_index] = '#' + row[id_index]
             if is_edited:
                 rcdata.set_cells(sheet_id,'A1:1000',current_sheet)
-                print('--> set cells.')
 
 
 def get_sheet_ids(category,folder_id):
@@ -76,7 +76,7 @@ def get_sheet_ids(category,folder_id):
 
 
 def main():
-    print(Fore.BLUE + 'Updating Virtual Missions')
+    print(Fore.BLUE + 'Updating Virtual Missions' + Fore.BLUE)
     scan_folder('rob_ov',vm_robotics_overview_folder_id)
     scan_folder('coding_ov',coding_vm_folder_id)
     scan_folder('python_1',python_1_folder_id)

@@ -49,7 +49,11 @@ def get_vm_tag(sheet_id):
 
 ## add a new rf_transaction row based on member_id, type, subtype and amount
 def add_rf_transaction(member_id,mtype,subtype,amount):
-    print(Fore.WHITE + 'adding RF ' + str(member_id) + '...')
+    print(Fore.WHITE + '[' + Fore.BLUE + 'postgres' + Fore.WHITE + ']'
+            + Fore.YELLOW + ' rf_transaction ' +Fore.WHITE+ str(member_id) + ' ' 
+            + str(mtype) + ' ' 
+            + str(subtype) + ' '
+            + str(amount))
     # convert member id to ssid
     uuid = get_member_uuid(int(member_id))
     if(uuid != -1):
@@ -60,6 +64,11 @@ def add_rf_transaction(member_id,mtype,subtype,amount):
         print('Member ID not found. Skipping.')
 
 def add_vm_completion(member_id,vm_tag,category):
+    print(Fore.WHITE + '[' + Fore.BLUE + 'postgres' + Fore.WHITE + ']'
+            + Fore.GREEN + ' vm_completion ' +Fore.WHITE+ str(member_id) + ' ' 
+            + str(category) + ' ' 
+            + str(vm_tag))
+
     uuid = get_member_uuid(int(member_id))
     ps = db.prepare('SELECT vm_tag FROM vm_completions WHERE member_uuid = :a')
     probe = ps.run(a=uuid)
@@ -70,7 +79,6 @@ def add_vm_completion(member_id,vm_tag,category):
             is_completed = True
 
     if(not is_completed):
-        print(str(member_id) + ' Completed ' + vm_tag + '!')
         ps = db.prepare('INSERT INTO vm_completions(member_uuid,vm_tag,category) VALUES(:a,:b,:c)')
         ps.run(a=uuid,b=vm_tag,c=category)
         db.commit()
