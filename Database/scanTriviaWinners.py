@@ -16,34 +16,33 @@ trivia_sheet_id = '1i3fdaZ8vORIv7EzRFMfmSrSxAOqeeBR5gBhl_7uOllE'
 ####################################################
 
 def get_prizes():
-    print(Fore.GREEN + 'Fetching Prizes -> ', end = ' ')
-        # get cells from the table within the winners sheet
+    print(Fore.WHITE+'[ status ] Fetching Prizes')
+    # get cells from the table within the winners sheet
     prise_table = rcdata.get_cells(trivia_sheet_id, 'J3:K6')
-        # store prize values in their own list
+    # store prize values in their own list
     prizes = [prise_table[0][1],prise_table[1][1],prise_table[2][1]]
-        #print prize values to console for user confirmation
-    print(Fore.BLUE + 'Prizes:', end=' ')
+    #print prize values to console for user confirmation
+    print(Fore.WHITE+'[ status ] Prizes:', end=' ')
     print(Fore.YELLOW + 'First: ' + Fore.WHITE + prizes[0], end=' ')
     print(Fore.YELLOW + 'Second: ' + Fore.WHITE + prizes[1], end=' ')
     print(Fore.YELLOW + 'Third: ' + Fore.WHITE + prizes[2])
-        #return the prize list for use later.
+    #return the prize list for use later.
     return(prizes)
 
 def scan_sheet():
-        # get cells from trivia winners sheet
-    print(Fore.GREEN + 'Fetching Winners Sheet -> ', end = ' ')
+    # get cells from trivia winners sheet
+    print(Fore.WHITE+'[ status ] Fetching Winners Sheet')
     trivia_sheet = rcdata.get_cells(trivia_sheet_id, 'B3:H')
-        # get prizes for use latee
+    # get prizes for use latee
     prizes = get_prizes()
-        # get cells from the master sheet for use later
-    print(Fore.GREEN + 'Scanning Winners Sheet')
-        # Calculate how many new entries there are in the sheet
+    # get cells from the master sheet for use later
+    print(Fore.WHITE+'[ status ] Scanning Winners Sheet')
+    # Calculate how many new entries there are in the sheet
     rows_to_update = 0
     for day in trivia_sheet:
         if(day[6] == 'No' and day[0] != ''):
             rows_to_update += 1
-    print(Fore.WHITE + '    New Entries: ' + Fore.BLUE + str(rows_to_update))
-        # scan each row in sheet and add rocket fuel to master sheet for each winner
+    # scan each row in sheet and add rocket fuel to master sheet for each winner
     for day in trivia_sheet:
         if(day[6] == 'No' and day[0] != ''):
             day[6] = 'Yes'
@@ -59,7 +58,6 @@ def scan_sheet():
                     prize = prizes[1]
                 if place == 3:
                     prize = prizes[2]
-                print(member_id + ' ' + prize)
                 # add rf transactio
                 pgtool.add_rf_transaction(int(member_id),'rcl','trivia',int(prize)) 
       #          for row in master_data:
@@ -67,13 +65,11 @@ def scan_sheet():
       #                  row[score_col] = str(int(prize) + int(row[score_col]))
         # if new info, update trivia sheet and master sheet with new informations    
     if rows_to_update > 0:
-        print(Fore.GREEN + 'Updating trivia sheet -> ', end = ' ')                
+        print(Fore.WHITE+'[ status ] Updating trivia sheet - adding "Yes" to updated rows')                
         rcdata.set_cells(trivia_sheet_id,'B3:H',trivia_sheet)
 
 def main():
-    print(Fore.BLUE + '#####################################')
-    print(Fore.BLUE + '####   Updating Trivia Winners   ####')
-    print(Fore.BLUE + '#####################################')
+    print(Fore.BLUE + 'Updating Trivia Winners')
     scan_sheet()
 
 if __name__ == '__main__':

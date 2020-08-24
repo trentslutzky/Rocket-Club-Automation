@@ -21,6 +21,7 @@ year = datetime.date.today().year
 week_number = datetime.date.today().isocalendar()[1]
 week_string = str(year)+str(week_number)
 
+# wrapper function to be able to time other functions
 def timer(function):
     def rapper():
         start_time = time.time_ns()
@@ -29,6 +30,8 @@ def timer(function):
         time_elapsed = (str(int((end_time-start_time) / 1000000)) + 'ms')
         print(time_elapsed)
     return rapper
+
+
 ## retrieve the member_uuid from the members table based on member_id
 def get_member_uuid(member_id):
     try:
@@ -49,19 +52,20 @@ def get_vm_tag(sheet_id):
 
 ## add a new rf_transaction row based on member_id, type, subtype and amount
 def add_rf_transaction(member_id,mtype,subtype,amount):
-    print(Fore.WHITE + '[' + Fore.BLUE + 'postgres' + Fore.WHITE + ']'
+    # convert member id to ssid
+    uuid = get_member_uuid(int(member_id))
+    if(uuid != -1):
+        print(Fore.WHITE + '[' + Fore.BLUE + 'postgres' + Fore.WHITE + ']'
             + Fore.YELLOW + ' rf_transaction ' +Fore.WHITE+ str(member_id) + ' ' 
             + str(mtype) + ' ' 
             + str(subtype) + ' '
             + str(amount))
-    # convert member id to ssid
-    uuid = get_member_uuid(int(member_id))
-    if(uuid != -1):
         ps = db.prepare('INSERT INTO rf_transactions(member_uuid,type,subtype,amount) VALUES(:a,:b,:c,:d)')
         ps.run(a=uuid,b=mtype,c=subtype,d=amount)
         db.commit()
     else:
-        print('Member ID not found. Skipping.')
+        print(Fore.WHITE + '[' + Fore.YELLOW + '  warn  ' + Fore.WHITE + ']'
+            + ' invalid member id ' + str(member_id)) 
 
 def add_vm_completion(member_id,vm_tag,category):
     print(Fore.WHITE + '[' + Fore.BLUE + 'postgres' + Fore.WHITE + ']'

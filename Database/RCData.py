@@ -117,7 +117,7 @@ def get_cells(sheet_id, newRange):
                 return values
         except Exception as error:
             print(Fore.WHITE+'['+Fore.RED+' error  '+Fore.WHITE+']',end=' ')
-            if 'Read requests' in str(error):
+            if 'requests' in str(error):
                 print('100 per second read request quota hit. Waiting 5 seconds...')
             else:
                 print(str(error))
@@ -145,8 +145,8 @@ def set_cells(sheet_id, newRange, values):
             return
         except Exception as error:
             print(Fore.WHITE+'['+Fore.RED+' error  '+Fore.WHITE+']',end=' ')
-            if 'Read requests' in str(error):
-                print('100 per second read request quota hit. Waiting 5 seconds...')
+            if 'requests' in str(error):
+                print('100 per second write request quota hit. Waiting 5 seconds...')
             else:
                 print(str(error))
             time.sleep(error_delay)
