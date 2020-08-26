@@ -305,9 +305,29 @@ def get_parents_night_leaders():
     db.close()
     return result
 
+# ADMIN TOOLS
+
+def get_next_member_id():
+    db = connect()
+    ps = qprep(db,"SELECT member_id FROM members ORDER BY member_id DESC LIMIT 1")
+    result = ps.run()
+    db.close()
+    return result[0][0]+1
+
+def add_new_member(name,division,team):
+    member_id = get_next_member_id()
+    db = connect()
+    print('Adding Member ' + name
+          + ' ' + str(member_id)
+          + ' ' + str(division)
+          + ' ' + team)
+    ps = qprep(db,"INSERT INTO members(member_id,name,division,team) VALUES(:a,:b,:c,:d)")
+    ps.run(a=member_id,b=name,c=division,d=team)
+    db.close()
+
 @timer
 def main():
-    print(get_team_standings())
+    add_new_member('Trent Slutzky',2,'Supernovas')
 
 if __name__ == '__main__':
     main()
