@@ -317,17 +317,15 @@ def get_next_member_id():
 def add_new_member(name,division,team):
     member_id = get_next_member_id()
     db = connect()
-    print('Adding Member ' + name
-          + ' ' + str(member_id)
-          + ' ' + str(division)
-          + ' ' + team)
-    ps = qprep(db,"INSERT INTO members(member_id,name,division,team) VALUES(:a,:b,:c,:d)")
-    ps.run(a=member_id,b=name,c=division,d=team)
+    command = "INSERT INTO members(member_id, name, team, division) VALUES(%i,'%s','%s',%i)" % (member_id,name,team,division)
+    print(command)
+    db.run(command)
+    db.commit()
     db.close()
 
 @timer
 def main():
-    add_new_member('Trent Slutzky',2,'Supernovas')
+    add_new_member('Test',0,'Test')
 
 if __name__ == '__main__':
     main()
