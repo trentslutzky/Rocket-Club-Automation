@@ -1,6 +1,7 @@
 #################/ ########  IMPORTS  #################################
 import pg8000
 import time
+from time import sleep
 import datetime
 from datetime import date
 # Initialize Colorama for pretty terminal colors #
@@ -307,6 +308,15 @@ def get_parents_night_leaders():
 
 # ADMIN TOOLS
 
+def get_teams():
+    db = connect()
+    teams = []
+    results = db.run('SELECT team_name FROM teams ORDER BY team_name')
+    for team in results:
+        teams.append(team[0])
+    return teams
+    db.close()
+
 def get_next_member_id():
     db = connect()
     ps = qprep(db,"SELECT member_id FROM members ORDER BY member_id DESC LIMIT 1")
@@ -317,15 +327,21 @@ def get_next_member_id():
 def add_new_member(name,division,team):
     member_id = get_next_member_id()
     db = connect()
-    command = "INSERT INTO members(member_id, name, team, division) VALUES(%i,'%s','%s',%i)" % (member_id,name,team,division)
-    print(command)
+    command = "INSERT INTO members(member_id, name, team, division) VALUES(%i,'%s','%s',%i)" % (int(member_id),name,team,int(division))
+    db.run(command)
+    db.commit()
+    sleep(1)
+    uuid = get_member_uuid(member_id)
+    print(uuid)
+    command = "INSERT INTO rf_transactions(member_uuid,type,amount) VALUES('%s','base_rf',250)" % (str(uuid))
     db.run(command)
     db.commit()
     db.close()
 
+
 @timer
 def main():
-    add_new_member('Test',0,'Test')
+    print(get_teams())
 
 if __name__ == '__main__':
     main()

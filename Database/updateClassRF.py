@@ -9,7 +9,7 @@ def main_alert():
     print(pgt.Fore.CYAN + 'Updating Class RF')
 
 def tag():
-    print(Fore.WHITE + '[' + Fore.CYAN + 'progress' + Fore.WHITE + '] scanning RF sheet: ', end='')
+    print(Fore.WHITE + '[' + Fore.CYAN + 'scanning' + Fore.WHITE + '] scanning RF sheet: ', end='')
 
 def main():
     main_alert()

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html style="background-color: #000000;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RC-Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/fonts/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Contact-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Features-Boxed.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Login-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Login-Form-Dark.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/styles.css')}}">
+</head>
+
+<body style="background-color: rgba(255,255,255,0);">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Add Member</h2>
+            <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name"></div>
+            <div class="form-group"><input class="form-control" type="number" name="division" placeholder="Division"></div>
+	    <select class="form-control" type="text" name="team">
+		    <option value="" selected="" id="default">Select Team</option>
+		    {% for team in teams %}
+		    <option value="{{ team }}">{{ team }}</option>
+		    {% endfor %}
+	    </select>
+            <div
+                class="form-group"><button class="btn btn-primary" id="add-button" type="submit">ADD Member</button>
+	    </div>
+	</form>
+	<form action="dashboard">
+	    <input class="btn btn-primary" id="back-button" type="submit" value="BACK TO DASHBOARD" />
+	</form>
+    </div>
+    <script src="{{ url_for('static', filename='add-member/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='add-member/bootstrap/js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html style="background-color: #000000;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RC-Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login-page/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login-page/fonts/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login-page/css/styles.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login-page/css/style.css')}}">
+</head>
+
+<body style="background-color: rgba(255,255,255,0);">
+    <div class="login-clean" style="background-color: rgba(241,247,252,0);">
+        <form action='login' method="POST">
+            <p id="login-header">Rocket Club Admin Login</p>
+	    <div class="illustration"><img id="helmet-icon" 
+		    src="{{ url_for('static', filename='login-page/img/helmet.png')}}"></div>
+            <div class="form-group"><input class="form-control" type="text" name="username" id="username"  
+		    placeholder="Username"/></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" id="password"
+		    placeholder="Password"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div>
+	    <p id='login-warning'>{{ warning }}</p>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='login-page/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='login-page/bootstrap/js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>
