@@ -1,4 +1,4 @@
-#########################  IMPORTS  #################################
+#######################  IMPORTS  #################################
 import pg8000
 import time
 import datetime
@@ -216,7 +216,7 @@ def get_member_class_rf(member_id):
 
 @timer
 def main():
-    add_rf_transaction(3115,'wheel_of_names','',5000)
+    print(week_string)
 
 if __name__ == '__main__':
     main()

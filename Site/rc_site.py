@@ -107,6 +107,7 @@ def add_member():
             member_rf =str(format(int(member_rf),','))
 
             return render_template('stats.html', 
+            member_id = member_id,
             name = member_info[0], 
             division = member_info[1], 
             team = member_info[2], 
