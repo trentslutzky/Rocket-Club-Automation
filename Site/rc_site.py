@@ -14,7 +14,7 @@ app.secret_key = 'armstrong1234'
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
-users = {'RocketClubAdmin': {'password': 'secret'}}
+users = {'RocketClubAdmin': {'password': 'Falcon2019!'}}
 
 ###### STUFF FOR ADMIN-SITE  #########
 
