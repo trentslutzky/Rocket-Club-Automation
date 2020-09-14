@@ -132,12 +132,40 @@ def get_member_total(member_id):
     db.close()
     return result[0][0]
 
-def get_vm_total_rf(member_id):
+def get_vm_rf(member_id):
     db = connect()
+    result = []
     ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and type='virtual_mission'")
-    result = ps.run(d=member_id)[0][0]
+    result.append(ps.run(d=member_id)[0][0])
     db.close()
+    return result[0]
+
+def get_vm_rf_sum(member_id, subtype):
+    db = connect()
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and subtype=:s")
+    q = ps.run(d=member_id,s=subtype)
+    if(q[0][0] is not None):
+        result = q[0][0]
+    else:
+        result = 0
     return result
+
+def get_vm_rf_categories(member_id):
+    results = []
+    uuid = get_member_uuid(member_id)
+    # robotics
+    results.append(get_vm_rf_sum(member_id,'rob_ov'))
+    # coding
+    results.append(get_vm_rf_sum(member_id,'python_1'))
+    # engineering
+    results.append(get_vm_rf_sum(member_id,'engineering'))
+    # entrepreneurship
+    results.append(get_vm_rf_sum(member_id,'entrepreneurship'))
+    # past
+    results.append(get_vm_rf_sum(member_id,'other') + get_vm_rf_sum(member_id,'past'))
+    # extra 
+    results.append(get_vm_rf_sum(member_id,'extra'))
+    return results
 
 def get_member_vms_completed(member_id):
     db = connect()
@@ -338,10 +366,20 @@ def add_new_member(name,division,team):
     db.commit()
     db.close()
 
+ # Add-RF
+
+def getTypes():
+    return    
+
 
 @timer
 def main():
-    print(get_teams())
+    print(get_vm_rf_sum(4405, 'rob_ov'))
+    print(get_vm_rf_sum(4405, 'python_1'))
+    print(get_vm_rf_sum(4405, 'enrepreneurship'))
+    print(get_vm_rf_sum(4405, 'engineering'))
+    print(get_vm_rf_sum(4405, 'other'))
+    print(get_vm_rf_sum(4405, 'extra'))
 
 if __name__ == '__main__':
     main()

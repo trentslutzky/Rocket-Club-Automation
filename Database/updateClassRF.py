@@ -34,7 +34,7 @@ def main():
             print(Fore.RED, end='')
 
         print(str(member_id), end = '  ')
-        print(pgt.Fore.WHITE + str(rf_difference), end='                \r')
+        print(pgt.Fore.WHITE + str(rf_difference))
         tag()
         if(rf_difference is not None):
             if(rf_difference > 0):
