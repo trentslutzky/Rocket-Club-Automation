@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html style="background-color: #000000;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RC-Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/fonts/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Contact-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Features-Boxed.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Login-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Login-Form-Dark.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/styles.css')}}">
+</head>
+
+<body style="background-color: rgba(255,255,255,0);">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Add Rocket Fuel</h2>
+	    <input class="form-control" type="number" name="member_id" placeholder="Member ID">
+	    <select class="form-control", type="text", name="type">
+		    <option value="" selected="" id="default">Type</option>
+		    {% for type in types %}
+		    <option value="{{type}}">{{type}}</option>
+		    {% endfor %}
+	    </select>
+		<input class="form-control" type="number" name="amount" placeholder="Amount">
+                <div class="form-group">
+			<button class="btn btn-primary" id="add-button" type="submit">
+				Apply
+			</button>
+		</div>
+		<h5 style="color: rgb(255,153,0);">{{ confirm }}</h5
+		><button class="btn btn-primary" id="back-button" type="button">BACK To DASHBOARD</button>
+	</form>
+    </div>
+    <script src="{{ url_for('static', filename='add-rf/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='add-rf/bootstrap/js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>

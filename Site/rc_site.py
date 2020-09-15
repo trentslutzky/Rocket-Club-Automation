@@ -129,6 +129,34 @@ def add_member():
             rf_class = misc_rf[3]
             )
 
+@app.route('/add-rf', methods=['GET','POST'])
+@flask_login.login_required
+def add_rf():
+    if flask.request.method == 'GET':
+        types = pgtool.get_types()
+        return render_template('add-rf.html',
+                                types = types)
+
+    elif flask.request.method == 'POST':
+
+        member_id = request.form['member_id']
+        mtype = request.form['type']
+        amount = request.form['amount']
+
+        name = pgtool.get_member_name(int(member_id))
+
+        if(name):
+            confirm = str(amount) + ' RF added for ' + name
+            pgtool.add_rf_transaction(member_id,mtype,'',amount)
+        else:
+            confirm = 'INVALID MEMBER ID. Please try again'
+
+
+        print('Adding RF',member_id,mtype,name)
+        return render_template('add-rf.html',
+                                types = pgtool.get_types(),
+                                confirm = confirm)
+
 @app.route('/logout')
 def logout():
     flask_login.logout_user()

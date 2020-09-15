@@ -68,8 +68,9 @@ def add_rf_transaction(member_id,mtype,subtype,amount):
     # convert member id to ssid
     uuid = get_member_uuid(int(member_id))
     if(uuid != -1):
-        ps = qprep(db,'INSERT INTO rf_transactions(member_uuid,type,subtype,amount) VALUES(:a,:b,:c,:d)')
-        ps.run(a=uuid,b=mtype,c=subtype,d=amount)
+        command = "INSERT INTO rf_transactions(member_uuid,type,subtype,amount) VALUES('%s','%s','%s',%i)" % (
+                uuid,mtype,subtype,int(amount))
+        db.run(command)
         db.commit()
     else:
         print('Member ID not found. Skipping.')
@@ -375,13 +376,25 @@ def add_new_member(name,division,team):
 
  # Add-RF
 
-def getTypes():
-    return    
+def get_types():
+    db = connect()
+    results = []
+    types = db.run("SELECT DISTINCT type from rf_transactions where not type in('virtual_mission','test','purchase','base_rf','rcl')")
+    for type in types:
+        results.append(type[0])
+    return results
 
+def get_member_name(member_id):
+    db = connect()
+    try:
+        name = db.run("SELECT name FROM members where member_id = %i" % member_id)
+        return name[0][0]
+    except:
+        return None
 
 @timer
 def main():
-    print(week_int)
+    print(add_rf_transaction(4405,'bonus','',1000))
 
 if __name__ == '__main__':
     main()
