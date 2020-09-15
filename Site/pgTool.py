@@ -291,8 +291,12 @@ def get_team_standings():
             standing_percentage.append([team[0],percentage])
 
         standing_percentage = sorted(standing_percentage, key=lambda standing_percentage: standing_percentage[1], reverse=True)
-
         result.append(standing_percentage)   
+
+    for d in result:
+        for team in d:
+            team[0] = team[0][:13]
+
     db.close()
     return result
 
@@ -301,7 +305,10 @@ def get_division_standings():
     result = [] 
     for d in range(1,4):
         ps = qprep(db,"SELECT name,sum(amount) FROM rf_transactions LEFT JOIN members ON members.member_uuid = rf_transactions.member_uuid WHERE division = :a GROUP BY name ORDER BY sum(amount) desc limit 3;")
-        result.append(ps.run(a=d))
+        got = ps.run(a=d)
+        result.append(got)
+        for a in got:
+            a[1] =str(format(int(a[1]),','))
     db.close()
     return result
 
@@ -374,12 +381,7 @@ def getTypes():
 
 @timer
 def main():
-    print(get_vm_rf_sum(4405, 'rob_ov'))
-    print(get_vm_rf_sum(4405, 'python_1'))
-    print(get_vm_rf_sum(4405, 'enrepreneurship'))
-    print(get_vm_rf_sum(4405, 'engineering'))
-    print(get_vm_rf_sum(4405, 'other'))
-    print(get_vm_rf_sum(4405, 'extra'))
+    print(week_int)
 
 if __name__ == '__main__':
     main()

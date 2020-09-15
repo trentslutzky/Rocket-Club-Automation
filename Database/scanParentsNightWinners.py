@@ -18,7 +18,7 @@ trivia_sheet_id = '1UpFpPSyJE8qf2Hu5DivCDAJ5V_-01PcUxRBEC5r6oLM'
 def get_prizes():
     print(Fore.WHITE+'[ status ] Fetching Prizes')
     # get cells from the table within the winners sheet
-    prise_table = rcdata.get_cells(trivia_sheet_id, 'J3:K6')
+    prise_table = rcdata.get_cells(trivia_sheet_id, 'J3:K6','Parents Night Winners')
     # store prize values in their own list
     prizes = [prise_table[0][1],prise_table[1][1],prise_table[2][1]]
     #print prize values to console for user confirmation
@@ -32,7 +32,7 @@ def get_prizes():
 def scan_sheet():
     # get cells from trivia winners sheet
     print(Fore.WHITE+'[ status ] Fetching Winners Sheet')
-    trivia_sheet = rcdata.get_cells(trivia_sheet_id, 'B3:H')
+    trivia_sheet = rcdata.get_cells(trivia_sheet_id, 'B3:H','Parents Night Winners')
     # get prizes for use latee
     prizes = get_prizes()
     # get cells from the master sheet for use later

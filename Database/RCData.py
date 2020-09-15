@@ -94,31 +94,24 @@ base_delay = 1
 base_delay_site = .1
 error_delay = 5
 
-def get_cells(sheet_id, newRange):
+def get_cells(sheet_id, newRange, sheet_name):
     while True:
         try:
             result = sheet.values().get(spreadsheetId=sheet_id, range=newRange).execute()
-            print(Fore.WHITE + '[' + Fore.GREEN + ' google ' + Fore.WHITE+']'+
-                    ' getting cells', end = '')
-            time.sleep(base_delay/4)
-            print('.', end = '')
-            time.sleep(base_delay/4)
-            print('.', end = '')
-            time.sleep(base_delay/4)
-            print('.', end = ' ')
-            time.sleep(base_delay/4)
+            print(Fore.WHITE + '[' + Fore.GREEN + ' google ' + Fore.WHITE+']', end = '')
+            time.sleep(base_delay)
             values = result.get('values', [])
             if not values:
                 print('Range not found.')
                 return 
             else:
-                print(Fore.CYAN + 'Got cells for ' + Fore.WHITE + sheet_id[:10] + '... '
-                        + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
+                print(Fore.CYAN + ' GET ' + Fore.WHITE + sheet_id[:6] + ' "' + Fore.CYAN 
+                        + sheet_name[-25:] + Fore.WHITE + '"')
                 return values
         except Exception as error:
             print(Fore.WHITE+'['+Fore.RED+' error  '+Fore.WHITE+']',end=' ')
             if 'requests' in str(error):
-                print('100 per second read request quota hit. Waiting 5 seconds...')
+                print('read request quota hit')
             else:
                 print(str(error))
             time.sleep(error_delay)
@@ -131,22 +124,15 @@ def set_cells(sheet_id, newRange, values):
                                             range=newRange,
                                             valueInputOption='USER_ENTERED',
                                             body=body).execute()
-            print(Fore.WHITE+'['+Fore.GREEN+' google '+Fore.WHITE+']'+
-                    ' setting cells', end = '')
-            time.sleep(base_delay/4)
-            print('.', end = '')
-            time.sleep(base_delay/4)
-            print('.', end = '')
-            time.sleep(base_delay/4)
-            print('.', end = ' ')
-            time.sleep(base_delay/4)
-            print(Fore.CYAN + 'Set cells for ' + Fore.WHITE + sheet_id[:10] + '... ' 
+            print(Fore.WHITE+'['+Fore.GREEN+' google '+Fore.WHITE+']', end = '')
+            time.sleep(base_delay)
+            print(Fore.YELLOW + ' SET ' + Fore.WHITE + sheet_id[:10] + '... ' 
                     + Fore.CYAN + ' on ' + Fore.WHITE + newRange)
             return
         except Exception as error:
             print(Fore.WHITE+'['+Fore.RED+' error  '+Fore.WHITE+']',end=' ')
             if 'requests' in str(error):
-                print('100 per second write request quota hit. Waiting 5 seconds...')
+                print('read request quota hit')
             else:
                 print(str(error))
             time.sleep(error_delay)

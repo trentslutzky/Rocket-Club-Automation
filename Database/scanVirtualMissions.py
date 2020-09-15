@@ -29,9 +29,11 @@ def scan_folder(category,folder_id):
     for sheet in results.get('files', []):
         sheet_id = sheet['id']
         sheet_name = sheet['name']
+        sheet_name = sheet_name.replace('  (Responses)','')
+        sheet_name = sheet_name.replace(' (Responses)','')
         if(sheet_name != 'Unused'):
             is_edited = False
-            current_sheet = rcdata.get_cells(sheet['id'],'A1:1000')
+            current_sheet = rcdata.get_cells(sheet['id'],'A1:1000',sheet_name)
             id_index = current_sheet[0].index('Member ID Number ')
             score_index = current_sheet[0].index('Score')
             for row in current_sheet:

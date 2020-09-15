@@ -13,7 +13,7 @@ def tag():
 
 def main():
     main_alert()
-    master_data = rcdata.get_cells(master_rf_sheet_id,'A3:K')
+    master_data = rcdata.get_cells(master_rf_sheet_id,'A3:K','Rocket Fuel Master')
     tag()
     for row in master_data:
         member_id = row[0]
@@ -38,6 +38,7 @@ def main():
         tag()
         if(rf_difference is not None):
             if(rf_difference > 0):
+                print('\n')
                 pgt.add_rf_transaction(member_id,'class','',rf_difference)
     print('done           ')
 
