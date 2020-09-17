@@ -161,7 +161,7 @@ def get_vm_rf_categories(member_id):
     # engineering
     results.append(get_vm_rf_sum(member_id,'engineering'))
     # entrepreneurship
-    results.append(get_vm_rf_sum(member_id,'entrepreneurship'))
+    results.append(get_vm_rf_sum(member_id,'ent_1'))
     # past
     results.append(get_vm_rf_sum(member_id,'other') + get_vm_rf_sum(member_id,'past'))
     # extra 

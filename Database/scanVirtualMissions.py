@@ -34,7 +34,10 @@ def scan_folder(category,folder_id):
         if(sheet_name != 'Unused'):
             is_edited = False
             current_sheet = rcdata.get_cells(sheet['id'],'A1:1000',sheet_name)
-            id_index = current_sheet[0].index('Member ID Number ')
+            try:
+                id_index = current_sheet[0].index('Member ID Number ')
+            except:
+                id_index = current_sheet[0].index('Member ID Number')
             score_index = current_sheet[0].index('Score')
             for row in current_sheet:
                 if row[score_index] != 'Score' and '#' not in row[id_index]:
