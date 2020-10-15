@@ -88,46 +88,10 @@ def add_member():
         division = request.form['division']
         team = request.form['team']
         pgtool.add_new_member(name,division,team)
-        
-        member_info = pgtool.get_member_info(member_id)
-        # Member total RF
-        member_rf = pgtool.get_member_total(member_id)
-        # Member Virtual Mission RF
-        vm_total = p/gtool.get_vm_total_rf(member_id)
-        # VMs completed
-        vm_completions = pgtool.get_member_vms_completed(member_id)
-        # RCL RF
-        rcl_rf = pgtool.get_member_rcl_rf(member_id)
-        # MISC RF
-        misc_rf = pgtool.get_member_misc_rf(member_id)
-        
-        if member_rf == None:
-            member_id = 0
-        else:
-            member_rf =str(format(int(member_rf),','))
 
-            return render_template('stats.html', 
-            member_id = member_id,
-            name = member_info[0], 
-            division = member_info[1], 
-            team = member_info[2], 
-            rf_total = member_rf,
-            vm_total = vm_total,
-            n_robotics = vm_completions[0],
-            n_coding = vm_completions[1],
-            n_python = vm_completions[2],
-            n_robotics_1 = vm_completions[3],
-            n_entre = vm_completions[4],
-            rf_rcl_attendance = rcl_rf[1],
-            rf_trivia = rcl_rf[2],
-            rf_won = misc_rf[2],
-            rf_rcl_total = rcl_rf[0],
-#            rf_rcl_total = 0,
-            rf_boost = misc_rf[0],
-            rf_rcgt = misc_rf[1],
-            rf_parents = rcl_rf[3],
-            rf_class = misc_rf[3]
-            )
+        confirmation_string = 'Member Added ' + str(member_id) + ' ' + name
+
+        return confirmation_string
 
 @app.route('/add-rf', methods=['GET','POST'])
 @flask_login.login_required
