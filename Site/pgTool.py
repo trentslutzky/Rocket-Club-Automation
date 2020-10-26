@@ -394,7 +394,7 @@ def get_member_name(member_id):
 
 @timer
 def main():
-    print(add_rf_transaction(4405,'bonus','',1000))
+    print(week_string)
 
 if __name__ == '__main__':
     main()
