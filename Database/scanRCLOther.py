@@ -3,7 +3,7 @@ from colorama import Fore, Back, Style
 from datetime import datetime
 import pgTool as pgtool
 
-launchpad_folder_id = "''"
+launchpad_folder_id = "'1OUtf4janBlXOHrkzZeHn8A81N38ocXMj'"
 tech_tuesday_folder_id = "'1eNM_Bio1s1TfXC9iSBZi4UuHtCtSuDAb'"
 
 def parse_score(scoreString):
@@ -40,14 +40,11 @@ def scan_launchpad():
             sheet_needs_updating = False
             for row in current_sheet:
                 if current_sheet.index(row) > 0:
-                    new_score = parse_score(row[score_index])
                     member_id = row[id_index]
                     if('#' not in member_id):
-                        data.append([int(member_id),new_score])
-
                         uuid = pgtool.get_member_uuid(member_id)
                         if(uuid != -1):
-                            pgtool.add_rf_transaction(int(member_id),'rcl','launchpad',int(new_score))
+                            pgtool.add_rf_transaction(int(member_id),'rcl','launchpad',100)
                             row[id_index] = '#' + row[id_index]
                             sheet_needs_updating = True
                         else:
