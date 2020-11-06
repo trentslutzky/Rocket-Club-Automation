@@ -1,4 +1,5 @@
 import scanVirtualMissions, scanTriviaWinners, scanParentsNightWinners, scanRCLAttendance, updateClassRF
+import scanRCLOther
 import os
 
 def main():
@@ -9,6 +10,7 @@ def main():
         scanTriviaWinners.main()
         scanParentsNightWinners.main()
         updateClassRF.main()
+        scanRCLOther.main()
 
 if __name__ == '__main__':
     main()
