@@ -194,7 +194,9 @@ def show_stats():
             rf_boost = misc_rf[0],
             rf_rcgt = misc_rf[1],
             rf_parents = rcl_rf[3],
-            rf_class = misc_rf[3]
+            rf_class = misc_rf[3],
+            rf_launchpad = rcl_rf[4],
+            rf_tech_tuesday = rcl_rf[5]
             )
 
 @app.route('/team/<string:team_name>')

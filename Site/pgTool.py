@@ -195,6 +195,10 @@ def get_member_rcl_rf(member_id):
     result.append(ps.run(a=member_id)[0][0])
     ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='parents_night'")
     result.append(ps.run(a=member_id)[0][0])
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='launchpad'")
+    result.append(ps.run(a=member_id)[0][0])
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='tech_tuesday'")
+    result.append(ps.run(a=member_id)[0][0])
     db.close()
     return result
 
