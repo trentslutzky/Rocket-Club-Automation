@@ -22,27 +22,31 @@ def scan_sheet():
     # get cells from the master sheet for use later
     print(Fore.WHITE+'[ status ] Scanning Winners Sheet')
     # Calculate how many new entries there are in the sheet
-    
+   
+    for row in wheel_sheet:
+        while(len(row) < 7):
+            row.append(' ')
+
     rows_to_update = 0
     for row in wheel_sheet:
-        if(row[6] == 'No' and row[0] != ''):
+        if((row[6] == 'No' or row[6] == ' ') and row[0] != ''):
             rows_to_update += 1
 
-    print(rows_to_update)
     # scan each row in sheet and add rocket fuel to master sheet for each winner
     for row in wheel_sheet:
-        if(row[6] == 'No' and row[0] != ''):
+        if((row[6] == 'No' or row[6] == ' ') and row[0] != ''):
             row[6] = 'Yes'
             member_id = row[0]
             prize = row[2]
-            print(row)
-            print(member_id,prize)
             # add rf transaction
             pgtool.add_rf_transaction(int(member_id),'wheel_of_names','',int(prize)) 
 
     if rows_to_update > 0:
         print(Fore.WHITE+'[ status ] Updating wheel sheet - adding "Yes" to updated rows')         
         rcdata.set_cells(wheel_sheet_id,'A2:G',wheel_sheet)
+    else:
+        print('[ status ] Nothing new!')
+
 
 def main():
     print(Fore.BLUE + 'Updating Wheel Winners')
