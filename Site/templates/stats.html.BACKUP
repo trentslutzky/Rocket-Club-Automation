@@ -84,6 +84,100 @@
     </div>          
 </section>
 
+<section class="engine"></section><section class="services3 cid-s5T6sCdiiB mbr-parallax-background" id="services3-g">
+    <!---->
+    
+    <!---->
+    <!--Overlay-->
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(0, 0, 0);">
+    </div>
+    <!--Container-->
+    <div class="container">
+        <div class="row">
+            <!--Titles-->
+            <div class="title pb-5 col-12">
+                <h2 class="align-left mbr-fonts-style display-1">
+                    Virtual Mission Progress</h2>
+                <h3 class="mbr-section-subtitle mbr-light mbr-fonts-style pt-3 m-0 display-5">Virtual Mission Total RF: {{ rf_vm }}</h3>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">Robotics</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ n_robotics }}/30</p>
+                        </div>
+			<progress class="vm-progress-bar" value={{n_robotics}} max="30"></progress>
+			<p class="mbr-text mbr-fonts-style display-5">{{robotics_rf}} RF</p>
+                    </div>
+                </div>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">Coding</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ n_python }}/30</p>
+                        </div>
+			<progress class="vm-progress-bar" value={{n_python}} max="30"></progress>
+			<p class="mbr-text mbr-fonts-style display-5">{{coding_rf}} RF</p>
+                    </div>
+                </div>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">Engineering</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ n_engineering }}/30</p>
+                        </div>
+			<progress class="vm-progress-bar" value={{n_engineering}} max="30"></progress>
+			<p class="mbr-text mbr-fonts-style display-5">{{engineering_rf}} RF</p>
+                    </div>
+                </div>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">Entrepreneuship</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ n_entre }}/30</p>
+                        </div>
+			<progress class="vm-progress-bar" value={{n_entre}} max="30"></progress>
+			<p class="mbr-text mbr-fonts-style display-5">{{entrepreneurship_rf}} RF</p>
+                    </div>
+                </div>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">Past Missions</h4>
+                        </div>
+			<p class="mbr-text mbr-fonts-style display-5">{{past_rf}} RF</p>
+                    </div>
+                </div>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">Extra Credit</h4>
+                        </div>
+			<p class="mbr-text mbr-fonts-style display-5">{{extra_credit_rf}} RF</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="services3 cid-s5T7Cow8kY" id="services3-i">
     <!---->
     

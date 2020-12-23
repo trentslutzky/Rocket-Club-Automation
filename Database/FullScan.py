@@ -27,7 +27,6 @@ def randomSpinner():
             'christmas',
             'clock',
             'dots',
-            'dots1',
             'dots12',
             'earth',
             'line',
