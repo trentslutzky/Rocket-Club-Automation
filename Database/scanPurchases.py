@@ -30,18 +30,20 @@ def scan_sheet():
     for row in purchases_sheet:
         if '#' not in row[3]:
             member_id = row[1]
-            price = row[3]
+            price = int(row[3])
             purchase = row[2]
             print('[ status ]',member_id,'bought',purchase[:15],'for',price,'RF')
-        # add rf transactio
-        #pgtool.add_rf_transaction(int(member_id),'rcl','trivia',int(prize)) 
-      #          for row in master_data:
-      #              if row[0] == day[winner]:
-      #                  row[score_col] = str(int(prize) + int(row[score_col]))
-        # if new info, update trivia sheet and master sheet with new informations    
+            # add rf transaction
+            pgtool.add_rf_transaction(int(member_id),'purchase',purchase[:15],-price) 
+            # add hashtag to spreadsheet
+            row[3] = '#' + row[3]
+            # set to update sheet since changes were made
+            need_to_update = True
+
+    # if new info, update trivia sheet and master sheet with new informations    
     if need_to_update == True:
         print(Fore.WHITE+'[ status ] Updating purchases sheet...')                
-        #rcdata.set_cells(trivia_sheet_id,'B3:H',trivia_sheet)
+        rcdata.set_cells(purchases_sheet_id,purchases_sheet_range,purchases_sheet)
 
 def main():
     print(Fore.BLUE + 'Updating Purchases')
