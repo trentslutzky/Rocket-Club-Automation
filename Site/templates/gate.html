@@ -1,26 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html style="background-image: url({{ url_for('static',filename='gate/img/background.jpg')}})">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/gate_style.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RF</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Rocket Club Member Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='gate/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='gate/css/new_gate_styles.css')}}">
 </head>
 
-<body>
-    <div class="gate">
-        <img src="{{url_for('static', filename='rc_helmet.png')}}" class="cover" />
-        <div class="spacer"></div>
-        <form action="stats" method="POST">
-            <label for="member-id" class="prompt">Member Id:</label>
-            <div class="entry">
-                <input type="text" id="member-id" name="member-id" style="width: 50%;">
-                <input type="submit" value="Submit">
+<body style="color: rgb(255,255,255);background: transparent;">
+    <nav class="navbar navbar-light navbar-expand-md">
+        <div class="container-fluid">
+		<a href="https://rocketclub.com/">
+			<img id="top_logo" src="{{ url_for('static', filename='gate/img/Rocket+Club+Final-horizontal+transparent+background.png')}}">
+		</a>
+		<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+            <div class="collapse navbar-collapse d-md-flex d-lg-flex d-xl-flex justify-content-md-end justify-content-lg-end justify-content-xl-end" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item"><a class="nav-link active main-nav-link" href="https://rocketclub.com/admissions">ACADEMY ADMISSION +</a></li>
+                    <li class="nav-item"><a class="nav-link active main-nav-link" href="https://rocketclub.com/rcl-preview">ROCKET CLUB LIVE +</a></li>
+                    <li class="nav-item"><a class="nav-link active main-nav-link" href="https://rocketclub.com/classroom">ACADEMY LOG IN +</a></li>
+                </ul>
             </div>
-        </form> 
+        </div>
+    </nav>
+    <hr id="horizontal_white">
+    <div class="d-xl-flex justify-content-xl-center">
+        <div class="container">
+            <div class="intro">
+                <h1 class="text-center" id="start-heading">Member Stats Page</h1>
+                <p class="text-center" id="start-subheading">Enter Member ID</p>
+		<p class="text-center" id="loading"><img id="loading-gif" src="{{ url_for('static', filename='gate/img/LOADING.gif')}}"></p>
+            </div>
+            <form class="form-inline" method="post" action="stats">
+                <div class="form-group"><input class="form-control" placeholder="MEMBER ID" name="member-id"></div>
+                <div class="form-group"><button class="btn btn-primary" type="submit" onclick="load()">Enter&nbsp;</button></div>
+            </form>
+            <p id="id-warning">{{ warning }}</p>
+        </div>
     </div>
-
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static',filename='gate/js/loading.js')}}"></script>
 </body>
 
 </html>

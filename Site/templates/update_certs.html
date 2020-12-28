@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RC Update Certifications</title>
+    <link rel="stylesheet" href="static/certs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/certs/css/styles.css">
+</head>
+
+<body>
+    <div class="d-sm-flex justify-content-sm-center" id="top-section">
+        <div id="top-box">
+            <h1 id="main-heading">Update Certifications</h1>
+	    {% if ready %}
+            <h4 id="member-id">Member ID: {{ member_id }}</h4>
+            <h4 id="member-name">Name: {{ member_name }}</h4>
+	    {% endif %}
+	    <form id="input-form" method="get"
+	    class="d-xl-flex align-items-xl-center">
+		    <label id="member-id-input-label">Member ID:</label>
+		    <input class="form-control" type="number" 
+		    id="member-id-input" name="member_id_get">
+		    <button class="btn btn-primary" 
+		    id="member-id-input-submit" type="submit">
+			    Load</button>
+	    </form>
+        </div>
+    </div>
+    {% if ready %}
+    <div class="d-sm-flex justify-content-sm-center" id="bottom-section">
+        <div id="bottom-box">
+            <form method="post">
+                <button class="btn btn-primary" id="submit-button" type="submit">Submit</button>
+		<label id="submit-button-label">{{ submit_confirm }}</label>
+		<label id="submit-button-label-prompt">{{ submit_prompt }}</label>
+		<label id="submit-button-label-warning">{{ submit_warning }}</label>
+		<hr>
+                <h3 class="cert-heading">Entrepreneurship</h3>
+                <hr>
+		{% for cert in entre_certs_current %}
+                <div class="cert-check">
+			<input 
+			type="checkbox" class="cert-check-box" 
+			checked="" value="{{ cert[0] }}" 
+			name="cert-check-box">
+			<label class="cert-check-label">{{ cert[1] }}</label>
+		</div>
+		{% endfor %}
+		{% for cert in entre_certs_noncurrent %}
+                <div class="cert-check">
+			<input 
+			type="checkbox" class="cert-check-box" 
+			value="{{ cert[0] }}" 
+			name="cert-check-box">
+			<label class="cert-check-label">{{ cert[1] }}</label>
+		</div>
+		{% endfor %}
+                <hr>
+                <h3 class="cert-heading">Robotics</h3>
+                <hr>
+		{% for cert in robotics_certs_current %}
+                <div class="cert-check">                              <input                
+                        type="checkbox" class="cert-check-box" 
+                        checked="" value="{{ cert[0] }}"  
+                        name="cert-check-box">
+                        <label class="cert-check-label">{{ cert[1] }}</label>   
+                </div>                
+                {% endfor %}
+                {% for cert in robotics_certs_noncurrent %}
+                <div class="cert-check">               
+                        <input 
+                        type="checkbox" class="cert-check-box" 
+                        value="{{ cert[0] }}"            
+                        name="cert-check-box">
+                        <label class="cert-check-label">{{ cert[1] }}</label>
+                </div>
+                {% endfor %}
+                <hr>
+                <h3 class="cert-heading">Tech &amp; Programming</h3>
+                <hr>
+		{% for cert in tech_certs_current %}
+                <div class="cert-check">                              <input                
+                        type="checkbox" class="cert-check-box" 
+                        checked="" value="{{ cert[0] }}"  
+                        name="cert-check-box">
+                        <label class="cert-check-label">{{ cert[1] }}</label>   
+                </div>                
+                {% endfor %}
+                {% for cert in tech_certs_noncurrent %}
+                <div class="cert-check">               
+                        <input 
+                        type="checkbox" class="cert-check-box" 
+                        value="{{ cert[0] }}"            
+                        name="cert-check-box">
+                        <label class="cert-check-label">{{ cert[1] }}</label>
+                </div>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+    {% endif %}
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

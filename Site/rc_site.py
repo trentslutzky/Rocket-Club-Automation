@@ -5,16 +5,18 @@ import flask_login, flask
 import os,sys
 import pgTool as pgtool
 import time
+import secret
+import rcCerts as rccerts
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 app = Flask(__name__)
-app.secret_key = 'armstrong1234'
+app.secret_key = secret.app_secret
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
-users = {'RocketClubAdmin': {'password': 'Falcon2019!'}}
+users = secret.admin_dashboard_users
 
 ###### STUFF FOR ADMIN-SITE  #########
 
@@ -58,20 +60,27 @@ def login():
 
     username = flask.request.form['username']
 
-    if username != 'RocketClubAdmin':
-        return render_template('login.html', warning = 'Invalid Login - Try again.')
-
-    elif flask.request.form['password'] == users[username]['password']:
+    if flask.request.form['password'] == users[username]['password']:
         user = User()
         user.id = username
         flask_login.login_user(user)
-        return flask.redirect(flask.url_for('protected'))
+        if(username == 'RocketClubAdmin'):
+            return flask.redirect(flask.url_for('admin_dashboard'))
+        elif(username == 'RCInstructor'):
+            return flask.redirect(flask.url_for('instructor_dashboard'))
+
 
     return render_template('login.html', warning = 'Invalid Login - Try again.')
 
-@app.route('/dashboard')
+@app.route('/admin-dashboard')
 @flask_login.login_required
-def protected():
+def admin_dashboard():
+    return render_template('admin-dashboard.html')
+
+@app.route('/instructor-dashboard')
+@flask_login.login_required
+def instructor_dashboard():
+    # NEED TO UPDATE THIS TO INSTRUCTOR DASHBOARD!
     return render_template('admin-dashboard.html')
 
 @app.route('/add-member', methods=['GET','POST'])
@@ -130,15 +139,140 @@ def logout():
 def unauthorized_handler():
     return render_template('restricted.html')
 
+############## CERT SITE #############
+
+def get_cert_page(member_id):
+    output = []
+    entre_certs = rccerts.get_certs('entrepreneurship')
+    robotics_certs = rccerts.get_certs('robotics')
+    tech_certs = rccerts.get_certs('tech')
+
+    # get the member's current certs
+    member_current_certs = rccerts.get_member_certs(member_id)
+
+    # initialize empty arrays for current certs
+    entre_certs_current = []
+    robotics_certs_current = []
+    tech_certs_current = []
+
+    # initialize arays for non-current certs
+    entre_certs_noncurrent = []
+    robotics_certs_noncurrent = []
+    tech_certs_noncurrent = []
+
+    # go through the open certs and remove the current ones.
+    for c in entre_certs:
+        old = c[0]
+        current = False
+
+        for a in member_current_certs:
+            if old == a[0]:
+                current = True
+
+        if current:
+            entre_certs_current.append(c)
+        else:
+            entre_certs_noncurrent.append(c)
+
+    for c in robotics_certs:
+        old = c[0]
+        current = False
+
+        for a in member_current_certs:
+            if old == a[0]:
+                current = True
+
+        if current:
+            robotics_certs_current.append(c)
+        else:
+            robotics_certs_noncurrent.append(c)
+
+    for c in tech_certs:
+        old = c[0]
+        current = False
+
+        for a in member_current_certs:
+            if old == a[0]:
+                current = True
+
+        if current:
+            tech_certs_current.append(c)
+        else:
+            tech_certs_noncurrent.append(c)
+
+    output.append(entre_certs_current)
+    output.append(entre_certs_noncurrent)
+    output.append(robotics_certs_current)
+    output.append(robotics_certs_noncurrent)
+    output.append(tech_certs_current)
+    output.append(tech_certs_noncurrent)
+
+    return output
+
+@app.route('/certs', methods=['GET','POST'])
+@flask_login.login_required
+def update_certs():
+    if flask.request.method == 'GET':
+        member_id_get = request.args.get('member_id_get') 
+        member_name = pgtool.get_member_name(int(member_id_get))
+        if(member_id_get and member_name != None):
+            data = get_cert_page(member_id_get)
+            return render_template('update_certs.html',ready=True,
+                    submit_prompt = 'Select/Deselect certifications then press submit.',
+                    entre_certs_current = data[0],
+                    entre_certs_noncurrent = data[1],
+                    robotics_certs_current = data[2],
+                    robotics_certs_noncurrent = data[3],
+                    tech_certs_current = data[4],
+                    tech_certs_noncurrent = data[5],
+                    member_name = member_name,
+                    member_id = member_id_get)
+        else:
+            return render_template('update_certs.html',ready=False)
+
+    if flask.request.method == 'POST':
+        member_id_get = request.args.get('member_id_get') 
+        certs = request.form.getlist('cert-check-box')
+        member_name = pgtool.get_member_name(int(member_id_get))
+        submit_confirm = ''
+        submit_warning = ''
+        
+        # update certs in database:
+        try:
+            rccerts.update_certs(member_id_get,certs)
+            submit_confirm = ('Updated certifications for ' 
+                            + str(member_name) + '!')
+        except AttributeError as err:
+            print('ERROR:',err)
+            submit_warning = 'Error occured. Please contact tech support!'
+        member_name = pgtool.get_member_name(int(member_id_get))
+
+        # generate a new cert page with the updated stuff
+        data = get_cert_page(member_id_get)
+        return render_template('update_certs.html',ready=True,
+                submit_warning = submit_warning,
+                submit_confirm = submit_confirm,
+                entre_certs_current = data[0],
+                entre_certs_noncurrent = data[1],
+                robotics_certs_current = data[2],
+                robotics_certs_noncurrent = data[3],
+                tech_certs_current = data[4],
+                tech_certs_noncurrent = data[5],
+                member_name = member_name,
+                member_id = member_id_get)
+
 ######################################
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
-    if request.method == 'POST':
-        member_id = request.form['member-id']
-        print(member_id)
+    return render_template('gate.html',
+            warning = '')
 
-    return render_template('gate.html')
+@app.route('/')
+def gate_loading():
+    print('get_loading')
+    return render_template('gate.html',
+            warning = 'LOADING...')
 
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
@@ -150,8 +284,10 @@ def show_stats():
         test = pgtool.get_member_uuid(member_id)
 
         if test == -1:
-            return render_template('oops.html')
+            return render_template('gate.html',
+                warning = 'Invalid member id!')
         else:
+            gate_loading()
             # Member info from pgtool
             member_info = pgtool.get_member_info(member_id)
             # Member total RF

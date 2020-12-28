@@ -1,0 +1,96 @@
+#main-heading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#member-id {
+  text-align: center;
+}
+
+#member-name {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+:root {
+  background-color: rgb(92,92,92);
+}
+
+#input-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+body {
+  background-color: transparent;
+  color: white;
+}
+
+#top-box {
+  background-color: #4e6b8c;
+  width: 550px;
+  border-radius: 5px;
+  margin-top: 60px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#bottom-box {
+  background-color: grey;
+  width: 550px;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#cert-heading {
+  color: white;
+}
+
+#cert-heading {
+  color: rgb(255,0,0);
+}
+
+.cert-heading {
+  color: white;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.cert-check-box {
+  margin-left: 10px;
+}
+
+.cert-check-label {
+  margin-left: 10px;
+}
+
+#submit-button {
+  background: #4e6b8c;
+  border: none;
+}
+
+#submit-button-label {
+  margin-left: 30px;
+  color: #f2c68c;
+}
+
+#submit-button-label-warning {
+  color: red;
+}
+
+#member-id-input {
+  width: 30%;
+  margin-left: 20px;
+}
+
+#member-id-input-label {
+  font-size: 20px;
+  margin-left: 40px;
+}
+
+#member-id-input-submit {
+  margin-left: 20px;
+  width: 30%
+}
+

@@ -1,0 +1,148 @@
+@media (min-width: 768px) {
+  .card {
+    width: 60%;
+  }
+}
+
+#start_card_div {
+  margin-top: 30px;
+}
+
+.card {
+  background-color: black;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.nav-item {
+  margin-left: 13px;
+}
+
+.nav-p {
+  color: black;
+  font-family: 'Source Sans Pro';
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .nav-p {
+    color: white;
+    font-size: 1.5vw;
+    margin-left: 15px;
+  }
+}
+
+@media (max-width: 766px) {
+  #navcol-1 {
+    background-color: white;
+    border-radius: 2px;
+  }
+}
+
+.navbar-expand-md .navbar-nav {
+  margin-top: 15px;
+}
+
+.navbar-light .navbar-toggler {
+}
+
+.newsletter-subscribe {
+  width: 100%;
+  margin-top: 100px;
+}
+
+@media (min-width: 990px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 60%;
+    background: black;
+  }
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+  background-color: rgba(0,0,0,0.55);
+  padding: 30px;
+}
+
+#start-heading {
+  color: white;
+  font-family: 'Orbitron';
+}
+
+#start-subheading {
+  color: rgb(255,199,0);
+  font-family: 'Orbitron';
+}
+
+.navbar.navbar-light.navbar-expand-md {
+  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#horizontal_white {
+  border-top: 1px white solid;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+@media (max-width: 766px) {
+  #horizontal_white {
+    visibility: hidden;
+    margin: 0px;
+  }
+}
+
+#id-warning {
+  color: rgba(204,77,77,0.83);
+  text-align: center;
+}
+
+.newsletter-subscribe .intro {
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto 25px;
+  margin-top: 20px;
+}
+
+.newsletter-subscribe p {
+  color: #7d8285;
+  line-height: 1.5;
+}
+
+form {
+  justify-content: center;
+}
+
+:root {
+  background: black;
+  background-image: url("../../assets/img/background.jpg");
+}
+
+#top_logo {
+  height: 9vw;
+}
+
+@media (min-width: 768px) {
+  .nav-link {
+    color: white !important;
+    font-size: 1.4vw;
+  }
+}
+
+.nav-link {
+  color: black;
+}
+
+#start-subheading {
+  margin-bottom: 0px;
+}
+
+#id-warning {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+#loading-gif {
+  height: 15px;
+}
+
