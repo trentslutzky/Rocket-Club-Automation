@@ -292,7 +292,8 @@ members_feb2021 = ['1011',
                    '1001',
                    '1014',
                    '1004',
-                   '4405']
+                   '4405',
+                   '1012']
 
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
