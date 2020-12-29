@@ -93,10 +93,10 @@
                     <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end certification-line-not-certified"><span class="certification-text-bullet">•&nbsp;&nbsp;</span><span class="certification-text">{{ cert[1] }}</span><span class="certification-text-cert">&nbsp;Not Certified</span></div>
 		    {% endfor %}
                     <h3 class="category-heading">Tech &amp; Programming:</h3>
-		    {% for cert in robotics_certs_current %}
+		    {% for cert in tech_certs_current %}
                     <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end certification-line-certified"><span class="certification-text-bullet">•&nbsp;&nbsp;</span><span class="certification-text">{{ cert[1] }}</span><span class="certification-text-cert">&nbsp;Certified</span></div>
 		    {% endfor %}
-		    {% for cert in robotics_certs_noncurrent %}
+		    {% for cert in tech_certs_noncurrent %}
                     <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end certification-line-not-certified"><span class="certification-text-bullet">•&nbsp;&nbsp;</span><span class="certification-text">{{ cert[1] }}</span><span class="certification-text-cert">&nbsp;Not Certified</span></div>
 		    {% endfor %}
                 </div>
