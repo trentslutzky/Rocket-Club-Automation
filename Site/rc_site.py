@@ -285,6 +285,15 @@ def gate_loading():
     return render_template('gate.html',
             warning = 'LOADING...')
 
+members_feb2021 = ['1011',
+                   '1013',
+                   '1003',
+                   '1002',
+                   '1001',
+                   '1014',
+                   '1004',
+                   '4405']
+
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
     if request.method == 'POST':
@@ -320,6 +329,10 @@ def show_stats():
 
             member_info[1] = member_info[1].replace('Division ','')
 
+            grad_date = 'June 2022'
+            if member_id in members_feb2021:
+                grad_date = 'Feb 2021'
+
             return render_template('member_dashboard.html', 
             name = member_info[0], 
             division = member_info[1], 
@@ -331,7 +344,7 @@ def show_stats():
             robotics_certs_noncurrent = data[3],
             tech_certs_current = data[4],
             tech_certs_noncurrent = data[5],
-            grad_date = 'June 2022',
+            grad_date = grad_date,
             phone = '(201) 292-3565',
             email = 'admin@rocketclub.com',
             website = 'rocketclub.com',
