@@ -166,7 +166,7 @@ form {
 
 #total-rf-block {
   margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 576px) {
@@ -195,7 +195,7 @@ form {
 
 @media (max-width: 768px) {
   #total-rocket-fuel {
-    font-size: 6vw;
+    font-size: 8vw;
   }
 }
 
@@ -341,111 +341,11 @@ form {
 }
 
 .certification-line-certified {
-  font-size: 1.8vw;
+  font-size: 1.6vw;
 }
 
 .certification-line-not-certified {
-  font-size: 1.8vw;
+  font-size: 1.6vw;
   color: rgb(167,167,167);
-}
-
-@media (min-width: 1200px) {
-  #right-column-heading {
-    font-size: 50px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .category-heading {
-    font-size: 30px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .certification-line-not-certified {
-    font-size: 23px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .certification-line-certified {
-    font-size: 23px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #heading-member-dashboard {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #back-link {
-    font-size: 15px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #division-team {
-    font-size: 21px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #total-rocket-fuel-label {
-    font-size: 25px;
-    margin: 35px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #total-rocket-fuel {
-    font-size: 70px;
-    margin-left: 25px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #vertical-name {
-    font-size: 50px;
-    top: 23px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .left-column-heading {
-    font-size: 34px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .left-column-p {
-    font-size: 17px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #left-colulmn-rc-logo {
-    margin-top: 30px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #right-column {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #rc-communities-heading {
-    font-size: 34px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #top-right-column {
-    padding-left: 50px;
-  }
 }
 
