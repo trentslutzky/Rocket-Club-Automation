@@ -51,7 +51,14 @@ def request_loader(request):
 
 @app.route('/admin')
 def admin():
-    return flask.redirect(flask.url_for('login'))
+    username = flask_login.current_user.get_id() 
+    if username == 'RCInstructor':
+        return flask.redirect(flask.url_for('instructor_dashboard'))
+    elif username == 'RocketClubAdmin':
+        return flask.redirect(flask.url_for('admin_dashboard'))
+    else:
+        return flask.redirect(flask.url_for('login'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -75,13 +82,12 @@ def login():
 @app.route('/admin-dashboard')
 @flask_login.login_required
 def admin_dashboard():
-    return render_template('admin-dashboard.html')
+    return render_template('admin-dashboard.html',instructor = False)
 
 @app.route('/instructor-dashboard')
 @flask_login.login_required
 def instructor_dashboard():
-    # NEED TO UPDATE THIS TO INSTRUCTOR DASHBOARD!
-    return render_template('admin-dashboard.html')
+    return render_template('admin-dashboard.html',instructor = True)
 
 @app.route('/add-member', methods=['GET','POST'])
 @flask_login.login_required
@@ -137,7 +143,7 @@ def logout():
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return render_template('restricted.html')
+    return render_template('login.html',warning = 'please log in.')
 
 ############## CERT SITE #############
 
@@ -266,8 +272,7 @@ def update_certs():
 
 @app.route('/', methods=['GET', 'POST'])
 def main_page():
-    return render_template('gate.html',
-            warning = '')
+    return flask.redirect(flask.url_for('admin'))
 
 @app.route('/my-rf', methods=['GET', 'POST'])
 def my_rf():
