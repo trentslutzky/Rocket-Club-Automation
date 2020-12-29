@@ -19,7 +19,7 @@ def qprep(db, string):
 def get_certs(category):
     db = connect()
     try:
-        ps = qprep(db,'SELECT cert,flair FROM certifications WHERE category=:c')
+        ps = qprep(db,'SELECT cert,flair FROM certifications WHERE category=:c order by cert_id')
         result = ps.run(c=category)
         return result
     except:
