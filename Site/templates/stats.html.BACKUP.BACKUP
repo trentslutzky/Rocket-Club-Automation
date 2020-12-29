@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.12.4, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.12.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+  <meta name="description" content="Website Builder Description">
+  
+  
+  <title>Rocket Fuel Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/web/assets/mobirise-icons/mobirise-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/web/assets/mobirise-icons2/mobirise2.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/web/assets/mobirise-icons-bold/mobirise-icons-bold.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap-grid.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap-reboot.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/tether/tether.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/theme/css/style.css') }}">
+  <link rel="preload" as="style" href="{{ url_for('static', filename='assets/mobirise/css/mbr-additional.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/mobirise/css/mbr-additional.css') }}" type="text/css"> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/my_style.css') }}">
+  
+  
+</head>
+<body>
+  <section class="features11 cid-s5SQjFhOd3 mbr-parallax-background" id="features11-5">
+
+    
+
+    <div class="mbr-overlay" style="opacity: 0; background-color: rgb(0, 0, 0);">
+    </div>
+
+    <div class="container">   
+        <div class="col-md-12">
+            <div class="media-container-row">
+                <div class="mbr-figure m-auto" style="width: 45%;">
+                    <img src="{{ url_for('static', filename='assets/images/leaderboard-helmet-1-844x674.png') }}" alt="Mobirise" title="">
+                </div>
+                <div class=" align-left aside-content">
+                    <h2 class="mbr-title pt-2 mbr-fonts-style display-1">
+                        {{ name }}</h2>
+                    <div class="mbr-section-text">
+                        <!--<p class="mbr-text mb-5 pt-3 mbr-light mbr-fonts-style display-2">{{ division }} team {{ team }}</p>-->
+                        <span class="mbr-text mb-5 pt-3 mbr-light mbr-fonts-style display-2">{{ division }} </span>
+                        <span style="color: white;font-family: 'Orbitron'; font-size: 1.6rem;">   team   </span>
+                        <span class="mbr-text mb-5 pt-3 mbr-light mbr-fonts-style display-2"> {{ team }}</span>
+                    </div>
+
+                    <div class="block-content">
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class=" align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mobi-mbri-rocket mobi-mbri" style="color: rgb(255, 148, 0); fill: rgb(255, 148, 0); font-size: 50px;"></span>
+                                </div>     
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-5">Total Rocket Fuel</h4>
+                                </div>
+                            </div>                
+                            </div>
+                        </div>
+
+                        <div class="card p-3 pr-3">
+                            <div class="media">
+                                <div class="align-self-center card-img pb-3">
+                                    <span class="mbr-iconfont mbri-drag-n-drop2" style="font-size: 1px;"></span>
+                                </div>     
+                                <div class="media-body">
+                                    <h4 class="card-title mbr-fonts-style display-1">
+                                        {{ rf_total }}</h4>
+                                </div>
+                            </div>                
+
+                            <div class="card-box">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>          
+</section>
+
+<section class="services3 cid-s5T7Cow8kY" id="services3-i">
+    <!---->
+    
+    <!---->
+    <!--Overlay-->
+    
+    <!--Container-->
+    <div class="container">
+        <div class="row">
+            <!--Titles-->
+            <div class="title pb-5 col-12">
+                <h2 class="align-left mbr-fonts-style display-1">
+                    Rocket Club Live</h2>
+                <h3 class="mbr-section-subtitle mbr-light mbr-fonts-style pt-3 m-0 display-5">RC Live Total: {{ rf_rcl_total }}</h3>
+            </div>
+            <!--Card-1-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-1">
+                            <h4 class="card-title mbr-fonts-style display-5">Attendance</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ rf_rcl_attendance }}</p>
+                        </div>
+                        <div class="bottom-line">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Card-2-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">
+                                Trivia Wins</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ rf_trivia }}</p>
+                        </div>
+                        <div class="bottom-line">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Card-3-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">
+                                Parents Night</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ rf_parents }}</p>
+                        </div>
+                        <div class="bottom-line">   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Card-4-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">
+                                Tech Tuesday</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ rf_tech_tuesday }}</p>
+                        </div>
+                        <div class="bottom-line">   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--Card-5-->
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-3">
+                            <h4 class="card-title mbr-fonts-style display-5">
+                                Launch Pad</h4>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">{{ rf_launchpad }}</p>
+                        </div>
+                        <div class="bottom-line">   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--Card-6-->
+            
+            <!--Card-7-->
+            
+            <!--Card-8-->
+            
+            <!--Card-9-->
+            
+            <!--Card-10-->
+            
+            <!--Card-11-->
+            
+            <!--Card-12-->
+            
+        </div>
+    </div>
+</section>
+
+<section class="features10 cid-s5T991VZDv mbr-parallax-background" id="features10-j">
+
+    
+
+    <div class="mbr-overlay" style="opacity: 0.4; background-color: rgb(0, 0, 0);">
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card p-3 col-12 col-md-6 col-lg-3">
+                <div class="media mb-3">
+                    <div class="card-img align-self-center">
+                        <span class="mbr-iconfont mbri-rocket" style="color: rgb(255, 148, 0); fill: rgb(255, 148, 0);"></span>
+                    </div>
+                    <h4 class="card-title media-body py-3 mbr-fonts-style display-2">
+                        Boost Alliance</h4>
+                </div>
+                <div class="card-box">
+                    <p class="mbr-text mbr-fonts-style display-2">
+                       {{ rf_boost }}&nbsp;</p>
+                </div>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-3">
+                <div class="media mb-3">
+                    <div class="card-img align-self-center">
+                        <span class="mbr-iconfont mbrib-star" style="color: rgb(255, 148, 0); fill: rgb(255, 148, 0);"></span>
+                    </div>
+                    <h4 class="card-title media-body py-3 mbr-fonts-style display-2">
+                        Rocket Club's Got Talent</h4>
+                </div>
+                <div class="card-box">
+                    <p class="mbr-text mbr-fonts-style display-2">
+                       {{ rf_rcgt }}</p>
+                </div>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-3">
+                <div class="media mb-3">
+                    <div class="card-img align-self-center">
+                        <span class="mbr-iconfont mbri-users" style="color: rgb(255, 148, 0); fill: rgb(255, 148, 0);"></span>
+                    </div>
+                    <h4 class="card-title media-body py-3 mbr-fonts-style display-2">
+                        Wheel of Names</h4>
+                </div>
+                <div class="card-box">
+                    <p class="mbr-text mbr-fonts-style display-2">
+                       {{ rf_won }}</p>
+                </div>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-3">
+                <div class="media mb-3">
+                    <div class="card-img align-self-center">
+                        <span class="mbr-iconfont mbri-bookmark" style="color: rgb(255, 148, 0); fill: rgb(255, 148, 0);"></span>
+                    </div>
+                    <h4 class="card-title media-body py-3 mbr-fonts-style display-2">
+                        In Class RF</h4>
+                </div>
+                <div class="card-box">
+                    <p class="mbr-text mbr-fonts-style display-2">{{ rf_class }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <script src="{{ url_for('static', filename='assets/web/assets/jquery/jquery.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/popper/popper.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/tether/tether.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/smoothscroll/smooth-scroll.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/parallax/jarallax.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/theme/js/script.js')}}"></script>
+  
+  
+</body>
+</html>

@@ -214,19 +214,20 @@ def get_cert_page(member_id):
 def update_certs():
     if flask.request.method == 'GET':
         member_id_get = request.args.get('member_id_get') 
-        member_name = pgtool.get_member_name(int(member_id_get))
-        if(member_id_get and member_name != None):
-            data = get_cert_page(member_id_get)
-            return render_template('update_certs.html',ready=True,
-                    submit_prompt = 'Select/Deselect certifications then press submit.',
-                    entre_certs_current = data[0],
-                    entre_certs_noncurrent = data[1],
-                    robotics_certs_current = data[2],
-                    robotics_certs_noncurrent = data[3],
-                    tech_certs_current = data[4],
-                    tech_certs_noncurrent = data[5],
-                    member_name = member_name,
-                    member_id = member_id_get)
+        if(member_id_get):
+            member_name = pgtool.get_member_name(int(member_id_get))
+            if(member_name != None):
+                data = get_cert_page(member_id_get)
+                return render_template('update_certs.html',ready=True,
+                        submit_prompt = 'Select/Deselect certifications then press submit.',
+                        entre_certs_current = data[0],
+                        entre_certs_noncurrent = data[1],
+                        robotics_certs_current = data[2],
+                        robotics_certs_noncurrent = data[3],
+                        tech_certs_current = data[4],
+                        tech_certs_noncurrent = data[5],
+                        member_name = member_name,
+                        member_id = member_id_get)
         else:
             return render_template('update_certs.html',ready=False)
 
@@ -264,7 +265,12 @@ def update_certs():
 ######################################
 
 @app.route('/', methods=['GET', 'POST'])
-def hello():
+def main_page():
+    return render_template('gate.html',
+            warning = '')
+
+@app.route('/my-rf', methods=['GET', 'POST'])
+def my_rf():
     return render_template('gate.html',
             warning = '')
 
@@ -305,34 +311,44 @@ def show_stats():
             
             member_rf =str(format(int(member_rf),','))
 
-            return render_template('stats.html', 
+            data = get_cert_page(member_id)
+
+            member_info[1] = member_info[1].replace('Division ','')
+
+            return render_template('member_dashboard.html', 
             name = member_info[0], 
             division = member_info[1], 
             team = member_info[2], 
             rf_total = member_rf,
-            rf_vm = vm_total,
-            robotics_rf = vm_categories_rf[0],
-            coding_rf = vm_categories_rf[1],
-            engineering_rf = vm_categories_rf[2],
-            entrepreneurship_rf = vm_categories_rf[3],
-            past_rf = vm_categories_rf[4],
-            extra_credit_rf = vm_categories_rf[5],
-            n_robotics = vm_completions[0],
-            n_coding = vm_completions[1],
-            n_python = vm_completions[2],
-            n_robotics_1 = vm_completions[3],
-            n_engineering = 0,
-            n_entre = vm_completions[4],
-            rf_rcl_attendance = rcl_rf[1],
-            rf_trivia = rcl_rf[2],
-            rf_won = misc_rf[2],
-            rf_rcl_total = rcl_rf[0],
-            rf_boost = misc_rf[0],
-            rf_rcgt = misc_rf[1],
-            rf_parents = rcl_rf[3],
-            rf_class = misc_rf[3],
-            rf_launchpad = rcl_rf[4],
-            rf_tech_tuesday = rcl_rf[5]
+            entre_certs_current = data[0],
+            entre_certs_noncurrent = data[1],
+            robotics_certs_current = data[2],
+            robotics_certs_noncurrent = data[3],
+            tech_certs_current = data[4],
+            tech_certs_noncurrent = data[5],
+            #rf_vm = vm_total,
+            #robotics_rf = vm_categories_rf[0],
+            #coding_rf = vm_categories_rf[1],
+            #engineering_rf = vm_categories_rf[2],
+            #entrepreneurship_rf = vm_categories_rf[3],
+            #past_rf = vm_categories_rf[4],
+            #extra_credit_rf = vm_categories_rf[5],
+            #n_robotics = vm_completions[0],
+            #n_coding = vm_completions[1],
+            #n_python = vm_completions[2],
+            #n_robotics_1 = vm_completions[3],
+            #n_engineering = 0,
+            #n_entre = vm_completions[4],
+            #rf_rcl_attendance = rcl_rf[1],
+            #rf_trivia = rcl_rf[2],
+            #rf_won = misc_rf[2],
+            #rf_rcl_total = rcl_rf[0],
+            #rf_boost = misc_rf[0],
+            #rf_rcgt = misc_rf[1],
+            #rf_parents = rcl_rf[3],
+            #rf_class = misc_rf[3],
+            #rf_launchpad = rcl_rf[4],
+            #rf_tech_tuesday = rcl_rf[5]
             )
 
 @app.route('/team/<string:team_name>')
