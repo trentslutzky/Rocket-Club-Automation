@@ -149,7 +149,7 @@ def unauthorized_handler():
 
 def get_cert_page(member_id):
     output = []
-    entre_certs = rccerts.get_certs('entrepreneurship')
+    entre_certs = rccerts.get_certs('entre')
     robotics_certs = rccerts.get_certs('robotics')
     tech_certs = rccerts.get_certs('tech')
 
