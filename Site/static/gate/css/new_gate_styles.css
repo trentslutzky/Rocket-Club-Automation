@@ -115,22 +115,27 @@ form {
 
 :root {
   background: black;
-  background-image: url("../../assets/img/background.jpg");
+  height:100%;
+  background-size:cover;
 }
 
 #top_logo {
-  height: 9vw;
+  height: 70px;
 }
 
 @media (min-width: 768px) {
   .nav-link {
     color: white !important;
-    font-size: 1.4vw;
+    font-size: 15px;
   }
 }
 
 .nav-link {
   color: black;
+}
+
+.container{
+  margin-top:100px;
 }
 
 #start-subheading {

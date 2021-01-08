@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>New_Member_Dashboard</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="assets/css/member_dashboard.css">
+</head>
+
+<body>
+    <div class="container" id="template-container">
+        <div class="row d-flex">
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" id="left-column"><span id="vertical-name">{{ name }}</span><img id="left-colulmn-rc-logo" src="assets/img/rc_logo_large.png">
+                <div class="left-column-info-section">
+                    <h1 class="left-column-heading">Information</h1>
+                    <hr id="top-line" class="left-column-line">
+                    <p id="member-info" class="left-column-p">Name: {{ name }}<br>Rocket Club Grad Date: {{ grad_date }}<br>Division: {{ division }}<br>Phone: {{ phone }}<br>Email: {{ email }}<br>Website: {{ website }}</p>
+                </div>
+                <div class="left-column-info-section">
+                    <h1 class="left-column-heading">Lemonade Co.</h1>
+                    <hr id="top-line-2" class="left-column-line">
+                    <p id="member-info-2" class="left-column-p">coming soon</p>
+                </div>
+                <div class="left-column-info-section">
+                    <h1 class="left-column-heading">Personal Co.</h1>
+                    <hr id="top-line-1" class="left-column-line">
+                    <p id="member-info-1" class="left-column-p">coming soon</p>
+                </div>
+                <div class="left-column-info-section">
+                    <h1 id="rc-communities-heading" class="left-column-heading">RC Communities</h1>
+                    <hr id="top-line-3" class="left-column-line">
+                    <p id="member-info-3" class="left-column-p">coming soon</p>
+                </div>
+                <div class="left-column-info-section">
+                    <h1 class="left-column-heading">Awards</h1>
+                    <hr id="top-line-4" class="left-column-line">
+                    <p id="member-info-4" class="left-column-p">coming soon</p>
+                </div>
+            </div>
+            <div class="col" id="right-column">
+                <h1 id="right-column-heading">Certifications</h1>
+                <h3 class="category-heading">Entrepreneurship:</h3>
+                <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end certification-line-certified"><span class="certification-text-bullet">•&nbsp;&nbsp;</span><span class="certification-text">{{ cert }}</span><span class="certification-text-cert">&nbsp;Certified</span></div>
+                <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end certification-line-not-certified"><span class="certification-text-bullet">•&nbsp;&nbsp;</span><span class="certification-text">{{ cert }}</span><span class="certification-text-cert">&nbsp;Not Certified</span></div>
+                <h3 class="category-heading">Robotics:</h3>
+                <h3 class="category-heading">Tech &amp; Programming:</h3>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
