@@ -26,6 +26,7 @@ class User(flask_login.UserMixin):
 
 @login_manager.user_loader
 def user_loader(username):
+    print('user_loader')
     if username not in users:
         return
 
@@ -36,6 +37,7 @@ def user_loader(username):
 
 @login_manager.request_loader
 def request_loader(request):
+    print('request_loader')
     username = request.form.get('username')
     if username not in users:
         return
@@ -63,21 +65,26 @@ def admin():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if flask.request.method == 'GET':
+        print('login - GET')
         return render_template('login.html')
 
-    username = flask.request.form['username']
+    if flask.request.method == 'POST':
+        print('login - POST')
+        username = flask.request.form['username']
+        password = flask.request.form['password']
+        if username not in users:
+            return render_template('login.html', warning = 'Invalid Login - Try again.')
 
-    if flask.request.form['password'] == users[username]['password']:
-        user = User()
-        user.id = username
-        flask_login.login_user(user)
-        if(username == 'RocketClubAdmin'):
-            return flask.redirect(flask.url_for('admin_dashboard'))
-        elif(username == 'RCInstructor'):
-            return flask.redirect(flask.url_for('instructor_dashboard'))
-
-
-    return render_template('login.html', warning = 'Invalid Login - Try again.')
+        if password == users[username]['password']:
+            user = User()
+            user.id = username
+            flask_login.login_user(user)
+            if(username == 'RocketClubAdmin'):
+                return flask.redirect(flask.url_for('admin_dashboard'))
+            elif(username == 'RCInstructor'):
+                return flask.redirect(flask.url_for('instructor_dashboard'))
+        else:
+            return render_template('login.html', warning = 'Invalid Login - Try again.')
 
 @app.route('/admin-dashboard')
 @flask_login.login_required
@@ -92,21 +99,46 @@ def instructor_dashboard():
 @app.route('/add-member', methods=['GET','POST'])
 @flask_login.login_required
 def add_member():
+    confirmation = ''
+    warning = ''
+    teams = pgtool.get_teams()
     if flask.request.method == 'GET':
         next_member_id = pgtool.get_next_member_id()
-        teams = pgtool.get_teams()
-        return render_template('add-member.html',teams=teams,next_member_id=next_member_id)
+        recent_members = pgtool.get_recent_members(20)
+        return render_template('add-member.html',
+                    teams=teams,
+                    next_member_id=next_member_id,
+                    recent_members=recent_members,
+                    num = 20
+                )
     
     elif flask.request.method == 'POST':
-        member_id = pgtool.get_next_member_id()
+        current_id = pgtool.get_next_member_id()
         name = request.form['name']
         division = request.form['division']
         team = request.form['team']
-        pgtool.add_new_member(name,division,team)
 
-        confirmation_string = 'Member Added ' + str(member_id) + ' ' + name
+        if(name == ''):
+            warning = 'Invalid Name!'
+        elif(division == ''):
+            warning = 'Please enter a division!'
+        elif(team == ''):
+            warning = 'Please select a team!'
+        else:
+            confirmation = 'Member Added ' + str(current_id) + ' ' + name
+            pgtool.add_new_member(name,division,team)
 
-        return confirmation_string
+        recent_members = pgtool.get_recent_members(20)
+        next_member_id = pgtool.get_next_member_id()
+        return render_template('add-member.html',
+                    teams=teams,
+                    next_member_id=next_member_id,
+                    recent_members=recent_members,
+                    num = 20,
+                    confirmation = confirmation,
+                    warning = warning
+                )
+        
 
 @app.route('/add-rf', methods=['GET','POST'])
 @flask_login.login_required

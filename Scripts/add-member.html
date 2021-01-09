@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -28,11 +29,10 @@
         <option value="{{ team }}">{{ team }}</option>
         {% endfor %}
     </optgroup>
-</select>
-            <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
+</select><button class="btn btn-primary" id="submit-button" type="submit">Submit</button>
         </form>
     </div>
-    <div class="d-flex justify-content-start" id="add-member-second-area"><span id="add-member-second-heading">Recently Added Members</span><span id="add-member-second-subheading">{{ num }} most recent members</span></div>
+    <div id="second-area"><span id="second-heading">Recently Added Members</span><span id="second-subheading">{{ num }} most recent members</span></div>
     <div id="recent-members-box"><div class="table-responsive table-bordered">
     <table class="table table-bordered">
         <thead>
@@ -41,6 +41,7 @@
                 <th>Name</th>
                 <th>Division</th>
                 <th>Team</th>
+                <th>Added</th>
             </tr>
         </thead>
         <tbody>
@@ -50,6 +51,7 @@
                 <td>{{member.name}}</td>
                 <td>{{member.division}}</td>
                 <td>{{member.team}}</td>
+                <td>{{member.added}}</td>
             </tr>
             {% endfor %}
         </tbody>

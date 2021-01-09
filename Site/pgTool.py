@@ -364,6 +364,21 @@ def get_next_member_id():
     db.close()
     return result[0][0]+1
 
+def get_recent_members(num):
+    db = connect()
+    ps = qprep(db,"SELECT member_id,name,division,team from members order by member_id desc limit :n")
+    member_list = ps.run(n=num)
+    db.close()
+    result = []
+    for member in member_list:
+        result.append({
+            'id':member[0],
+            'name':member[1],
+            'division':member[2],
+            'team':member[3]
+            })
+    return result
+
 def add_new_member(name,division,team):
     member_id = get_next_member_id()
     db = connect()
@@ -398,7 +413,7 @@ def get_member_name(member_id):
 
 @timer
 def main():
-    print(week_string)
+    print(get_recent_members(20))
 
 if __name__ == '__main__':
     main()
