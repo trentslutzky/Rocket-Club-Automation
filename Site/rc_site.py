@@ -1,5 +1,3 @@
-# pylint: disable=import-error
-# pylint: disable=no-member
 from flask import Flask, render_template, request
 import flask_login, flask
 import os,sys
@@ -51,13 +49,17 @@ def request_loader(request):
 
     return user
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return flask.redirect(flask.url_for('admin'))
+
 @app.route('/admin')
 def admin():
     username = flask_login.current_user.get_id() 
     if username == 'RCInstructor':
-        return flask.redirect(flask.url_for('instructor_dashboard'))
+        return render_template('admin-dashboard.html',instructor = False,username=username)
     elif username == 'RocketClubAdmin':
-        return flask.redirect(flask.url_for('admin_dashboard'))
+        return render_template('admin-dashboard.html',instructor = False,username=username)
     else:
         return flask.redirect(flask.url_for('login'))
 
@@ -80,21 +82,11 @@ def login():
             user.id = username
             flask_login.login_user(user)
             if(username == 'RocketClubAdmin'):
-                return flask.redirect(flask.url_for('admin_dashboard'))
+                return flask.redirect(flask.url_for('admin'))
             elif(username == 'RCInstructor'):
-                return flask.redirect(flask.url_for('instructor_dashboard'))
+                return flask.redirect(flask.url_for('admin'))
         else:
             return render_template('login.html', warning = 'Invalid Login - Try again.')
-
-@app.route('/admin-dashboard')
-@flask_login.login_required
-def admin_dashboard():
-    return render_template('admin-dashboard.html',instructor = False)
-
-@app.route('/instructor-dashboard')
-@flask_login.login_required
-def instructor_dashboard():
-    return render_template('admin-dashboard.html',instructor = True)
 
 @app.route('/add-member', methods=['GET','POST'])
 @flask_login.login_required
@@ -301,10 +293,6 @@ def update_certs():
                 member_id = member_id_get)
 
 ######################################
-
-@app.route('/', methods=['GET', 'POST'])
-def main_page():
-    return flask.redirect(flask.url_for('admin'))
 
 @app.route('/my-rf', methods=['GET', 'POST'])
 def my_rf():

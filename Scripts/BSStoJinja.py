@@ -12,6 +12,7 @@ def main():
     r_beg = "{{ url_for('static', filename='" + html_file_name
     r_css = ".css') }}\""
     r_js = ".js') }}\""
+    r_png = ".png') }}\""
     file_to_edit = open(html_file)
     lines = file_to_edit.readlines()
     new_lines = []
@@ -25,6 +26,7 @@ def main():
             line = line.replace('assets',r_beg)
             line = line.replace('.css"',r_css)
             line = line.replace('.js"',r_js)
+            line = line.replace('.png"',r_png)
             write_file = True
         new_lines.append(line)
     file_to_edit.close()
