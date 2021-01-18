@@ -96,19 +96,21 @@ def add_member():
     teams = pgtool.get_teams()
     if flask.request.method == 'GET':
         next_member_id = pgtool.get_next_member_id()
-        recent_members = pgtool.get_recent_members(20)
+        recent_members = pgtool.get_recent_members(30)
         return render_template('add-member.html',
                     teams=teams,
                     next_member_id=next_member_id,
                     recent_members=recent_members,
-                    num = 20
+                    num = 30
                 )
     
     elif flask.request.method == 'POST':
-        current_id = pgtool.get_next_member_id()
+        current_id = request.form['member_id_input']
         name = request.form['name']
         division = request.form['division']
         team = request.form['team']
+
+        member_exists = pgtool.test_member_id(current_id)
 
         if(name == ''):
             warning = 'Invalid Name!'
@@ -116,7 +118,10 @@ def add_member():
             warning = 'Please enter a division!'
         elif(team == ''):
             warning = 'Please select a team!'
+        elif(member_exists != 0):
+            warning = 'Member ID exists. Please enter a different member ID.'
         else:
+            name = name.title()
             confirmation = 'Member Added ' + str(current_id) + ' ' + name
             pgtool.add_new_member(name,division,team)
 
@@ -131,6 +136,45 @@ def add_member():
                     warning = warning
                 )
         
+@app.route('/edit-member', methods=['GET','POST'])
+@flask_login.login_required
+def edit_member():
+    search_warning = ''
+    if flask.request.method == 'GET':
+        return render_template('edit-member.html',ready=False)
+
+    elif flask.request.method == 'POST':
+        query = request.form['member-query']
+        query = query.replace("'",'')
+        query = query.replace('"','')
+        query = query.replace('!','')
+        query = query.replace('\\','')
+        query = query.replace(';','')
+        query = query.replace(':','')
+        query = query.replace('<','')
+        query = query.replace('&','')
+        query = query.replace('(','')
+        query = query.replace(')','')
+        query = query.replace(' ','|')
+        results = pgtool.search_members(query)
+        print(results)
+        if(len(results) == 0):
+            search_warning = 'No Results'
+        return render_template('edit-member.html',
+                ready=True,
+                results = results,
+                search_warning = search_warning)
+
+@app.route('/member-detail', methods=['GET','POST'])
+@flask_login.login_required
+def member_detail():
+    if flask.request.method == 'GET':
+        return flask.redirect(flask.url_for('edit_member'))
+
+    if flask.request.method == 'POST':
+        member_uuid = request.form['m_uuid']
+        member = pgtool.get_member_info_uuid(member_uuid)
+        return render_template('member-detail.html',member=member)
 
 @app.route('/add-rf', methods=['GET','POST'])
 @flask_login.login_required
@@ -305,16 +349,6 @@ def gate_loading():
     return render_template('gate.html',
             warning = 'LOADING...')
 
-members_feb2021 = ['1011',
-                   '1013',
-                   '1003',
-                   '1002',
-                   '1001',
-                   '1014',
-                   '1004',
-                   '4405',
-                   '1012']
-
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
     if request.method == 'POST':
@@ -348,8 +382,6 @@ def show_stats():
 
             data = get_cert_page(member_id)
 
-            member_info[1] = member_info[1].replace('Division ','')
-
             grad_date = 'June 2022'
             if member_id in members_feb2021:
                 grad_date = 'Feb 2021'
@@ -365,7 +397,7 @@ def show_stats():
             robotics_certs_noncurrent = data[3],
             tech_certs_current = data[4],
             tech_certs_noncurrent = data[5],
-            grad_date = grad_date,
+            grad_date = member_info[4],
             phone = '(201) 292-3565',
             email = 'admin@rocketclub.com',
             website = 'rocketclub.com',

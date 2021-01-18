@@ -208,6 +208,17 @@ body {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
 }
 
+#member-detail-top-card {
+  background-color: white;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px rgba(128,128,128,0.52) solid;
+  border-top: 3px solid var(--sidebar_bg);
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
+  width: 700px;
+}
+
 #input-form {
   background-color: white;
   margin: 10px;
@@ -425,5 +436,33 @@ body {
 .member-edit-button:hover {
   background-color: var(--edit_button_hover);
   color: white;
+}
+
+#member-detail-profile-picture {
+  font-size: 200px;
+  margin-left: 10px;
+  margin-right: 25px;
+  background-color: rgba(0,0,0,0.19);
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 10px;
+}
+
+#member-detail-top-card-left {
+  width: 33%;
+}
+
+#member-detail-top-card-right {
+  width: 70%;
+  padding-left: 10px;
+}
+
+#member-detail-top-card-uuid {
+  color: var(--text_grey);
+}
+
+#member-detail-top-card-name {
+  margin-bottom: 0px;
+  margin-top: 5px;
 }
 

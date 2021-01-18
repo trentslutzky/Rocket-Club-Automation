@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>new_admin_dashbaord</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./member-detail/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./member-detail/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./member-detail/css/styles.css') }}">
+</head>
+
+<body>
+    <div id="top-area"><span id="top-area-subheading">Member Information</span><span id="top-area-rightheading">RC Admin</span></div>
+    <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start" id="member-detail-top-card">
+        <div id="member-detail-top-card-left"><i class="fa fa-user" id="member-detail-profile-picture"></i></div>
+        <div id="member-detail-top-card-right">
+            <h2 id="member-detail-top-card-name">{{ member.name }}</h2>
+            <h6 id="member-detail-top-card-uuid">{{ member.uuid }}</h6>
+            <h5>Member ID:&nbsp;{{ member.member_id }}</h5>
+            <h5>Team: {{ member.team }}</h5>
+            <h5>Division: {{ member.division }}</h5>
+            <h5>RC&nbsp;Graduation Date: {{ member.grad_date }}</h5>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='./member-detail/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./member-detail/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./member-detail/js/loading-msg.js') }}"></script>
+    <script src="{{ url_for('static', filename='./member-detail/js/navigation-buttons.js') }}"></script>
+</body>
+
+</html>

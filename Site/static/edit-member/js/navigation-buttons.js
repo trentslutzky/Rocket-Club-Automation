@@ -1,4 +1,7 @@
-function fade_in(event){
+frame = document.getElementById("main-page-iframe")
+page_heading = document.getElementById("page-heading")
+
+function navigation_button(event){
     if (!event) {
         event = window.event;
     };

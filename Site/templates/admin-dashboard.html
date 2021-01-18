@@ -5,31 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>new_admin_dashbaord</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./admin-dashboard/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./admin-dashboard/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./admin-dashboard/css/styles.css') }}">
 </head>
 
 <body>
     <div class="d-flex d-sm-flex d-md-flex d-lg-flex align-items-start align-items-sm-start align-items-md-start align-items-lg-start" id="main-container">
         <aside id="sidebar">
-            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center" id="sidebar-heading"><img id="rc-helmet-icon" src="{{ url_for('static', filename='admin-dashboard/img/rc_helmet.png') }}">
+            <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center" id="sidebar-heading"><img id="rc-helmet-icon" src="{{ url_for('static', filename='./admin-dashboard/img/rc_helmet.png') }}">
                 <h5 id="sidebar-heading-text">Rocket Club<br>Admin Dashboard</h5>
             </div>
-            <div id="sidebar-buttons"><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="add-member" data-heading="Add New Members"><i class="fa fa-user sidebar-button-icon"></i><label class="sidebar-button-label">Add New Members</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="member-edit" data-heading="Add New Members"><i class="fa fa-pencil-square-o sidebar-button-icon"></i><label class="sidebar-button-label">Edit Member Info</label></button></div>
+            <div id="sidebar-buttons"><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="add-member" data-heading="Add New Members"><i class="fa fa-user sidebar-button-icon"></i><label class="sidebar-button-label">Add New Members</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="edit-member" data-heading="Add New Members"><i class="fa fa-pencil-square-o sidebar-button-icon"></i><label class="sidebar-button-label">Member Info</label></button></div>
         </aside>
         <div id="main-page">
             <div class="d-md-flex d-lg-flex d-xl-flex justify-content-md-end align-items-md-center justify-content-lg-end align-items-lg-center justify-content-xl-end align-items-xl-center" id="top-bar"><span id="signed-in-as">Signed in As</span><span id="top-bar-username">{{ username }}</span><i class="fa fa-user"></i><a id="top-bar-log-out" href="logout">Log Out</a></div><iframe id="main-page-iframe" src="certs.html"></iframe>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='admin-dashboard/js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin-dashboard/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin-dashboard/js/fadeIn.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin-dashboard/js/navigation-buttons.js') }}"></script>
+    <script src="{{ url_for('static', filename='./admin-dashboard/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./admin-dashboard/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='./admin-dashboard/js/loading-msg.js') }}"></script>
+    <script src="{{ url_for('static', filename='./admin-dashboard/js/navigation-buttons.js') }}"></script>
 </body>
 
 </html>

@@ -39,11 +39,11 @@ def timer(function):
         time_elapsed = (str(int((end_time-start_time) / 1000000)) + 'ms')
         print(time_elapsed)
     return rapper
-## retrieve the member_uuid from the members table based on member_id
+## retrieve the member_uuid from the rc_members table based on member_id
 def get_member_uuid(member_id):
     db = connect()
     try:
-        ps = qprep(db,'SELECT member_uuid FROM members WHERE member_id=:v')
+        ps = qprep(db,'SELECT member_uuid FROM rc_members WHERE member_id=:v')
         result = ps.run(v=member_id)
         return result[0][0]
     except:
@@ -107,7 +107,7 @@ def get_weekly_missions():
 ## get the member name, team, and division based on member_id
 def get_member_info(member_id):
     db = connect()
-    ps = qprep(db,'SELECT name,team,division FROM members WHERE member_id=:v')
+    ps = qprep(db,'SELECT name,team,division FROM rc_members WHERE member_id=:v')
     result = ps.run(v=member_id)
     db.close()
     return result1
@@ -119,16 +119,32 @@ def get_member_info(member_id):
 
 def get_member_info(member_id):
     db = connect()
-    ps = qprep(db,"SELECT name,division,team from members where member_id = :a")
+    ps = qprep(db,"SELECT name,division,team,member_id,grad_date from rc_members where member_id = :a")
     result = ps.run(a=member_id)
-    result[0][1] = 'Division ' + str(result[0][1])
     db.close()
+    return result[0]
+
+def get_member_info_uuid(member_uuid):
+    db = connect()
+    ps = qprep(db,"SELECT * from rc_members where member_uuid = :a")
+    member_list = ps.run(a=member_uuid)
+    db.close()
+    result = []
+    for member in member_list:
+        result.append({
+            'uuid':member[0],
+            'member_id':member[1],
+            'name':member[2],
+            'team':member[3],
+            'division':member[4],
+            'grad_date':member[6]
+            })
     return result[0]
 
 def get_member_total(member_id):
     db = connect()
 
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a")
     result = ps.run(a=member_id)
     db.close()
     return result[0][0]
@@ -136,14 +152,14 @@ def get_member_total(member_id):
 def get_vm_rf(member_id):
     db = connect()
     result = []
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and type='virtual_mission'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and type='virtual_mission'")
     result.append(ps.run(d=member_id)[0][0])
     db.close()
     return result[0]
 
 def get_vm_rf_sum(member_id, subtype):
     db = connect()
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and subtype=:s")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and subtype=:s")
     q = ps.run(d=member_id,s=subtype)
     if(q[0][0] is not None):
         result = q[0][0]
@@ -171,15 +187,15 @@ def get_vm_rf_categories(member_id):
 def get_member_vms_completed(member_id):
     db = connect()
     result = []
-    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='rob_ov';")
+    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='rob_ov';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='coding_ov';")
+    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='coding_ov';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='python_1';")
+    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='python_1';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='robotics_1';")
+    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='robotics_1';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='ent_1';")
+    ps = qprep(db,"SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='ent_1';")
     result.append(ps.run(a=member_id)[0][0])
     db.close()
     return(result)
@@ -187,17 +203,17 @@ def get_member_vms_completed(member_id):
 def get_member_rcl_rf(member_id):
     db = connect()
     result = []
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='attendance'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='attendance'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='trivia'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='trivia'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='parents_night'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='parents_night'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='launchpad'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='launchpad'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='tech_tuesday'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='tech_tuesday'")
     result.append(ps.run(a=member_id)[0][0])
     db.close()
     return result
@@ -205,13 +221,13 @@ def get_member_rcl_rf(member_id):
 def get_member_misc_rf(member_id):
     db = connect()
     result = []
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='boost'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='boost'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcgt'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcgt'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='wheel_of_names'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='wheel_of_names'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='class'")
+    ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='class'")
     result.append(ps.run(a=member_id)[0][0])
     db.close()
     return result
@@ -222,7 +238,7 @@ def get_member_misc_rf(member_id):
 def get_team_members(team_name):
     db = connect()
     result = []
-    ps = qprep(db,"SELECT name FROM members where team=:a")
+    ps = qprep(db,"SELECT name FROM rc_members where team=:a")
     names = ps.run(a=team_name)
     for name in names:
         result.append(name[0])
@@ -253,7 +269,7 @@ def get_current_weekly_missions_completed(team_name):
     result = []
     for vm in weekly_missions:
         tag = vm[0]
-        ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and vm_tag=:b")
+        ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and vm_tag=:b")
         result.append(ps.run(a=team_name,b=tag)[0][0])
     db.close()
     return result
@@ -261,15 +277,15 @@ def get_current_weekly_missions_completed(team_name):
 def get_team_vms_completed(team_name):
     db = connect()
     result = []
-    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='rob_ov'")
+    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='rob_ov'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='coding_ov'")
+    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='coding_ov'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='python_1'")
+    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='python_1'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='robotics_1'")
+    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='robotics_1'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='ent_1'")
+    ps = qprep(db,"SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='ent_1'")
     result.append(ps.run(a=team_name)[0][0])
     db.close()
     return result
@@ -283,10 +299,10 @@ def get_team_standings():
     result = []
     standing = []
     for d in range(1,4):
-        ps = qprep(db,"SELECT team,count(DISTINCT vm_completions.member_uuid) FROM vm_completions LEFT JOIN members ON members.member_uuid = vm_completions.member_uuid LEFT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag LEFT JOIN rf_transactions ON rf_transactions.member_uuid = members.member_uuid WHERE members.division=:a AND amount>20 AND virtual_missions.week = :w GROUP BY team ORDER BY count(DISTINCT vm_completions.member_uuid) desc limit 6;")
+        ps = qprep(db,"SELECT team,count(DISTINCT vm_completions.member_uuid) FROM vm_completions LEFT JOIN rc_members ON rc_members.member_uuid = vm_completions.member_uuid LEFT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag LEFT JOIN rf_transactions ON rf_transactions.member_uuid = rc_members.member_uuid WHERE rc_members.division=:a AND amount>20 AND virtual_missions.week = :w GROUP BY team ORDER BY count(DISTINCT vm_completions.member_uuid) desc limit 6;")
         standing = ps.run(a=d,w=str(week_int-1))
         for team in standing:
-            ps = qprep(db,"SELECT COUNT(*) FROM members WHERE team=:a")
+            ps = qprep(db,"SELECT COUNT(*) FROM rc_members WHERE team=:a")
             team.append(ps.run(a=team[0])[0][0])
         
         standing_percentage = []
@@ -309,7 +325,7 @@ def get_division_standings():
     db = connect()
     result = [] 
     for d in range(1,4):
-        ps = qprep(db,"SELECT name,sum(amount) FROM rf_transactions LEFT JOIN members ON members.member_uuid = rf_transactions.member_uuid WHERE division = :a GROUP BY name ORDER BY sum(amount) desc limit 3;")
+        ps = qprep(db,"SELECT name,sum(amount) FROM rf_transactions LEFT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid WHERE division = :a GROUP BY name ORDER BY sum(amount) desc limit 3;")
         got = ps.run(a=d)
         result.append(got)
         for a in got:
@@ -319,7 +335,7 @@ def get_division_standings():
 
 def get_legacy_leaders():
     db = connect()
-    ps = qprep(db,'SELECT members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN members ON members.member_uuid = rf_transactions.member_uuid GROUP BY members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 10;')
+    ps = qprep(db,'SELECT rc_members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid GROUP BY rc_members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 10;')
     result = ps.run()
     for member in result:
         member[1] =str(format(int(member[1]),','))
@@ -329,7 +345,7 @@ def get_legacy_leaders():
 
 def get_trivia_leaders():
     db = connect()
-    ps = qprep(db,"SELECT members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN members ON members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'trivia' GROUP BY members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
+    ps = qprep(db,"SELECT rc_members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'trivia' GROUP BY rc_members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
     result = ps.run()
     for member in result:
         member[1] =str(format(int(member[1]),','))
@@ -339,7 +355,7 @@ def get_trivia_leaders():
 
 def get_parents_night_leaders():
     db = connect()
-    ps = qprep(db,"SELECT members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN members ON members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'parents_night' GROUP BY members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
+    ps = qprep(db,"SELECT rc_members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'parents_night' GROUP BY rc_members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
     result = ps.run()
     for member in result:
         member[1] =str(format(int(member[1]),','))
@@ -359,14 +375,21 @@ def get_teams():
 
 def get_next_member_id():
     db = connect()
-    ps = qprep(db,"SELECT member_id FROM members ORDER BY member_id DESC LIMIT 1")
+    ps = qprep(db,"SELECT member_id FROM rc_members ORDER BY member_id DESC LIMIT 1")
     result = ps.run()
     db.close()
     return result[0][0]+1
 
+def test_member_id(member_id):
+    db = connect()
+    ps = qprep(db,"SELECT COUNT(1) FROM rc_members WHERE member_id = :i")
+    member_exsists = ps.run(i=member_id)
+    db.close()
+    return member_exsists[0][0]
+
 def get_recent_members(num):
     db = connect()
-    ps = qprep(db,"SELECT member_id,name,division,team from members order by member_id desc limit :n")
+    ps = qprep(db,"SELECT member_id,name,division,team from rc_members order by member_id desc limit :n")
     member_list = ps.run(n=num)
     db.close()
     result = []
@@ -382,7 +405,7 @@ def get_recent_members(num):
 def add_new_member(name,division,team):
     member_id = get_next_member_id()
     db = connect()
-    command = "INSERT INTO members(member_id, name, team, division) VALUES(%i,'%s','%s',%i)" % (int(member_id),name,team,int(division))
+    command = "INSERT INTO rc_members(member_id, name, team, division) VALUES(%i,'%s','%s',%i)" % (int(member_id),name,team,int(division))
     db.run(command)
     db.commit()
     sleep(1)
@@ -395,6 +418,27 @@ def add_new_member(name,division,team):
 
  # Add-RF
 
+##################################################################
+################     STUFF FOR EDIT MEMBER       #################
+##################################################################
+
+def search_members(query):
+    db = connect()
+    query = query.replace(' ','')
+    ps = qprep(db,"select member_uuid,member_id,name,division,team from rc_members where to_tsvector(name||' '||member_id) || to_tsvector(team) @@ to_tsquery(:q) OR name % :q order by member_id desc;")
+    member_list = ps.run(q=query)
+    db.close()
+    result = []
+    for member in member_list:
+        result.append({
+            'm_uuid':member[0],
+            'id':member[1],
+            'name':member[2],
+            'division':member[3],
+            'team':member[4]
+            })
+    return result
+
 def get_types():
     db = connect()
     results = []
@@ -406,7 +450,7 @@ def get_types():
 def get_member_name(member_id):
     db = connect()
     try:
-        name = db.run("SELECT name FROM members where member_id = %i" % member_id)
+        name = db.run("SELECT name FROM rc_members where member_id = %i" % member_id)
         return name[0][0]
     except:
         return None

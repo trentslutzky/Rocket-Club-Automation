@@ -17,8 +17,7 @@
     <div id="top-area"><span id="top-area-heading">Member</span><span id="top-area-subheading">Add New</span><span id="top-area-rightheading">RC Admin</span></div>
     <div id="input-form">
         <form method="post">
-            <h6>Member ID</h6>
-            <h6 id="member-id-input" class="input-box">{{ next_member_id }}</h6>
+            <h6>Member ID</h6><input class="form-control input-box" type="text" name="member_id_input" value="{{ next_member_id }}">
             <h6 id="form-heading">Name</h6><input class="form-control input-box" type="text" name="name">
             <h6 id="form-heading">Division</h6><input class="form-control" type="number" name="division">
             <h6 id="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team">
@@ -29,7 +28,7 @@
         {% endfor %}
     </optgroup>
 </select>
-            <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
+            <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_button_clicked()">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
         </form>
     </div>
     <div class="d-flex justify-content-start" id="add-member-second-area"><span id="add-member-second-heading">Recently Added Members</span><span id="add-member-second-subheading">{{ num }} most recent members</span></div>
@@ -57,6 +56,8 @@
 </div></div>
     <script src="{{ url_for('static', filename='add-member/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='add-member/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-member/js/fadeIn.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-member/js/loading-msg.js') }}"></script>
     <script src="{{ url_for('static', filename='add-member/js/navigation-buttons.js') }}"></script>
 </body>
 

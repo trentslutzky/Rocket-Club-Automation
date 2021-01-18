@@ -385,3 +385,12 @@ body {
   color: rgb(157,86,86);
 }
 
+.remove-button {
+  color: rgb(188,29,29);
+  background-color: rgb(234,234,234);
+  width: 35px;
+  height: 35px;
+  border-radius: 3px;
+  font-size: 20px;
+}
+
