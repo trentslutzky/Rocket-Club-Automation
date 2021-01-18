@@ -382,10 +382,6 @@ def show_stats():
 
             data = get_cert_page(member_id)
 
-            grad_date = 'June 2022'
-            if member_id in members_feb2021:
-                grad_date = 'Feb 2021'
-
             return render_template('member_dashboard.html', 
             name = member_info[0], 
             division = member_info[1], 
