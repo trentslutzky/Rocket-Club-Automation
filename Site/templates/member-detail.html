@@ -27,6 +27,28 @@
             <h5>RC&nbsp;Graduation Date: {{ member.grad_date }}</h5>
         </div>
     </div>
+    <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start" id="member-detail-top-card">
+        <div><a class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="edit-member-info-collapse" href="#edit-member-info-collapse" role="button" id="edit-member-show-button">Edit Member Information (coming soon)</a>
+            <div class="collapse" id="edit-member-info-collapse">
+                <div id="member-detail-edit-info-form">
+                    <form method="post">
+                        <h6>Member ID</h6><input class="form-control" type="number" name="member_id_change" value="{{ member.member_id }}">
+                        <h6 id="form-heading">Name</h6><input class="form-control input-box" type="text" name="name" value="{{ member.name }}">
+                        <h6 id="form-heading">Division</h6><input class="form-control" type="number" name="division" value="{{ member.division }}">
+                        <h6 id="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team">
+    <optgroup label="This is a group">
+        <option value="{{ member.team }}" selected="{{ member.team }}",id="default-option">{{ member.team }}</option>
+        {% for team in teams %}
+        <option value="{{ team }}">{{ team }}</option>
+        {% endfor %}
+    </optgroup>
+</select>
+                        <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_button_clicked()">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='./member-detail/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='./member-detail/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='./member-detail/js/loading-msg.js') }}"></script>
