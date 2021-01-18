@@ -476,3 +476,23 @@ body {
   }
 }
 
+#edit-member-show-button {
+  background-color: var(--text_blue);
+  color: rgb(35,35,35);
+  border: none;
+  height: 37px;
+  pointer-events: none;
+}
+
+#edit-member-show-button:hover {
+  background-color: var(--button_hover);
+  color: white;
+  border: none;
+}
+
+#member-detail-edit-info-form {
+  margin-top: 10px;
+  background-color: rgb(231,231,231);
+  padding: 10px;
+}
+
