@@ -1,9 +1,10 @@
 #################/ ########  IMPORTS  #################################
 import pg8000
 import time
+import secret
 from time import sleep
-import datetime
-from datetime import date
+import datetime, pytz
+from datetime import date,timezone
 # Initialize Colorama for pretty terminal colors #
 from colorama import init
 init()
@@ -17,13 +18,14 @@ year = datetime.date.today().year
 week_number = datetime.date.today().isocalendar()[1]
 week_string = str(year)+str(week_number)
 week_int = int(week_string)
+est = pytz.timezone('US/Eastern')
 
-def connect():
-    db = pg8000.connect("postgres", 
-        password="Falcon2019", 
-        host='35.199.36.16', 
-        port=5432, 
-        database='rocket_club')
+def connect():           
+    db = pg8000.connect(secret.db['user'],
+        password=secret.db['password'],       
+        host=secret.db['host'],            
+        port=secret.db['port'],            
+        database=secret.db['database'])    
     return db
 
 def qprep(db, string):
@@ -110,8 +112,53 @@ def get_member_info(member_id):
     ps = qprep(db,'SELECT name,team,division FROM rc_members WHERE member_id=:v')
     result = ps.run(v=member_id)
     db.close()
-    return result1
+    return result
 
+
+def update_member_info(member_uuid,member_id,name,team,division,grad_date):
+    # get member info for checking
+    db = connect()
+    ps = qprep(db,'SELECT member_id,name,division,team,grad_date FROM rc_members WHERE member_uuid = :u')
+    old_member_data = ps.run(u=member_uuid)
+    member_id = int(member_id)
+    division = int(division)
+    # check if the entered member_id is the one that the member currently has.
+    # if not, check if it exists already.
+    if(old_member_data[0][0] != member_id and test_member_id(member_id) != 0):
+        return 2 # return 2 = member_id exists
+
+    num_updated = 0
+    # update member in database if information has changed.
+    if(old_member_data[0][0] != member_id):
+        command = f"UPDATE rc_members SET member_id={member_id} where member_uuid='{member_uuid}'"
+        db.run(command)
+        num_updated = num_updated + 1
+        print(command)  
+    if(old_member_data[0][1] != name):
+        command = f"UPDATE rc_members SET name='{name}' where member_uuid='{member_uuid}'"
+        db.run(command)
+        num_updated = num_updated + 1
+        print(command)  
+    if(old_member_data[0][2] != division):
+        command = f"UPDATE rc_members SET division={division} WHERE member_uuid='{member_uuid}'"
+        db.run(command)
+        num_updated = num_updated + 1
+        print(command)  
+    if(old_member_data[0][3] != team):
+        command = f"UPDATE rc_members SET team='{team}' WHERE member_uuid='{member_uuid}'"
+        db.run(command)
+        num_updated = num_updated + 1
+        print(command)  
+    if(old_member_data[0][4] != grad_date):
+        command = f"UPDATE rc_members SET grad_date='{grad_date}' WHERE member_uuid='{member_uuid}'"
+        db.run(command)
+        num_updated = num_updated + 1
+        print(command)  
+    if(num_updated > 0):
+        db.commit()
+        return 0 # return 0 = something was updated.
+    return 1 # return 1 = nothing was updated.
+    db.close()
 
 ###########################################################################
 ##################      STUFF FOR MEMBER STATS     ########################
@@ -141,11 +188,34 @@ def get_member_info_uuid(member_uuid):
             })
     return result[0]
 
+def get_recent_rf_transactions(member_uuid):
+    db = connect()
+    ps = qprep(db,"SELECT type,amount,completed from rf_transactions where member_uuid = :a order by transaction_id desc limit 20")
+    transactions = ps.run(a=member_uuid)
+    db.close()
+    results = []
+    date_fmt = '%a  -  %b.%d.%Y  -  %I:%M %p'
+    for t in transactions:
+        t[2] = t[2].replace(tzinfo=pytz.UTC)
+        results.append({
+            'type':t[0],
+            'amount':t[1],
+            'date':t[2].astimezone(est).strftime(date_fmt)
+            })
+    print(results[0]['date'])
+    return results
+
 def get_member_total(member_id):
     db = connect()
-
     ps = qprep(db,"SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=rc_members.member_uuid WHERE member_id=:a")
     result = ps.run(a=member_id)
+    db.close()
+    return result[0][0]
+
+def get_member_total_uuid(member_uuid):
+    db = connect()
+    ps = qprep(db,"SELECT sum(amount) FROM rf_transactions WHERE member_uuid=:a")
+    result = ps.run(a=member_uuid)
     db.close()
     return result[0][0]
 
@@ -405,7 +475,7 @@ def get_recent_members(num):
 def add_new_member(name,division,team):
     member_id = get_next_member_id()
     db = connect()
-    command = "INSERT INTO rc_members(member_id, name, team, division) VALUES(%i,'%s','%s',%i)" % (int(member_id),name,team,int(division))
+    command = "INSERT INTO rc_members(member_id, name, team, division,grad_date) VALUES(%i,'%s','%s',%i,'June 2022')" % (int(member_id),name,team,int(division))
     db.run(command)
     db.commit()
     sleep(1)
@@ -455,9 +525,25 @@ def get_member_name(member_id):
     except:
         return None
 
+# Rocket Club Live Attendance #
+
+def get_date_today():
+    today = date.today()
+    return today
+
+def check_code(member_id,code):
+    today = get_date_today()
+    db = connect()
+    ps = qprep(db,"SELECT code FROM rcl_codes WHERE date = :d")
+    result = ps.run(d=today)
+    if(result[0][0] == code):
+        return True
+    else:
+        return False
+
 @timer
 def main():
-    print(get_recent_members(20))
+    get_recent_rf_transactions('619e2d83-b9b6-43fe-bbd2-f148f1d98f76')
 
 if __name__ == '__main__':
     main()

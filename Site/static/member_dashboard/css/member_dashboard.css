@@ -69,6 +69,7 @@
   margin-top: 25px;
   margin-left: 20px;
   margin-right: 20px;
+  height: 150px;
 }
 
 #horizontal_white {
@@ -113,7 +114,7 @@ form {
 }
 
 #top_logo {
-  height: 9vw;
+  height: 120px;
 }
 
 #rc-logo-fancy {
@@ -166,7 +167,7 @@ form {
 
 #total-rf-block {
   margin-top: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 100px;
 }
 
 @media (max-width: 576px) {
@@ -195,7 +196,7 @@ form {
 
 @media (max-width: 768px) {
   #total-rocket-fuel {
-    font-size: 8vw;
+    font-size: 6vw;
   }
 }
 
@@ -249,6 +250,7 @@ form {
   background-color: #000000;
   padding-left: 16px;
   border-right: 5px solid white;
+  color: white;
 }
 
 #left-colulmn-rc-logo {
@@ -268,6 +270,7 @@ form {
 .left-column-info-section {
   background-color: rgba(0,0,0,0);
   margin-top: 10px;
+  color: white;
 }
 
 .left-column-line {
@@ -341,11 +344,120 @@ form {
 }
 
 .certification-line-certified {
-  font-size: 1.6vw;
+  font-size: 1.8vw;
 }
 
 .certification-line-not-certified {
-  font-size: 1.6vw;
+  font-size: 1.8vw;
   color: rgb(167,167,167);
+}
+
+@media (min-width: 1200px) {
+  #right-column-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .category-heading {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .certification-line-not-certified {
+    font-size: 23px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .certification-line-certified {
+    font-size: 23px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #heading-member-dashboard {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #back-link {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #division-team {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #total-rocket-fuel-label {
+    font-size: 25px;
+    margin: 35px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #total-rocket-fuel {
+    font-size: 70px;
+    margin-left: 25px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #vertical-name {
+    font-size: 50px;
+    top: 23px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .left-column-heading {
+    font-size: 34px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .left-column-p {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #left-colulmn-rc-logo {
+    margin-top: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #right-column {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #rc-communities-heading {
+    font-size: 34px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #top-right-column {
+    padding-left: 50px;
+  }
+}
+
+#template-container {
+  width: 100%;
+  margin: 0px;
+}
+
+.nav-p {
+  font-size: 15px;
 }
 

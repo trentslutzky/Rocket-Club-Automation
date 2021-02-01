@@ -185,7 +185,7 @@ body {
   font-size: 15px;
   color: grey;
   float: right;
-  margin-top: 18px;
+  margin-top: 2px;
 }
 
 #recent-members-box {
@@ -206,6 +206,19 @@ body {
   border-top: 3px solid var(--sidebar_bg);
   padding: 10px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
+}
+
+.member-dashboard-box {
+  background-color: white;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px rgba(128,128,128,0.52) solid;
+  border-top: 3px solid var(--sidebar_bg);
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
+  width: 700px;
+  display: inline-flex;
+  flex-direction: column;
 }
 
 #input-form {
@@ -262,6 +275,7 @@ body {
   --sidebar_borders: rgb(78,78,78);
   --edit_button: rgb(201,159,159);
   --edit_button_hover: rgb(173,90,90);
+  --text_blue: rgb(153,184,211);
 }
 
 @media (min-width: 768px) {
@@ -425,5 +439,123 @@ body {
 .member-edit-button:hover {
   background-color: var(--edit_button_hover);
   color: white;
+}
+
+#member-detail-profile-picture {
+  font-size: 200px;
+  margin-left: 10px;
+  margin-right: 25px;
+  background-color: var(--text_blue);
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 10px;
+}
+
+#member-detail-top-card-left {
+  width: 30%;
+}
+
+#member-detail-top-card-right {
+  width: 70%;
+  padding-left: 20px;
+}
+
+#member-detail-top-card-uuid {
+  color: var(--text_blue);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+#member-detail-top-card-name {
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  #member-detail-top-card {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+
+#edit-member-show-button {
+  background-color: var(--text_blue);
+  color: rgb(35,35,35);
+  border: none;
+  height: 37px;
+  pointer-events: none;
+}
+
+#edit-member-show-button:hover {
+  background-color: var(--button_hover);
+  color: white;
+  border: none;
+}
+
+#member-detail-edit-info-form {
+  margin-top: 10px;
+  background-color: rgb(231,231,231);
+  padding: 10px;
+  width: 100%;
+}
+
+#member-detail-main-block {
+  width: 100%;
+}
+
+#member-detail-main-container {
+  width: 100% !important;
+}
+
+#member-detail-main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#member-detail-recent-transactions-heading {
+  width: 100%;
+  text-align: left;
+  font-size: 20px;
+}
+
+#member-detail-top-card {
+  flex-direction: row;
+}
+
+#edit-member-into-heading {
+  font-size: 24px;
+  margin-left: 3px;
+  margin-top: 5px;
+}
+
+@media (min-width: 1430px) {
+  #member-detail-right-pane {
+    margin-left: -10px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#member-stats-subheading {
+  font-size: 15px;
+}
+
+#member-stats-heading {
+  font-size: 24px;
+}
+
+#uuid-hidden {
+  display: none;
 }
 

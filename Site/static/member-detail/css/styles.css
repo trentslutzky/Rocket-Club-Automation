@@ -185,7 +185,7 @@ body {
   font-size: 15px;
   color: grey;
   float: right;
-  margin-top: 18px;
+  margin-top: 2px;
 }
 
 #recent-members-box {
@@ -208,7 +208,7 @@ body {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
 }
 
-#member-detail-top-card {
+.member-dashboard-box {
   background-color: white;
   margin: 10px;
   border-radius: 5px;
@@ -217,6 +217,8 @@ body {
   padding: 10px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
   width: 700px;
+  display: inline-flex;
+  flex-direction: column;
 }
 
 #input-form {
@@ -494,5 +496,70 @@ body {
   margin-top: 10px;
   background-color: rgb(231,231,231);
   padding: 10px;
+  width: 100%;
+}
+
+#member-detail-main-block {
+  width: 100%;
+}
+
+#member-detail-main-container {
+  width: 100% !important;
+}
+
+#member-detail-main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#member-detail-recent-transactions-heading {
+  width: 100%;
+  text-align: left;
+  font-size: 20px;
+}
+
+#member-detail-top-card {
+  flex-direction: row;
+}
+
+#edit-member-into-heading {
+  font-size: 24px;
+  margin-left: 3px;
+  margin-top: 5px;
+}
+
+@media (min-width: 1430px) {
+  #member-detail-right-pane {
+    margin-left: -10px;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#member-stats-subheading {
+  font-size: 15px;
+}
+
+#member-stats-heading {
+  font-size: 24px;
+}
+
+#uuid-hidden {
+  display: none;
+}
+
+#table-date {
+  font-family: 'B612 Mono';
 }
 

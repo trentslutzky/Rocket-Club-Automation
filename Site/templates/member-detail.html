@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='./member-detail/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
     <link rel="stylesheet" href="{{ url_for('static', filename='./member-detail/fonts/font-awesome.min.css') }}">
@@ -16,38 +17,69 @@
 
 <body>
     <div id="top-area"><span id="top-area-subheading">Member Information</span><span id="top-area-rightheading">RC Admin</span></div>
-    <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start" id="member-detail-top-card">
-        <div id="member-detail-top-card-left"><i class="fa fa-user" id="member-detail-profile-picture"></i></div>
-        <div id="member-detail-top-card-right">
-            <h2 id="member-detail-top-card-name">{{ member.name }}</h2>
-            <h6 id="member-detail-top-card-uuid">{{ member.uuid }}</h6>
-            <h5>Member ID:&nbsp;{{ member.member_id }}</h5>
-            <h5>Team: {{ member.team }}</h5>
-            <h5>Division: {{ member.division }}</h5>
-            <h5>RC&nbsp;Graduation Date: {{ member.grad_date }}</h5>
-        </div>
-    </div>
-    <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start" id="member-detail-top-card">
-        <div><a class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="edit-member-info-collapse" href="#edit-member-info-collapse" role="button" id="edit-member-show-button">Edit Member Information (coming soon)</a>
-            <div class="collapse" id="edit-member-info-collapse">
+    <div id="member-detail-main-container">
+        <div id="member-detail-left-pane">
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start member-dashboard-box" id="member-detail-top-card">
+                <div id="member-detail-top-card-left"><i class="fa fa-user" id="member-detail-profile-picture"></i></div>
+                <div id="member-detail-top-card-right">
+                    <h2 id="member-detail-top-card-name">{{ member.name }}</h2>
+                    <h6 id="member-detail-top-card-uuid">{{ member.uuid }}</h6>
+                    <h5>Member ID:&nbsp;{{ member.member_id }}</h5>
+                    <h5>Team: {{ member.team }}</h5>
+                    <h5>Division: {{ member.division }}</h5>
+                    <h5>RC&nbsp;Graduation Date: {{ member.grad_date }}</h5>
+                </div>
+            </div>
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
+                <h1 id="member-stats-heading">Member Stats</h1>
+                <h1 id="member-stats-subheading">Rocket Fuel: {{total_rf}}</h1>
+            </div>
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
+                <h1 id="edit-member-into-heading">Edit Member Information</h1>
                 <div id="member-detail-edit-info-form">
-                    <form method="post">
-                        <h6>Member ID</h6><input class="form-control" type="number" name="member_id_change" value="{{ member.member_id }}">
-                        <h6 id="form-heading">Name</h6><input class="form-control input-box" type="text" name="name" value="{{ member.name }}">
-                        <h6 id="form-heading">Division</h6><input class="form-control" type="number" name="division" value="{{ member.division }}">
+                    <form method="post" action="member-detail">
+                        <h6>Member ID</h6><input class="form-control input-box" type="number" name="member_id" value="{{ member.member_id }}">
+                        <h6 id="form-heading">Name</h6><input class="form-control input-box" type="text" name="name" value="{{ member.name }}"><input class="form-control" type="text" id="uuid-hidden" name="member_uuid" value="{{ member_uuid }}">
+                        <h6 id="form-heading">Division</h6><input class="form-control input-box" type="number" name="division" value="{{ member.division }}">
                         <h6 id="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team">
-    <optgroup label="This is a group">
+    <optgroup label="select a team">
         <option value="{{ member.team }}" selected="{{ member.team }}",id="default-option">{{ member.team }}</option>
         {% for team in teams %}
         <option value="{{ team }}">{{ team }}</option>
         {% endfor %}
     </optgroup>
 </select>
+                        <hr>
+                        <h6 id="form-heading">Graduation Date</h6><input class="form-control input-box" type="text" name="grad_date" value="{{ member.grad_date }}">
+                        <hr>
                         <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_button_clicked()">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
                     </form>
                 </div>
             </div>
         </div>
+        <div id="member-detail-right-pane"><div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start member-dashboard-box" id="member-detail-recent-transactions">
+    <div class="table-responsive">
+        <h1 id="member-detail-recent-transactions-heading">Recent Rocket Fuel Transactions</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in rf_transactions %}
+                <tr>
+                    <td>{{t.amount}}</td>
+                    <td>{{t.type}}</td>
+                    <td id="table-date">{{t.date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div></div>
     </div>
     <script src="{{ url_for('static', filename='./member-detail/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='./member-detail/bootstrap/js/bootstrap.min.js') }}"></script>

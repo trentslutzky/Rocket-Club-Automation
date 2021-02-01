@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html style="background-image: url({{ url_for('static',filename='rcl_attendance/img/stars.png')}})">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RocketClubLiveAttendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl_attendance/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl_attendance/css/styles.css') }}">
+</head>
+
+<body>
+    <div class="d-md-flex justify-content-md-center" id="rcla-top-container"><img id="with-your-host-image" src="{{ url_for('static', filename='rcl_attendance/img/rcl_without_your_host.png') }}"></div>
+    <div id="rcla-main-container">
+        <h1 id="subheading">Attendance&nbsp; &nbsp; &nbsp; &nbsp;{{ date }}</h1>
+	{% if get %}
+        <p id="instructions-line">The login code will be given to you during Rocket Club Live. Enter your member ID and login code to receive attendance credit.</p>
+        <form id="attendance-form" method="post">
+            <div class="d-lg-flex rcl-form-line"><label class="d-flex align-items-center" id="member-id-label">Member ID&nbsp; &nbsp; &nbsp;</label><input class="form-control space-input-box" type="number" id="member-id-input" name="member_id"></div>
+            <div class="rcl-form-line"><label class="d-flex align-items-center" id="login-code-label">Login Code</label><input class="form-control space-input-box" type="text" id="code-input" name="code"></div><button class="btn btn-primary" data-bs-hover-animate="pulse" id="submit-button" type="submit">LAUNCH</button>
+            <h1 id="warning">{{ warning }}</h1>
+        </form>
+	{% endif %}
+        <h1 id="confirmation">{{ confirmation }}</h1>
+    </div>
+    <script src="{{ url_for('static', filename='rcl_attendance/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl_attendance/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl_attendance/js/bs-init.js') }}"></script>
+</body>
+
+</html>

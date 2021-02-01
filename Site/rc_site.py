@@ -98,12 +98,12 @@ def add_member():
         next_member_id = pgtool.get_next_member_id()
         recent_members = pgtool.get_recent_members(30)
         return render_template('add-member.html',
-                    teams=teams,
-                    next_member_id=next_member_id,
-                    recent_members=recent_members,
-                    num = 30
+                teams=teams,
+                next_member_id=next_member_id,
+                recent_members=recent_members,
+                num = 30
                 )
-    
+
     elif flask.request.method == 'POST':
         current_id = request.form['member_id_input']
         name = request.form['name']
@@ -128,14 +128,14 @@ def add_member():
         recent_members = pgtool.get_recent_members(20)
         next_member_id = pgtool.get_next_member_id()
         return render_template('add-member.html',
-                    teams=teams,
-                    next_member_id=next_member_id,
-                    recent_members=recent_members,
-                    num = 20,
-                    confirmation = confirmation,
-                    warning = warning
+                teams=teams,
+                next_member_id=next_member_id,
+                recent_members=recent_members,
+                num = 20,
+                confirmation = confirmation,
+                warning = warning
                 )
-        
+
 @app.route('/edit-member', methods=['GET','POST'])
 @flask_login.login_required
 def edit_member():
@@ -157,7 +157,6 @@ def edit_member():
         query = query.replace(')','')
         query = query.replace(' ','|')
         results = pgtool.search_members(query)
-        print(results)
         if(len(results) == 0):
             search_warning = 'No Results'
         return render_template('edit-member.html',
@@ -169,12 +168,56 @@ def edit_member():
 @flask_login.login_required
 def member_detail():
     if flask.request.method == 'GET':
-        return flask.redirect(flask.url_for('edit_member'))
+        member_uuid = request.args.get('m_uuid','')
+        member = pgtool.get_member_info_uuid(member_uuid)
+        rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
+        total_rf = pgtool.get_member_total_uuid(member_uuid)
+        return render_template('member-detail.html',
+                member=member,
+                rf_transactions=rf_transactions,
+                total_rf=total_rf,
+                member_uuid=member_uuid
+                )
 
     if flask.request.method == 'POST':
-        member_uuid = request.form['m_uuid']
+        # get info needed to render page
+        member_uuid = request.form['member_uuid']
+
+        # get data from change-info form
+        new_member_id = request.form['member_id']
+        new_name = request.form['name']
+        new_division = request.form['division']
+        new_team = request.form['team']
+        new_grad_date = request.form['grad_date']
+
+        # send new data to the database
+        update = pgtool.update_member_info(member_uuid,
+                new_member_id,new_name,new_team,new_division,new_grad_date)
+
+        # render page
+        warning = '';
+        confirmation = '';
+        if(update == 2):
+            warning = 'Member ID Exists! Try again.'
+        if(update == 0):
+            confirmation = 'Updated!'
+        if(update == 1):
+            confirmation = 'You didn\'t change anything...'
+
         member = pgtool.get_member_info_uuid(member_uuid)
-        return render_template('member-detail.html',member=member)
+        rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
+        total_rf = pgtool.get_member_total_uuid(member_uuid)
+        teams = pgtool.get_teams()
+
+        return render_template('member-detail.html',
+                member=member,
+                rf_transactions=rf_transactions,
+                total_rf=total_rf,
+                member_uuid=member_uuid,
+                warning=warning,
+                teams=teams,
+                confirmation=confirmation
+                )
 
 @app.route('/add-rf', methods=['GET','POST'])
 @flask_login.login_required
@@ -182,7 +225,7 @@ def add_rf():
     if flask.request.method == 'GET':
         types = pgtool.get_types()
         return render_template('add-rf.html',
-                                types = types)
+                types = types)
 
     elif flask.request.method == 'POST':
 
@@ -201,8 +244,8 @@ def add_rf():
 
         print('Adding RF',member_id,mtype,name)
         return render_template('add-rf.html',
-                                types = pgtool.get_types(),
-                                confirm = confirm)
+                types = pgtool.get_types(),
+                confirm = confirm)
 
 @app.route('/logout')
 def logout():
@@ -311,12 +354,12 @@ def update_certs():
         member_name = pgtool.get_member_name(int(member_id_get))
         submit_confirm = ''
         submit_warning = ''
-        
+
         # update certs in database:
         try:
             rccerts.update_certs(member_id_get,certs)
             submit_confirm = ('Updated certifications for ' 
-                            + str(member_name) + '!')
+                    + str(member_name) + '!')
         except AttributeError as err:
             print('ERROR:',err)
             submit_warning = 'Error occured. Please contact tech support!'
@@ -336,7 +379,7 @@ def update_certs():
                 member_name = member_name,
                 member_id = member_id_get)
 
-######################################
+        ######################################
 
 @app.route('/my-rf', methods=['GET', 'POST'])
 def my_rf():
@@ -348,6 +391,28 @@ def gate_loading():
     print('get_loading')
     return render_template('gate.html',
             warning = 'LOADING...')
+
+@app.route('/rcl_attendance', methods=['GET', 'POST'])
+def rcl_attendance():
+    date = pgtool.get_date_today()
+    if flask.request.method == 'GET':
+        return render_template('rcl_attendance.html',date=date,get=True)
+    
+    if flask.request.method == 'POST':
+        member_id = flask.request.form['member_id']
+        code_input = flask.request.form['code']
+        print(member_id,code_input)
+        attendance_check = pgtool.check_code(member_id,code_input)
+        if(attendance_check):
+            return render_template('rcl_attendance.html',
+                    date=date,get=False,
+                    confirmation='Attendance confirmed for Trent Slutzky'
+                    )
+        else:
+            return render_template('rcl_attendance.html',
+                    date=date,get=True,
+                    warning='Invalid Code!')
+    
 
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
