@@ -167,6 +167,7 @@ def edit_member():
 @app.route('/member-detail', methods=['GET','POST'])
 @flask_login.login_required
 def member_detail():
+    teams = pgtool.get_teams()
     if flask.request.method == 'GET':
         member_uuid = request.args.get('m_uuid','')
         member = pgtool.get_member_info_uuid(member_uuid)
@@ -176,7 +177,8 @@ def member_detail():
                 member=member,
                 rf_transactions=rf_transactions,
                 total_rf=total_rf,
-                member_uuid=member_uuid
+                member_uuid=member_uuid,
+                teams=teams
                 )
 
     if flask.request.method == 'POST':
@@ -207,7 +209,6 @@ def member_detail():
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
-        teams = pgtool.get_teams()
 
         return render_template('member-detail.html',
                 member=member,
