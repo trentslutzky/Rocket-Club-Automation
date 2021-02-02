@@ -1,33 +1,75 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
+from flask_bcrypt import Bcrypt
 import flask_login, flask
 import os,sys
 import pgTool as pgtool
-import time
 import secret
+import pg8000
 import rcCerts as rccerts
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 app = Flask(__name__)
 app.secret_key = secret.app_secret
+bcrypt = Bcrypt(app)
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
-users = secret.admin_dashboard_users
+##### DATABASE FUNCTIONS     ########
+
+def connect():           
+    db = pg8000.connect(secret.db['user'],
+        password=secret.db['password'],       
+        host=secret.db['host'],            
+        port=secret.db['port'],            
+        database=secret.db['database'])    
+    return db
+
+def qprep(db, string):
+    db.run("DEALLOCATE ALL")
+    result = db.prepare(string)
+    return result
+
+def get_user(email):
+    db = connect()
+    ps = qprep(db,"SELECT username,email,pwhash,role FROM logins WHERE email=:e")
+    result = ps.run(e=email)
+    if(result):
+        return {
+                'username':result[0][0],
+                'email':result[0][1],
+                'password':result[0][2],
+                'role':result[0][3],
+                }
+    else:
+        return None
 
 ###### STUFF FOR ADMIN-SITE  #########
+class User():
+    @property
+    def is_active(self):
+        return True
 
-class User(flask_login.UserMixin):
-    pass
+    @property
+    def is_authenticated(self):
+        return True
 
+    @property
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    def get_role(self):
+        return self.role
 
 @login_manager.user_loader
 def user_loader(username):
     print('user_loader')
-    if username not in users:
+    if(not get_user(username)):
         return
-
     user = User()
     user.id = username
     return user
@@ -37,17 +79,17 @@ def user_loader(username):
 def request_loader(request):
     print('request_loader')
     username = request.form.get('username')
-    if username not in users:
+    if(not get_user(username)):
         return
-
     user = User()
     user.id = username
-
-    # DO NOT ever store passwords in plaintext and always compare password
-    # hashes using constant-time comparison!
-    user.is_authenticated = request.form['password'] == users[username]['password']
-
-    return user
+    user_check = get_user(username)
+    if(bcrypt.check_password_hash(
+        user_check['password'],request.form['password'])
+        ):
+        return user
+    else:
+        return None
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -56,37 +98,40 @@ def index():
 @app.route('/admin')
 def admin():
     username = flask_login.current_user.get_id() 
+    print(flask_login.current_user)
     if username == 'RCInstructor':
-        return render_template('admin-dashboard.html',instructor = False,username=username)
+        return render_template('admin-dashboard.html',instructor = True,username=username)
     elif username == 'RocketClubAdmin':
         return render_template('admin-dashboard.html',instructor = False,username=username)
     else:
         return flask.redirect(flask.url_for('login'))
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if flask.request.method == 'GET':
+    if request.method == 'GET':
         print('login - GET')
         return render_template('login.html')
 
-    if flask.request.method == 'POST':
+    if request.method == 'POST':
         print('login - POST')
-        username = flask.request.form['username']
-        password = flask.request.form['password']
-        if username not in users:
-            return render_template('login.html', warning = 'Invalid Login - Try again.')
+        username = request.form['username']
+        password = request.form['password']
 
-        if password == users[username]['password']:
-            user = User()
-            user.id = username
-            flask_login.login_user(user)
-            if(username == 'RocketClubAdmin'):
-                return flask.redirect(flask.url_for('admin'))
-            elif(username == 'RCInstructor'):
-                return flask.redirect(flask.url_for('admin'))
+        user_check = get_user(username)
+
+        if(not user_check):
+            return render_template('login.html', 
+                    warning = 'Invalid Username - Try again.',
+                    username=username)
+        if(not bcrypt.check_password_hash(user_check['password'],password)):
+            return render_template('login.html', 
+                    warning = 'Invalid Password - Try again.',
+                    username=username)
         else:
-            return render_template('login.html', warning = 'Invalid Login - Try again.')
+            user=User()
+            user.id=username
+            flask_login.login_user(user)
+            return redirect('admin')
 
 @app.route('/add-member', methods=['GET','POST'])
 @flask_login.login_required
