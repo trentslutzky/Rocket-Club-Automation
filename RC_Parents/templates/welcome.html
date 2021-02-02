@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html style="background-image: url({{ url_for('static', filename='welcome/img/stars.png')}});">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Parent_Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/css/parent_dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/css/parent_login_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/css/welcome_page.css') }}">
+</head>
+
+<body>
+    <div id="main-content"><img id="rocket_club_logo_image" src="{{ url_for('static', filename='welcome/img/rocket_club_header_flat.png') }}"><p class="welcome-page-paragraph">Welcome to the Rocket Club Parent Dashboard! Here you can view your child&#39;s Rocket Club information, enrollment status, and schedule. <br /><br />You can also view your billing information, and update any contact information for Rocket Club&#39;s use.<br /><br />Once logged in, you can update your password in the account information section, by clicking the <i style="color:var(--rc-yellow)" class="fa fa-gear"></i> icon.</p>
+        <h1 id="enter-site-button">Coming Soon</h1>
+    </div>
+    <script src="{{ url_for('static', filename='welcome/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='welcome/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='welcome/js/fade_in_welcome.js') }}"></script>
+</body>
+
+</html>
