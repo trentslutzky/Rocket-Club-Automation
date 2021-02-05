@@ -8,7 +8,7 @@ write_file = False
 
 def main():
     linesUpdated = 0
-    html_file_name = html_file.replace('.html','')
+    html_file_name = html_file.replace('.html','').replace('./','')
     r_beg = "{{ url_for('static', filename='" + html_file_name
     r_css = ".css') }}\""
     r_js = ".js') }}\""
@@ -36,7 +36,7 @@ def main():
         for line in new_lines:
             file_to_edit.write(line)
     file_to_edit.close()
-    print('Converted',linesUpdated,'lines!')
+    print('Converted',linesUpdated,'lines for',html_file_name)
 
 if __name__ == '__main__':
     main()

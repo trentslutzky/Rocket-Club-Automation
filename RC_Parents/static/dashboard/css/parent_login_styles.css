@@ -1,0 +1,103 @@
+:root {
+  --rc_yellow: #fec400;
+}
+
+body {
+  background: transparent;
+}
+
+#rc-parents-image {
+  width: 700px;
+  margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+  #rc-parents-image {
+    width: 100%;
+    margin-top: 50px;
+  }
+}
+
+#main-content {
+  flex-direction: column;
+  align-items: center;
+}
+
+#parents-dashboard-heading {
+  font-family: 'Orbitron';
+  color: var(--rc_yellow);
+  font-style: italic;
+  font-size: 36px;
+}
+
+#login-subheading {
+  color: white;
+  font-family: 'Noto Sans';
+}
+
+#rc-login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-control:focus {
+  color: white;
+  box-shadow: none;
+  border: 1px solid rgba(128,128,128,0.27);
+  border-bottom: 1px solid var(--rc-yellow);
+}
+
+.form-control:focus {
+  color: white;
+  box-shadow: none;
+  border: 1px solid rgba(128,128,128,0.27);
+  border-bottom: 1px solid var(--rc-yellow);
+}
+
+.form-control.space-input-box {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--rc_yellow);
+  border-radius: 0;
+  font-family: 'Orbitron';
+  color: white;
+  width: 315px;
+  font-size: 23px;
+  margin-bottom: 6px;
+}
+
+#input-label {
+  font-family: 'Orbitron';
+  color: white;
+  margin-right: 20px;
+  margin: auto;
+}
+
+.rcl-form-line {
+  display: inline-flex;
+  font-size: 24px;
+  margin-bottom: 35px;
+}
+
+#submit-button:hover {
+  background-color: black;
+  color: var(--rc_yellow);
+  border: 2px solid var(--rc_yellow);
+}
+
+#submit-button {
+  background: var(--rc_yellow);
+  color: black;
+  font-family: 'Orbitron';
+  border-radius: 0px;
+  border: 2px solid black;
+  font-size: 20px;
+}
+
+#warning {
+  font-family: 'Orbitron';
+  color: rgb(224,91,82);
+  font-size: 30px;
+}
+

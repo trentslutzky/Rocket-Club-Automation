@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html style="background: url({{ url_for('static', filename='dashboard/img/stars.png')}});">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Parent_Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_login_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/welcome_page.css') }}">
+</head>
+
+<body>
+    <div id="main-content">
+        <div id="header"><img id="rc_header_image" src="{{ url_for('static', filename='dashboard/img/rocket_club_header_flat.png') }}">
+            <div id="header-buttons-left"><a id="header-link" class="header-icon-selectable" href="user_settings"><i class="fa fa-gear header-icon-selectable"></i></a><i class="fa fa-user header-icon"></i><span class="header-text">{{current_user.name}}</span></div>
+            <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey">Log Out<i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='dashboard/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard/js/fade_in_welcome.js') }}"></script>
+</body>
+
+</html>

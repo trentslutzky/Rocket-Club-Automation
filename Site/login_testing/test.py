@@ -61,7 +61,11 @@ class User():
     def is_anonymous(self):
         return False
 
-    def get_id(self):
+    def get_id(self):sername=username)
+        else:       
+            user=User()
+            user.id=username
+            flask_login.login_user(user)
         return self.id
 
     def get_role(self):
@@ -92,7 +96,11 @@ def request_loader(request):
         return user
     else:
         return None
-
+sername=username)
+        else:       
+            user=User()
+            user.id=username
+            flask_login.login_user(user)
 @app.route('/')
 def index():
     return render_template('login.html')

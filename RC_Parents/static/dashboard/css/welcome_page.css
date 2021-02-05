@@ -22,7 +22,6 @@
 
 #enter-site-button {
   font-family: 'Orbitron';
-  font-size: 50px;
   color: rgba(254,196,0,0.51);
   width: 300px;
   text-align: center;
@@ -38,6 +37,6 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0%;
+  /*opacity: 0%;*/
 }
 

@@ -35,7 +35,7 @@ def timer(function):
 ## retrieve the member_uuid from the members table based on member_id
 def get_member_uuid(member_id):
     try:
-        ps = db.prepare('SELECT member_uuid FROM members WHERE member_id=:v')
+        ps = db.prepare('SELECT member_uuid FROM rc_members WHERE member_id=:v')
         result = ps.run(v=member_id)
         return result[0][0]
     except:

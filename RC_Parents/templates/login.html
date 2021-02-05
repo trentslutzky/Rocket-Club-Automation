@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html style="background-image: url({{ url_for('static', filename='welcome/img/stars.png')}});">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Parent_Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/css/parent_dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/css/parent_login_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login/css/welcome_page.css') }}">
+</head>
+
+<body>
+    <div class="d-flex d-xl-flex" id="main-content"><img class="d-flex justify-content-lg-center" id="rc-parents-image" src="{{ url_for('static', filename='login/img/rocket_club_header.png') }}">
+        <h1 id="parents-dashboard-heading">Parent Dashboard</h1>
+        <form method="post" id="rc-login-form">
+            <div class="d-lg-flex rcl-form-line">
+		    <label class="d-flex align-items-center" id="email-input-label">Email</label>
+		    <input class="form-control space-input-box" type="email" id="parent-email-input" name="username" value="{{username}}">
+	    </div>
+            <div class="rcl-form-line">
+		    <label class="d-flex align-items-center" id="input-label">Password&nbsp; &nbsp;</label>
+		    <input class="form-control space-input-box" type="password" id="password-input" name="password">
+	    </div>
+	    <button class="btn btn-primary" data-bs-hover-animate="pulse" id="submit-button" onload="load()"><span>Enter</span></button>
+            <h1 id="warning">{{ warning }}</h1>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='login/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='login/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='login/js/bs-init.js') }}"></script>
+    <script src="{{ url_for('static', filename='login/js/fade_in_welcome.js') }}"></script>
+</body>
+
+</html>
