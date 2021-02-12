@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
 import flask_login
+from flask_login import current_user
 from flask_bcrypt import Bcrypt
 import time, pg8000, secret
 
@@ -8,7 +9,7 @@ bcrypt = Bcrypt(app)
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
-app.secret_key = 'testkey12348976'
+app.secret_key = secret.app_secret
 
 users = secret.admin_dashboard_users
 
@@ -123,7 +124,10 @@ def request_loader(request):
 
 @app.route('/')
 def index():
-    return render_template('welcome.html')
+    if (flask_login.current_user.is_authenticated):
+        return redirect(url_for('dashboard'))
+    else:
+        return render_template('welcome.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -133,7 +137,7 @@ def login():
 
     if request.method == 'POST':
         print('login - POST')
-        email = request.form['username']
+        email = request.form['email']
         password = request.form['password']
 
         user_check = request_user(email)
@@ -167,10 +171,62 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
-@app.route('/dashboard')
+def get_students(user_id):
+    db=connect()
+    ps = qprep(db,"SELECT assoc_member FROM parents WHERE user_id=:u")
+    member_ids = ps.run(u=user_id)
+    students = []
+    for member_id in member_ids:
+        m = member_id[0]
+        ps = qprep(db,"SELECT name,member_id,team,division,grad_date from rc_members where member_uuid=:u")
+        result = ps.run(u=member_id[0])
+        team_name = result[0][2]
+        team = get_team(team_name)
+        students.append({
+                'name':result[0][0],
+                'member_id':result[0][1],
+                'team':team,
+                'division':result[0][3],
+                'grad_date':result[0][4]})
+    db.close()
+    return students
+
+def get_membership(user_id):
+    db = connect()
+    ps = qprep(db,"SELECT tuition,scholarship from parents where user_id=:u LIMIT 1")
+    result = ps.run(u=user_id)
+    return {
+            'tuition':result[0][0],
+            'scholarship':result[0][1],
+            'cost':result[0][0]-result[0][1]}
+    db.close()
+
+def get_team(team_name):
+    db = connect()
+    ps = qprep(db,"SELECT team_name,instructor,day,time FROM teams WHERE team_name=:n")
+    result = ps.run(n=team_name)
+    return {
+            'team_name':result[0][0],
+            'instructor':result[0][1],
+            'day':result[0][2],
+            'time':result[0][3]}
+    db.close()
+
+@app.route('/dashboard', methods=['GET','POST'])
 @flask_login.login_required
 def dashboard():
-    return render_template('dashboard.html')
+    user_id = flask_login.current_user.id
+    students = get_students(user_id)
+    membership = get_membership(user_id)
+    receipt_confirmation = ''
+    
+    if request.method == 'POST':
+        receipt_confirmation = 'Receipt requested. You will recieve an email with your billing receipt within 2 business days.'
+
+    return render_template('dashboard.html',
+            students=students,
+            membership=membership,
+            receipt_confirmation=receipt_confirmation)
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():

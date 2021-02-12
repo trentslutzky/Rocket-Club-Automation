@@ -62,22 +62,15 @@ body {
   border-radius: 0;
   font-family: 'Orbitron';
   color: white;
-  width: 340px;
-  font-size: 18px;
+  font-size: 23px;
   margin-bottom: 6px;
 }
 
-#input-label {
+.input-label {
   font-family: 'Orbitron';
   color: white;
   margin-right: 20px;
   margin: auto;
-}
-
-#email-input-label{
-  font-family: 'Orbitron';
-  color: white;
-  margin-right: 86px;
 }
 
 .rcl-form-line {
@@ -104,6 +97,41 @@ body {
 #warning {
   font-family: 'Orbitron';
   color: rgb(224,91,82);
-  font-size: 30px;
+  font-size: 20px;
+  margin-top: 12px;
+  margin-left: 20px;
+}
+
+#submit-button-section {
+  display: flex;
+}
+
+@media (max-width: 500px) {
+  #parents-dashboard-heading {
+    font-size: 7vw;
+  }
+}
+
+@media (max-width: 500px) {
+  #login-subheading {
+    width: 80%;
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .input-label {
+    font-size: 15px;
+  }
+}
+
+.space-input-box {
+  width: 60vw;
+}
+
+@media (min-width: 500px) {
+  .space-input-box {
+    width: 315px;
+  }
 }
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html style="background: url(&quot;assets/img/stars.png&quot;);">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Parent_Dashboard</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/parent_dashboard_styles.css">
+    <link rel="stylesheet" href="assets/css/parent_login_styles.css">
+    <link rel="stylesheet" href="assets/css/welcome_page.css">
+</head>
+
+<body>
+    <div id="main-content">
+        <div id="header"><img id="rc_header_image" src="assets/img/rocket_club_header_flat.png">
+            <div id="header-buttons-left"><a id="header-link" class="header-icon-selectable" href="user_settings"><i class="fa fa-gear header-icon-selectable"></i></a><i class="fa fa-user header-icon hide-when-small"></i><span class="header-text hide-when-small">{{current_user.name}}</span></div>
+            <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey"><span id="logout-text" class="hide-when-small">Log Out</span><i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
+        </div>
+        <div id="dashboard-page">
+            <div class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-user-circle-o"></i>&nbsp;Your Student<span>s</span></h1>
+                <p class="dashboard-text-bold">{{student.name}}</p>
+                <p class="dashboard-text">Member ID: {{student.member_id}}</p>
+                <p class="dashboard-text">Team: {{student.team}}</p>
+                <p class="dashboard-text">Division: {{student.division}}</p>
+                <p class="dashboard-text">Rocket Club Graduation Date: {{student.grad_date}}</p>
+            </div>
+            <div class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-calendar-o"></i>&nbsp;Student Schedule</h1>
+                <p class="dashboard-text-bold">Class</p>
+                <p class="dashboard-text-bold">Communities</p>
+            </div>
+            <div class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-graduation-cap"></i>&nbsp;Rocket Club Tuition</h1>
+                <div id="tuition-section">
+                    <div class="tuition-subsection">
+                        <h1 class="dashboard-text-bold tuition-label">Tuition</h1>
+                        <h1 class="dashboard-text tuition-number">$ {{membership.tuition}}</h1>
+                    </div>
+                    <div class="tuition-subsection">
+                        <h1 class="dashboard-text-bold tuition-label">Sponsorship</h1>
+                        <h1 class="dashboard-text tuition-number">$ {{membership.scholarship}}</h1>
+                    </div>
+                    <div class="tuition-subsection">
+                        <h1 class="dashboard-text-bold tuition-label">Membership Cost (Monthly)</h1>
+                        <h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}}</h1>
+                    </div>
+                </div>
+                <h1 class="dashboard-text">Enrollment Status</h1>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/fade_in_welcome.js"></script>
+</body>
+
+</html>

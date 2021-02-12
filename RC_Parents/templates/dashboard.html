@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/Footer-Basic.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_login_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/welcome_page.css') }}">
@@ -16,11 +17,55 @@
 
 <body>
     <div id="main-content">
-        <div id="header"><img id="rc_header_image" src="{{ url_for('static', filename='dashboard/img/rocket_club_header_flat.png') }}">
-            <div id="header-buttons-left"><a id="header-link" class="header-icon-selectable" href="user_settings"><i class="fa fa-gear header-icon-selectable"></i></a><i class="fa fa-user header-icon"></i><span class="header-text">{{current_user.name}}</span></div>
-            <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey">Log Out<i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
+        <div id="header"><a href="dashboard"><img id="rc_header_image" src="{{ url_for('static', filename='dashboard/img/rocket_club_header_flat.png') }}"></a>
+            <div id="header-buttons-left"><i class="fa fa-user header-icon hide-when-small"></i><span class="header-text hide-when-small">{{current_user.name}}</span><a id="header-link" class="header-icon-selectable settings-icon" href="user_settings"><i class="fa fa-gear header-icon-selectable"></i></a></div>
+            <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey"><span id="logout-text" class="hide-when-small">Log Out</span><i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
+        </div>
+        <div id="dashboard-page">
+            <div class="dashboard-section"><h1 class="dashboard-heading"><i class="fa fa-user-circle-o">
+    </i> Your Student{% if students|length > 1 %}<span>s</span>{% endif %}
+</h1>{% for student in students %}
+<div class="student-section">
+    <p class="dashboard-text-bold student-name">{{student.name}}</p>
+    <p class="dashboard-text">Member ID: {{student.member_id}}</p>
+    <p class="dashboard-text">Team: {{student.team.team_name}}</p>
+    <p class="dashboard-text">Division: {{student.division}}</p>
+    <p class="dashboard-text">Graduation Date: {{student.grad_date}}</p>
+    <hr></hr>
+    <p class="dashboard-text-bold rc-grey">Schedule</p>
+    <p class="dashboard-text rc-yellow">Class</p>
+    <p class="dashboard-text">{{student.team.team_name}}</p>
+    <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
+    <hr></hr>
+    <p class="dashboard-text rc-yellow">RC Communities</p>
+    <p class="dashboard-text">Coming Soon</p>
+</div>
+{% endfor %}</div>
+            <div class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-graduation-cap"></i>&nbsp;Rocket Club Tuition</h1>
+                <div id="tuition-section">
+                    <div class="tuition-subsection">
+                        <h1 class="dashboard-text-bold tuition-label">Tuition</h1>
+                        <h1 class="dashboard-text tuition-number">$ {{membership.tuition}}</h1>
+                    </div>
+                    <div class="tuition-subsection">
+                        <h1 class="dashboard-text-bold tuition-label">Sponsorship</h1>
+                        <h1 class="dashboard-text tuition-number">$ {{membership.scholarship}}</h1>
+                    </div>
+                </div>
+                <div id="tuition-section">
+                    <div class="tuition-subsection">
+                        <h1 class="dashboard-text-bold tuition-label">Membership Cost (Monthly)</h1>
+                        <h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}}&nbsp; Per Student</h1>
+                    </div>
+                </div>
+                <form method="post"><button class="btn btn-primary button-link" type="submit">Request billing receipt</button>
+                    <p class="confirmation">{{ receipt_confirmation }}</p>
+                </form>
+            </div>
         </div>
     </div>
+    <footer><span>Copyright © 2021 Rocket Club<br><br>157 Columbus Avenue, New York, New York 10023, United States</span></footer>
     <script src="{{ url_for('static', filename='dashboard/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard/js/fade_in_welcome.js') }}"></script>

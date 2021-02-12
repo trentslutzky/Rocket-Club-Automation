@@ -1,8 +1,6 @@
 :root {
   --rc-yellow: #fec400;
-  --text-grey: rgb(255,0,184);
-  --blue-fade: rgba(0,102,255,0.18);
-  --confirmation-color: rgba(255,107,0,0.85);
+  --text-grey: rgba(160,160,160,0.57);
 }
 
 body {
@@ -43,10 +41,11 @@ body {
 }
 
 .header-text {
-  color: var(--rc-yellow);
-  font-family: 'Orbitron';
+  color: white;
+  font-family: 'Noto Sans';
   font-size: 15px;
   margin-left: 10px;
+  font-weight: 600;
 }
 
 .header-icon-selectable:hover {
@@ -56,6 +55,7 @@ body {
 }
 
 #header-buttons-left {
+  margin-left: 20px;
   display: initial;
 }
 
@@ -74,7 +74,6 @@ body {
 #logout-button:hover {
   color: var(--rc-yellow);
   cursor: pointer;
-  text-decoration: none !important;
 }
 
 #logout-icon {
@@ -122,8 +121,7 @@ body {
 .dashboard-heading {
   color: var(--rc-yellow);
   font-family: 'Orbitron';
-  font-size: 30px;
-  margin-bottom: 15px;
+  font-size: 25px;
 }
 
 .dashboard-text-bold {
@@ -137,7 +135,7 @@ body {
 .dashboard-text {
   font-family: 'Orbitron';
   color: white;
-  font-size: 20px;
+  font-size: 17px;
   margin-bottom: 0px;
 }
 
@@ -158,21 +156,19 @@ body {
 .tuition-subsection {
   text-align: left;
   margin-right: 20px;
-  margin-bottom: 10px;
 }
 
 #tuition-section {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .tuition-number {
   color: var(--light);
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .tuition-label {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 #membership-cost-number {
@@ -217,40 +213,5 @@ body {
 #select-a-student {
   margin-left: 10px;
   color: rgba(255,255,255,0.67);
-}
-
-.dashboard-text-bold.student-name {
-  color: var(--rc-yellow);
-  border-bottom: 1px solid;
-  width: 100%;
-  font-size: 30px;
-}
-
-.student-section {
-  margin-bottom: 20px;
-  background-color: var(--blue-fade);
-  padding: 10px;
-  width: 96%;
-}
-
-.settings-icon {
-  margin-left: 20px;
-}
-
-.rc-yellow {
-  color: var(--rc-yellow);
-  font-size: 22px;
-}
-
-.underline {
-  text-decoration: underline;
-}
-
-.rc-grey {
-  color: var(--text-grey);
-}
-
-hr {
-  border-bottom: 1px solid rgba(255,199,0,0.12);
 }
 
