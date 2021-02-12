@@ -220,7 +220,8 @@ def dashboard():
     membership = get_membership(user_id)
     receipt_confirmation = ''
     
-    if request.method == 'POST':
+    if request.method == 'POST': # this is called when they request a billing receipt.
+        # code to handle a help desk request
         receipt_confirmation = 'Receipt requested. You will recieve an email with your billing receipt within 2 business days.'
 
     return render_template('dashboard.html',
