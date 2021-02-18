@@ -1,5 +1,5 @@
 import scanVirtualMissions, scanTriviaWinners, scanParentsNightWinners, scanRCLAttendance, updateClassRF
-import scanRCLOther
+import scanRCLOther, scanRFStore
 import scanWheelWinners
 import scanOldVirtualMissions
 import random
@@ -44,6 +44,7 @@ def main():
     while True:
         scanRCLAttendance.main()
         scanVirtualMissions.main()
+        scanRFStore.main()
         scanOldVirtualMissions.main()
         scanTriviaWinners.main()
         scanWheelWinners.main()

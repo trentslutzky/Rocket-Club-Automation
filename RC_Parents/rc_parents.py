@@ -39,6 +39,12 @@ def request_user(email):
     else:
         return None
 
+def logged_in_check_password(password):
+    user_id = flask_login.current_user.id
+    current_user = get_user(user_id)
+    current_hash = current_user['hash']
+    return bcrypt.check_password_hash(current_hash,password)
+
 def get_user(user_id):
     print('getting user from',user_id)
     db = connect()
@@ -47,8 +53,8 @@ def get_user(user_id):
     if(result):
         print('got user',result[0])
         return {
-                'username':result[0][1],
                 'email':result[0][2],
+                'hash':result[0][3],
                 'phone':result[0][4],
                 'assoc_member':result[0][5],
                 'tuition':result[0][6],
@@ -82,14 +88,14 @@ class User():
     def get_id(self):
         return self.id
 
-    def get_username(self):
-        return self.username
-
     def get_email(self):
         return self.email
 
     def get_phone(self):
         return self.phone
+
+    def get_name(self):
+        return self.name
 
 ####### Methods for authentication ########################
 
@@ -102,7 +108,6 @@ def user_loader(user_id):
     user.email=new_user['email']
     user.name=new_user['name']
     user.phone=new_user['phone']
-    user.username=new_user['username']
     return user
 
 
@@ -158,7 +163,6 @@ def login():
             user.email=new_user['email']
             user.name=new_user['name']
             user.phone=new_user['phone']
-            user.username=new_user['username']
             flask_login.login_user(user)
             next_page = request.args.get('next')
             print(next_page)
@@ -219,15 +223,139 @@ def dashboard():
     students = get_students(user_id)
     membership = get_membership(user_id)
     receipt_confirmation = ''
+    user = get_user(user_id)
+    email = user['email']
     
     if request.method == 'POST': # this is called when they request a billing receipt.
         # code to handle a help desk request
-        receipt_confirmation = 'Receipt requested. You will recieve an email with your billing receipt within 2 business days.'
+        db = connect()
+        command = f"INSERT INTO help_desk(email,subject,message) VALUES('{email}','billing','this user requests a billing receipt.')"
+        db.run(command)
+        db.commit()
+        db.close()
+        receipt_confirmation = 'Receipt requested. You will recieve an email with your receipt.'
 
     return render_template('dashboard.html',
             students=students,
             membership=membership,
             receipt_confirmation=receipt_confirmation)
+
+def change_password(new_password):
+    pw_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
+    user_id = flask_login.current_user.id
+    user = get_user(user_id)
+    print ('Updating password for',user['name'])
+    db = connect()
+    command = f"UPDATE parents SET pw_hash = '{pw_hash}' WHERE user_id = '{user_id}'"
+    db.run(command)
+    db.commit()
+    db.close()
+
+def change_name(new_name):
+    user_id = flask_login.current_user.id
+    user = get_user(user_id)
+    print ('Updating name for',user['name'])
+    db = connect()
+    command = f"UPDATE parents SET name = '{new_name}' WHERE user_id = '{user_id}'"
+    db.run(command)
+    db.commit()
+    db.close()
+
+def change_phone(new_phone):
+    user_id = flask_login.current_user.id
+    user = get_user(user_id)
+    print ('Updating phone for',user['name'])
+    db = connect()
+    command = f"UPDATE parents SET phone = '{new_phone}' WHERE user_id = '{user_id}'"
+    db.run(command)
+    db.commit()
+    db.close()
+
+@app.route('/account', methods=['get','post'])
+@flask_login.login_required
+def account():
+    user_id = flask_login.current_user.id
+    user = get_user(user_id)
+
+    if request.method == 'GET':
+        return render_template('account.html',user=user)
+
+    account_confirmation = ''
+    password_confirmation = ''
+    account_warning = ''
+    password_warning = ''
+    old_password_warning = ''
+
+    if request.method == 'POST':
+        form_type = request.form['form-type']
+            
+        if(form_type == 'change_password'):
+            ready = False
+            old_password = request.form['old_password']
+            new_password = request.form['new_password']
+            new_password_confirm = request.form['new_password_confirm']
+
+            if(not logged_in_check_password(old_password)):
+                old_password_warning = 'password incorrect!'
+            else:
+                if(new_password != new_password_confirm):
+                    password_warning = 'Passwords do not match!'
+                else:
+                    if(len(new_password) < 8):
+                        password_warning = 'password must be at least 8 characters.'
+                    else:
+                        if(logged_in_check_password(new_password)):
+                            password_warning = 'new password cannot match old password.'
+                        else:
+                            ready = True
+            if(ready):
+                change_password(new_password)
+                password_confirmation = 'Password sucessfully changed.'
+
+        elif(form_type == 'account_info'):
+            new_name = request.form['new_name']
+            new_phone = request.form['new_phone']
+            old_name = user['name']
+            old_phone = user['phone']
+            
+            print(new_name != old_name)
+
+            ready = False
+            if(new_name != old_name):
+                if all(x.isalpha() or x.isspace() for x in new_name):
+                    if len(new_name) < 30:
+                        print('UPDATE NAME')
+                        # udpate name
+                        change_name(new_name)
+                        ready = True
+                    else:
+                        account_warning = 'Name is 26 characters max.'
+                else:
+                    account_warning = 'Invalid name'
+
+            if(new_phone != old_phone):
+                if all(x.isspace() or x.isdigit() or x == '-' for x in new_phone) and len(new_phone) < 20:
+                    # udpate phone number
+                    change_phone(new_phone)
+                    ready = True
+                else:
+                    account_warning = 'Invalid phone number'
+
+            if ready:
+                account_confirmation = 'Info sucessfully changed.'
+
+        user = get_user(user_id)
+        return render_template('account.html',user=user,
+                account_warning=account_warning,
+                account_confirmation=account_confirmation,
+                password_warning=password_warning,
+                password_confirmation=password_confirmation,
+                old_password_warning=old_password_warning)
+
+@app.route('/helpdesk', methods=['get','post'])
+@flask_login.login_required
+def helpdesk():
+    return render_template('helpdesk.html')
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():

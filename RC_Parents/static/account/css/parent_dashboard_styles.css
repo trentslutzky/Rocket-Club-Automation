@@ -344,17 +344,3 @@ hr {
   height: 21px;
 }
 
-.dashboard-link {
-  color: var(--rc-blue);
-  font-family: 'Orbitron';
-  font-size: 20px;
-}
-
-.dashboard-link:hover {
-  color: rgb(82,145,255);
-}
-
-#back-to-dsahboard {
-  padding-top: 20px;
-}
-

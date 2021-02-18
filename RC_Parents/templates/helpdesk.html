@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html style="background: url({{ url_for('static', filename='helpdesk/img/stars.png')}});">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Help Desk</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='helpdesk/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="{{ url_for('static', filename='helpdesk/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='helpdesk/css/Footer-Basic.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='helpdesk/css/parent_dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='helpdesk/css/parent_login_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='helpdesk/css/welcome_page.css') }}">
+</head>
+
+<body>
+    <div id="main-content">
+        <div id="header"><a href="dashboard"><img id="rc_header_image" src="{{ url_for('static', filename='helpdesk/img/rocket_club_header_flat.png') }}"></a>
+            <div id="header-buttons-left"><i class="fa fa-user header-icon hide-when-small"></i><span class="header-text hide-when-small">{{current_user.name}}</span><a id="header-link" class="header-icon-selectable settings-icon" href="account"><i class="fa fa-gear header-icon-selectable"></i></a></div>
+            <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey"><span id="logout-text" class="hide-when-small">Log Out</span><i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
+        </div>
+        <div id="dashboard-page" class="dashboard-section">
+            <div id="help-desk-temp-section" class="dashboard-section">
+                <h1 class="dashboard-heading">Help Desk</h1>
+                <p class="dashboard-text">This page is under construction. For now, if you need help, email&nbsp;admin@rocketclub.com</p><a id="back-to-dsahboard" class="dashboard-link" href="dashboard">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='helpdesk/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='helpdesk/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='helpdesk/js/fade_in_welcome.js') }}"></script>
+</body>
+
+</html>

@@ -75,6 +75,16 @@ footer {
   color: rgba(255,255,255,0.63);
 }
 
+.dashboard-link {
+  color: var(--rc-blue);
+  font-family: 'Orbitron';
+  font-size: 20px;
+}
+
+.dashboard-link:hover {
+  color: rgb(82,145,255);
+}
+
 #change-account-info {
   margin-top: 50px;
 }
@@ -112,10 +122,5 @@ footer {
 
 #new-password-warning {
   font-size: 15px;
-}
-
-#help-desk-temp-section {
-  display: flex;
-  flex-direction: column;
 }
 

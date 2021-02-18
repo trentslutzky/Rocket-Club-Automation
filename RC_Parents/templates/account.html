@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html style="background: url({{ url_for('static', filename='account/img/stars.png')}});">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='account/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="{{ url_for('static', filename='account/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='account/css/Footer-Basic.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='account/css/parent_dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='account/css/parent_login_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='account/css/welcome_page.css') }}">
+</head>
+
+<body>
+    <div id="main-content">
+        <div id="header"><a href="dashboard"><img id="rc_header_image" src="{{ url_for('static', filename='account/img/rocket_club_header_flat.png') }}"></a>
+            <div id="header-buttons-left"><i class="fa fa-user header-icon hide-when-small"></i><span class="header-text hide-when-small">{{current_user.name}}</span><a id="header-link" class="header-icon-selectable settings-icon" href="account"><i class="fa fa-gear header-icon-selectable"></i></a></div>
+            <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey"><span id="logout-text" class="hide-when-small">Log Out</span><i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
+        </div>
+        <div id="dashboard-page">
+            <div class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-user"></i>&nbsp;Account</h1>
+                <div id="account-list">
+                    <div>
+                        <div><span class="dashboard-text dashboard-label">Name</span></div>
+                        <div><span class="dashboard-text dashboard-label">Phone&nbsp; &nbsp; &nbsp;&nbsp;</span></div>
+                        <div><span class="dashboard-text dashboard-label">Email</span></div>
+                    </div>
+                    <div>
+                        <div><span class="dashboard-text">{{ user.name }}</span></div>
+                        <div><span class="dashboard-text">{{ user.phone }}</span></div>
+                        <div><span class="dashboard-text">{{ user.email }}</span></div>
+                    </div>
+                </div>
+                <p id="user-id">{{ user.user_id }}</p>
+                <h1 id="account-conf" class="confirmation">{{ account_confirmation }}</h1>
+            </div>
+            <div id="change-account-info" class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-list-alt"></i>&nbsp;Chage Account Information</h1>
+                <p id="account-info-guide">Update below and press submit</p>
+                <form method="post">
+                    <div id="account-info-form">
+                        <div class="account-form-line">
+                            <p class="dashboard-text rc-yellow account-form-label">Name</p>
+                            <p class="dashboard-text rc-yellow account-form-label">Phone</p>
+                        </div>
+                        <div class="account-form-line"><input class="form-control account-info-input" type="text" value="{{ user.name }}" name="new_name"><input class="form-control account-info-input" type="tel" name="new_phone" value="{{ user.phone }}"></div>
+                    </div><input class="form-control" type="hidden" name="form-type" value="account_info">
+                    <div id="submit-button-section"><button class="btn btn-primary" data-bs-hover-animate="pulse" id="submit-button" onload="load()"><span>Submit</span></button>
+                        <h1 class="warning">{{ account_warning }}</h1>
+                    </div>
+                </form>
+            </div>
+            <div id="change-password" class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-unlock-alt"></i>&nbsp;Chage Password</h1>
+                <p id="account-info-guide">Update below and press submit. Password must be at least 8 characters long.</p>
+                <form method="post">
+                    <div id="account-info-form">
+                        <div class="account-form-line">
+                            <p class="dashboard-text rc-yellow account-form-label">Current Password</p>
+                            <hr id="password-line">
+                            <p class="dashboard-text rc-yellow account-form-label">New Password</p>
+                            <p class="dashboard-text rc-yellow account-form-label">Confirm</p>
+                        </div>
+                        <div class="account-form-line">
+                            <div><input class="form-control account-info-input" type="password" name="old_password">
+                                <p id="old-password-warning">{{ old_password_warning }}</p>
+                            </div><input class="form-control account-info-input" type="password" id="new-password-input" name="new_password"><input class="form-control account-info-input" type="password" name="new_password_confirm">
+                        </div>
+                    </div><input class="form-control" type="hidden" name="form-type" value="change_password">
+                    <div id="submit-button-section"><button class="btn btn-primary" data-bs-hover-animate="pulse" id="submit-button" onload="load()"><span>Submit</span></button>
+                        <h1 id="new-password-warning" class="warning">{{ password_warning }}</h1>
+                        <h1 class="confirmation">{{ password_confirmation }}</h1>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer><span>Copyright © 2021 Rocket Club<br><br>157 Columbus Avenue, New York, New York 10023, United States</span></footer>
+    <script src="{{ url_for('static', filename='account/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='account/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='account/js/bs-init.js') }}"></script>
+    <script src="{{ url_for('static', filename='account/js/fade_in_welcome.js') }}"></script>
+</body>
+
+</html>
