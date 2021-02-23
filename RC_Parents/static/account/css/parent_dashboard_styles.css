@@ -45,7 +45,7 @@ body {
 
 .header-text {
   color: var(--rc-yellow);
-  font-family: 'Orbitron';
+  font-family: 'Poppins';
   font-size: 15px;
   margin-left: 10px;
 }
@@ -128,7 +128,7 @@ body {
 }
 
 .dashboard-text-bold {
-  font-family: 'Orbitron';
+  font-family: 'Poppins';
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -136,7 +136,7 @@ body {
 }
 
 .dashboard-text {
-  font-family: 'Orbitron';
+  font-family: 'Poppins';
   color: white;
   font-size: 20px;
   margin-bottom: 0px;
@@ -275,6 +275,7 @@ hr {
   color: rgba(255,255,255,0.66);
   max-width: 600px;
   width: 96%;
+  font-family: 'Poppins';
 }
 
 #loading_icon {
@@ -322,7 +323,7 @@ hr {
 }
 
 .warning {
-  font-family: 'Orbitron';
+  font-family: 'Poppins';
   color: rgb(224,91,82);
   font-size: 20px;
   margin-top: 12px;
@@ -330,7 +331,7 @@ hr {
 }
 
 .confirmation {
-  font-family: 'Orbitron';
+  font-family: 'Poppins';
   color: var(--confirmation-color);
   font-size: 20px;
   margin-top: 12px;
@@ -339,8 +340,198 @@ hr {
 
 #old-password-warning {
   color: rgb(224,91,82);
-  font-family: 'Orbitron';
+  font-family: 'Poppins';
   margin-left: 20px;
   height: 21px;
+}
+
+.dashboard-link {
+  color: var(--rc-blue);
+  font-family: 'Orbitron';
+  font-size: 20px;
+}
+
+.dashboard-link:hover {
+  color: rgb(82,145,255);
+}
+
+#back-to-dsahboard {
+  padding-top: 20px;
+  font-family: 'Poppins';
+}
+
+.icon-button:hover {
+  border: 2px solid rgba(31,111,251,0.27);
+}
+
+.icon-button {
+  width: 200px;
+  height: 130px;
+  background: var(--blue-fade);
+  font-family: 'Poppins';
+  border-radius: 5px;
+  color: var(--rc-yellow) !important;
+  font-size: 25px;
+  text-align: center;
+  border: 2px solid var(--blue-fade);
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding-top: 15px;
+}
+
+.icon-button-link {
+  text-decoration: none !important;
+}
+
+.button-link {
+  font-family: 'Poppins';
+}
+
+#change-account-info {
+  margin-top: 50px;
+}
+
+.account-form-label {
+  margin-bottom: 16px !important;
+}
+
+.icon-button-link {
+  height: 100%;
+  display: block;
+  color: var(--rc-yellow);
+}
+
+.icon-button-link:hover {
+  height: 100%;
+  display: block;
+  color: rgba(254,196,0,0.75);
+}
+
+#help-desk-temp-section {
+  display: flex;
+  flex-direction: column;
+}
+
+#new-password-warning {
+  font-size: 15px;
+}
+
+@media (max-width: 514px) {
+  #new-password-input {
+    margin-top: 80px;
+  }
+}
+
+#account-conf {
+  margin-left: 0px;
+  height: 20px;
+}
+
+#change-password {
+  margin-top: 50px;
+}
+
+#new-password-input {
+  margin-top: 26px;
+}
+
+#account-info-guide {
+  color: white;
+  font-family: 'Poppins';
+}
+
+.account-form-label {
+  margin-bottom: 16px !important;
+}
+
+#change-account-info {
+  margin-top: 50px;
+}
+
+.button-link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgba(255,255,255,0.63);
+}
+
+footer {
+  color: rgba(255,255,255,0.23);
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  font-family: 'Poppins';
+}
+
+.footer-basic .copyright {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0;
+}
+
+.footer-basic .social > a:hover {
+  opacity: 0.9;
+}
+
+.footer-basic .social > a {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  margin: 0 8px;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.footer-basic .social {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.footer-basic ul a:hover {
+  opacity: 1;
+}
+
+.footer-basic {
+  padding: 40px 0;
+  background-color: #ffffff;
+  color: #4b4c4d;
+}
+
+.footer-basic ul {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.footer-basic li {
+  padding: 0 10px;
+}
+
+.footer-basic ul a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+#link-button-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-link {
+  font-size: 17px;
 }
 

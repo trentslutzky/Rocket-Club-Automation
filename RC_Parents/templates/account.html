@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Account</title>
+    <title>Parent_Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='account/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="{{ url_for('static', filename='account/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='account/css/Footer-Basic.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='account/css/parent_dashboard_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='account/css/parent_login_styles.css') }}">
@@ -37,7 +37,6 @@
                         <div><span class="dashboard-text">{{ user.email }}</span></div>
                     </div>
                 </div>
-                <p id="user-id">{{ user.user_id }}</p>
                 <h1 id="account-conf" class="confirmation">{{ account_confirmation }}</h1>
             </div>
             <div id="change-account-info" class="dashboard-section">

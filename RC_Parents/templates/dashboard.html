@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Parent Dashboard</title>
+    <title>Parent_Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/Footer-Basic.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_login_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/welcome_page.css') }}">
@@ -32,16 +32,29 @@
     <p class="dashboard-text">Division: {{student.division}}</p>
     <p class="dashboard-text">Graduation Date: {{student.grad_date}}</p>
     <hr></hr>
-    <p class="dashboard-text-bold rc-grey">Schedule</p>
     <p class="dashboard-text rc-yellow">Class</p>
     <p class="dashboard-text">{{student.team.team_name}}</p>
     <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
+    <p class="dashboard-text">Instuctor: {{student.team.instructor}}</p>
+    <!--<p class="dashboard-text">Zoom: {{student.team.link}}</p>-->
 </div>
 {% endfor %}</div>
             <div class="dashboard-section">
                 <h1 class="dashboard-heading"><i class="fa fa-shield"></i>&nbsp;Rocket Club Communities</h1>
-                <div><a class="dashboard-link" href="https://rocketclub.com/rocket-club-communities">All Communities</a></div>
-                <div><a class="dashboard-link" href="https://rocketclub.com/calendar">Community Schedule</a></div>
+                <div id="link-button-container">
+                    <div class="icon-button" href="asht"><a class="icon-button-link" href="https://rocketclub.com/rocket-club-communities" target="_blank"><i class="fa fa-search"></i>
+                            <h5>Communities Portal</h5>
+                        </a></div>
+                    <div class="icon-button" href="asht"><a class="icon-button-link" href="https://www.rocketclub.com/calendar" target="_blank"><i class="fa fa-calendar"></i>
+                            <h5>Communities Calendar</h5>
+                        </a></div>
+                    <div class="icon-button" href="asht"><a class="icon-button-link" href="https://docs.google.com/document/d/1D25KJ8DyF4Oj7cUjLDq1Mv7Ca1XslaApMCNaeE97NZs/edit" target="_blank"><i class="fa fa-list-ul"></i>
+                            <h5>Communities Glossary</h5>
+                        </a></div>
+                    <div class="icon-button" href="asht"><a class="icon-button-link" href="https://share.hsforms.com/1v6smWFeaQoWs3i2ceMaqqA4f233" target="_blank"><i class="fa fa-check-square-o"></i>
+                            <h5>Communities signup</h5>
+                        </a></div>
+                </div>
             </div>
             <div class="dashboard-section">
                 <h1 class="dashboard-heading"><i class="fa fa-graduation-cap"></i>&nbsp;Rocket Club Tuition</h1>
@@ -57,8 +70,8 @@
                 </div>
                 <div id="tuition-section">
                     <div class="tuition-subsection">
-                        <h1 class="dashboard-text-bold tuition-label">Membership Cost (Monthly)</h1>
-                        <h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}}&nbsp; Per Member</h1>
+                        <h1 class="dashboard-text-bold tuition-label">Your Portion of Tuition</h1>
+			<h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}}&nbsp; {% if students|length > 1 %}Per Member{% endif %}</h1>
                     </div>
                 </div>
                 <form method="post"><button class="btn btn-primary button-link" type="submit">Request billing receipt</button>
