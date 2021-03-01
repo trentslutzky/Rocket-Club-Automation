@@ -12,6 +12,12 @@ from colorama import Fore, Back, Style
 #####################################################################
 ## connecting to the database as the root user 'postgres'
 
+from flask import Flask
+from flask_bcrypt import Bcrypt
+app = Flask(__name__)
+bcrypt = Bcrypt(app)
+import string, random, re
+
 ## setup the 'week_string' which is used to compare the current week to the 
  # weekly status of the virtual missions.
 year = datetime.date.today().year
@@ -472,10 +478,9 @@ def get_recent_members(num):
             })
     return result
 
-def add_new_member(name,division,team):
-    member_id = get_next_member_id()
+def add_new_member(member_id,name,division,team,grad_date):
     db = connect()
-    command = "INSERT INTO rc_members(member_id, name, team, division,grad_date) VALUES(%i,'%s','%s',%i,'June 2022')" % (int(member_id),name,team,int(division))
+    command = f"INSERT INTO rc_members(member_id, name, team, division, grad_date) VALUES({member_id},'{name}','{team}',{division},'{grad_date}')"
     db.run(command)
     db.commit()
     sleep(1)
@@ -486,7 +491,27 @@ def add_new_member(name,division,team):
     db.commit()
     db.close()
 
- # Add-RF
+def get_random_alphanumeric_string(length):
+    letters_and_digits = string.ascii_letters + string.digits
+    result_str = ''.join((random.choice(letters_and_digits) for i in range(length)))
+    return result_str
+
+def generate_username_from_name(name):
+    username = name.replace(' ','')
+    rx = re.compile('\W+')
+    username = rx.sub('',username).strip()
+    return username
+
+def add_parent(assoc_member_id,name,email,phone,cost,scholarship):
+    assoc_member = get_member_uuid(assoc_member_id)
+    db = connect()
+    temp_password = get_random_alphanumeric_string(10)
+    username = generate_username_from_name(name)
+    pw_hash = bcrypt.generate_password_hash(temp_password).decode('utf-8')
+    command = f"INSERT INTO parents(assoc_member,name, username, email, phone, tuition, scholarship, temp_password, pw_hash) VALUES('{assoc_member}','{name}','{username}','{email}','{phone}',{cost},{scholarship},'{temp_password}','{pw_hash}')"
+    db.run(command)
+    db.commit()
+    db.close()
 
 ##################################################################
 ################     STUFF FOR EDIT MEMBER       #################

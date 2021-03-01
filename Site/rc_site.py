@@ -31,16 +31,15 @@ def qprep(db, string):
     result = db.prepare(string)
     return result
 
-def get_user(email):
+def get_user(username):
     db = connect()
-    ps = qprep(db,"SELECT username,email,pwhash,role FROM logins WHERE email=:e")
-    result = ps.run(e=email)
+    ps = qprep(db,"SELECT username,pw_hash,role FROM admin_dashboard_logins WHERE username=:u")
+    result = ps.run(u=username)
     if(result):
         return {
                 'username':result[0][0],
-                'email':result[0][1],
-                'password':result[0][2],
-                'role':result[0][3],
+                'password':result[0][1],
+                'role':result[0][2],
                 }
     else:
         return None
@@ -136,17 +135,20 @@ def login():
 @app.route('/add-member', methods=['GET','POST'])
 @flask_login.login_required
 def add_member():
+    num = 30
     confirmation = ''
     warning = ''
     teams = pgtool.get_teams()
+    defaut_grad_date = 'April 2023'
     if flask.request.method == 'GET':
         next_member_id = pgtool.get_next_member_id()
-        recent_members = pgtool.get_recent_members(30)
+        recent_members = pgtool.get_recent_members(num)
         return render_template('add-member.html',
                 teams=teams,
                 next_member_id=next_member_id,
                 recent_members=recent_members,
-                num = 30
+                num = num,
+                defaut_grad_date = defaut_grad_date
                 )
 
     elif flask.request.method == 'POST':
@@ -154,6 +156,12 @@ def add_member():
         name = request.form['name']
         division = request.form['division']
         team = request.form['team']
+        grad_date = request.form['grad_date']
+        parent_name = request.form['parent_name']
+        parent_email = request.form['parent_email']
+        parent_phone = request.form['parent_phone']
+        cost = request.form['cost']
+        scholarship = request.form['scholarship']
 
         member_exists = pgtool.test_member_id(current_id)
 
@@ -168,16 +176,18 @@ def add_member():
         else:
             name = name.title()
             confirmation = 'Member Added ' + str(current_id) + ' ' + name
-            pgtool.add_new_member(name,division,team)
+            pgtool.add_new_member(current_id,name,division,team,grad_date)
+            pgtool.add_parent(current_id,parent_name,parent_email,parent_phone,cost,scholarship)
 
-        recent_members = pgtool.get_recent_members(20)
+        recent_members = pgtool.get_recent_members(num)
         next_member_id = pgtool.get_next_member_id()
         return render_template('add-member.html',
                 teams=teams,
                 next_member_id=next_member_id,
                 recent_members=recent_members,
-                num = 20,
+                num = num,
                 confirmation = confirmation,
+                defaut_grad_date = defaut_grad_date,
                 warning = warning
                 )
 
@@ -665,7 +675,26 @@ def show_leaderboard():
                 parents_night_leaders=parents_night_leaders
             )
 
-
+def add_user(username,password,role):
+    db = connect()
+    pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+    COMMAND = f"INSERT INTO admin_dashboard_logins(username,pw_hash,role) VALUES('{username}','{pw_hash}','{role}')"
+    db.run(COMMAND)
+    db.commit()
+    db.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
+
+
+
+
+
+
+
+
+
+
+
+
+

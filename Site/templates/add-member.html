@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='add-member/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
     <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/styles.css') }}">
@@ -17,17 +18,26 @@
     <div id="top-area"><span id="top-area-heading">Member</span><span id="top-area-subheading">Add New</span><span id="top-area-rightheading">RC Admin</span></div>
     <div id="input-form">
         <form method="post">
-            <h6>Member ID</h6><input class="form-control input-box" type="text" name="member_id_input" value="{{ next_member_id }}">
-            <h6 id="form-heading">Name</h6><input class="form-control input-box" type="text" name="name">
-            <h6 id="form-heading">Division</h6><input class="form-control" type="number" name="division">
-            <h6 id="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team">
-    <optgroup label="This is a group">
+            <h4>Member Info</h4>
+            <h6>Member ID</h6><input class="form-control input-box" type="text" name="member_id_input" value="{{ next_member_id }}" required="">
+            <h6 class="form-heading">Name</h6><input class="form-control input-box" type="text" name="name" required="">
+            <h6 class="form-heading">Division</h6><input class="form-control input-box" type="number" name="division" required="">
+            <h6 class="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team">
+    <optgroup label="select a team">
         <option value="" selected="",id="default-option">Select Team</option>
         {% for team in teams %}
         <option value="{{ team }}">{{ team }}</option>
         {% endfor %}
     </optgroup>
 </select>
+            <h6 class="form-heading">Graduation Date</h6><input class="form-control input-box" type="text" name="grad_date" value="{{ default_grad_date }}" required="">
+            <hr style="margin-top: 24px;margin-bottom: 17px;">
+            <h4 style="margin-top: 13px;">Parent Info</h4>
+            <h6>Parent's Name</h6><input class="form-control input-box" type="text" name="parent_name" required="">
+            <h6 class="form-heading">&nbsp;Parent's Email</h6><input class="form-control input-box" type="email" name="parent_email" required="">
+            <h6 class="form-heading">Parent's Phone Number</h6><input class="form-control input-box" type="tel" name="parent_phone" required="">
+            <h6 class="form-heading">Membership Cost (before scholarship)</h6><input class="form-control input-box num-input" type="number" value="{{default_cost}}" name="cost" required="">
+            <h6 class="form-heading">Scholarship Amount</h6><input class="form-control input-box num-input" type="number" name="scholarship" required="">
             <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_button_clicked()">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
         </form>
     </div>
@@ -56,7 +66,6 @@
 </div></div>
     <script src="{{ url_for('static', filename='add-member/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='add-member/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='add-member/js/fadeIn.js') }}"></script>
     <script src="{{ url_for('static', filename='add-member/js/loading-msg.js') }}"></script>
     <script src="{{ url_for('static', filename='add-member/js/navigation-buttons.js') }}"></script>
 </body>

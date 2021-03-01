@@ -24,23 +24,27 @@ def scan_folder(category,folder_id):
             
             for row in current_sheet:
                 if row[id_index] != 'Member ID' and '#' not in row[id_index]:
-                    item = sheet_name.replace('RF Store - ','').replace(' Purchase','')
                     member_id = row[id_index]
-                    price = int(row[rf_index]) * -1
-                    member_total = int(pgtool.get_member_total(member_id))
-                    member_uuid = pgtool.get_member_uuid(member_id)
+                    test = pgtool.test_member_id(member_id)
+                    if(test):
+                        item = sheet_name.replace('RF Store - ','').replace(' Purchase','')
+                        price = int(row[rf_index]) * -1
+                        member_total = int(pgtool.get_member_total(member_id))
+                        member_uuid = pgtool.get_member_uuid(member_id)
 
-                    if(member_total > (price * -1)):
-                        if(member_uuid != -1):
-                            pgtool.add_rf_transaction(member_id,'purchase',item,price)
-                            row[id_index] = '#' + row[id_index]
-                            is_edited = True
-                            print(member_id,'bought',item,'for',price)
+                        if(member_total > (price * -1)):
+                            if(member_uuid != -1):
+                                pgtool.add_rf_transaction(member_id,'purchase',item,price)
+                                row[id_index] = '#' + row[id_index]
+                                is_edited = True
+                                print(member_id,'bought',item,'for',price)
+                            else:
+                                print(Fore.WHITE+'['+Fore.YELLOW+'  warn  '+Fore.WHITE+']'+
+                                        ' invalid member id: ' + str(member_id))
                         else:
-                            print(Fore.WHITE+'['+Fore.YELLOW+'  warn  '+Fore.WHITE+']'+
-                                    ' invalid member id: ' + str(member_id))
+                            print(member_id,'NOT ENOUGH',item,price)
                     else:
-                        print(member_id,'NOT ENOUGH',item,price)
+                        print('Invalid member id')
 
             if is_edited:
                 rcdata.set_cells(sheet_id,'A1:1000',current_sheet)

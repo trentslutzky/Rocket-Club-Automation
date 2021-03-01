@@ -89,6 +89,11 @@ def add_vm_completion(member_id,vm_tag,category):
 
     return is_completed
 
+def test_member_id(member_id):
+    ps = db.prepare('SELECT member_uuid FROM rc_members WHERE member_id = :a')
+    result = ps.run(a=member_id)
+    return result
+
 ## get which missions are the missions for the current week
 def get_weekly_missions():
     ps = db.prepare('SELECT vm_tag FROM virtual_missions WHERE week=:v')
@@ -96,10 +101,10 @@ def get_weekly_missions():
     return result
 
 ## get the member name, team, and division based on member_id
-def get_member_info(member_i):
+def get_member_info(member_id):
     ps = db.prepare('SELECT name,team,division FROM members WHERE member_id=:v')
     result = ps.run(v=member_id)
-    return result1
+    return result
 
 
 ###########################################################################
