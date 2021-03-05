@@ -33,8 +33,9 @@
 
 #sidebar-heading-text {
   margin-left: 12px;
-  font-size: 90%;
+  font-size: 80%;
   text-align: left;
+  padding-left: 5px;
 }
 
 #main-page {
@@ -172,7 +173,7 @@ body {
 }
 
 #top-area-heading {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 #top-area-subheading {
@@ -221,6 +222,20 @@ body {
   flex-direction: column;
 }
 
+.dash-box {
+  background-color: white;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px rgba(128,128,128,0.52) solid;
+  border-top: 3px solid var(--sidebar_bg);
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
+  max-width: 700px;
+  display: inline-flex;
+  flex-direction: column;
+  width: 94%;
+}
+
 #input-form {
   background-color: white;
   margin: 10px;
@@ -254,7 +269,7 @@ body {
   border: 1px solid rgba(128,128,128,0.16);
 }
 
-#form-heading {
+.form-heading {
   margin-top: 10px;
 }
 
@@ -280,13 +295,13 @@ body {
 
 @media (min-width: 768px) {
   .input-box {
-    width: 400px !important;
+    width: 500px !important;
   }
 }
 
 @media (min-width: 768px) {
   #input-form {
-    width: 425px;
+    width: 525px;
   }
 }
 
@@ -353,7 +368,7 @@ body {
 #add-member-confirmation {
   color: var(--confirm_orange);
   margin-left: 20px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 #add-member-submit-area {
@@ -361,7 +376,7 @@ body {
 }
 
 #add-member-warning {
-  font-size: 12px;
+  font-size: 14px;
   color: red;
   margin-left: 20px;
 }
@@ -561,5 +576,29 @@ input[type=number] {
 
 #table-date {
   font-family: 'B612 Mono';
+}
+
+.dash-box-heading {
+  font-size: 22px;
+}
+
+#rcl-code {
+  font-family: 'B612 Mono';
+}
+
+.num-input {
+  width: 100px !important;
+}
+
+.table-input {
+  width: 111px;
+}
+
+.team-list-heading {
+  font-size: 20px;
+}
+
+.table {
+  font-size: 15px;
 }
 

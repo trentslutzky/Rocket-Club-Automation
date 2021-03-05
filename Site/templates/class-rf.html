@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>new_admin_dashbaord</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='class-rf/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="{{ url_for('static', filename='class-rf/css/styles.css') }}">
+</head>
+
+<body>
+    <div id="top-area"><span id="top-area-heading">In-class Rocket Fuel</span><span id="top-area-subheading">Add Rocket Fuel for members in class</span><span id="top-area-rightheading">RC Instructor</span></div>{% if not ready %}
+    <div id="input-form">
+        <form method="post"><input class="form-control" type="hidden" name="form_type" value="team_select"><select class="form-control input-box" id="select-input" type="text" name="team">
+    <optgroup label="select a team">
+        <option value="" selected="",id="default-option">Select Your Class</option>
+        {% for team in teams %}
+        <option value="{{ team }}">{{ team }}</option>
+        {% endfor %}
+    </optgroup>
+</select>
+            <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit">Load Students</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
+        </form>
+    </div>{% endif %}{% if ready %}
+<div id="add-member-lower-area">
+    <div id="recent-members-box">
+        <h1 class="team-list-heading">Add RF For {{team}}:<h1/>
+        <form method="post">    
+            <input class="form-control" type="hidden" name="form_type" value="rf-add" />
+            <input class="form-control" type="hidden" name="team" value="{{team}}" />
+            <div class="table-responsive table-bordered">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Current RF</th>
+                            <th>Add RF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in team_members %}
+                        <tr>
+                            <td>{{member.name}}</td>
+                            <td>{{member.total_rf}} RF</td>
+                            <td>
+                                <input class="table-input"type="number" value="0" name="{{member.uuid}}"/>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+<div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit">Enter</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+    <script src="{{ url_for('static', filename='class-rf/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='class-rf/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='class-rf/js/loading-msg.js') }}"></script>
+    <script src="{{ url_for('static', filename='class-rf/js/navigation-buttons.js') }}"></script>
+</body>
+
+</html>

@@ -46,6 +46,8 @@ def get_user(username):
 
 ###### STUFF FOR ADMIN-SITE  #########
 class User():
+    role = ''
+
     @property
     def is_active(self):
         return True
@@ -67,9 +69,11 @@ class User():
 @login_manager.user_loader
 def user_loader(username):
     print('user_loader')
-    if(not get_user(username)):
+    user_get = get_user(username)
+    if(not user_get):
         return
     user = User()
+    user.role = user_get['role']
     user.id = username
     return user
 
@@ -78,13 +82,14 @@ def user_loader(username):
 def request_loader(request):
     print('request_loader')
     username = request.form.get('username')
-    if(not get_user(username)):
+    user_get = get_user(username)
+    if(not user_get):
         return
     user = User()
     user.id = username
-    user_check = get_user(username)
+    user.role = user_get['role']
     if(bcrypt.check_password_hash(
-        user_check['password'],request.form['password'])
+        user_get['password'],request.form['password'])
         ):
         return user
     else:
@@ -92,18 +97,17 @@ def request_loader(request):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return flask.redirect(flask.url_for('admin'))
+    return flask.redirect(flask.url_for('dashboard'))
 
-@app.route('/admin')
-def admin():
+@app.route('/dashboard')
+@flask_login.login_required
+def dashboard():
     username = flask_login.current_user.get_id() 
-    print(flask_login.current_user)
-    if username == 'RCInstructor':
-        return render_template('admin-dashboard.html',instructor = True,username=username)
-    elif username == 'RocketClubAdmin':
-        return render_template('admin-dashboard.html',instructor = False,username=username)
-    else:
-        return flask.redirect(flask.url_for('login'))
+    role = flask_login.current_user.get_role() 
+    print(username,role)
+    return render_template('admin-dashboard.html',
+            username=username,
+            role=role)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -130,7 +134,7 @@ def login():
             user=User()
             user.id=username
             flask_login.login_user(user)
-            return redirect('admin')
+            return redirect('dashboard')
 
 @app.route('/add-member', methods=['GET','POST'])
 @flask_login.login_required
@@ -219,6 +223,42 @@ def edit_member():
                 results = results,
                 search_warning = search_warning)
 
+@app.route('/class-rf', methods=['GET','POST'])
+@flask_login.login_required
+def class_rf():
+    teams = pgtool.get_teams()
+    if flask.request.method == 'GET':
+        return render_template('class-rf.html', teams=teams,ready=False)
+
+    if flask.request.method == 'POST':
+        form_type = request.form['form_type']
+        team = request.form['team']
+
+        if form_type == 'team_select':
+            team_members = pgtool.get_team_members(team)
+            return render_template('class-rf.html', 
+                    team=team,
+                    team_members=team_members,
+                    ready=True)
+
+        elif form_type == 'rf-add':
+            amount_changed = 0
+            for line in request.form:
+                if line != 'form_type' and line != 'team':
+                    m_uuid = line
+                    amount = int(request.form[line])
+                    if amount != 0:
+                        pgtool.add_rf_transaction_uuid(m_uuid,'class','',amount)
+                        print(m_uuid,amount)
+                        amount_changed += 1
+            team_members = pgtool.get_team_members(team)
+            return render_template('class-rf.html', 
+                team=team,
+                team_members=team_members,
+                confirmation=f'Rocket Fuel added for {amount_changed} students.',
+                ready=True)
+
+
 @app.route('/member-detail', methods=['GET','POST'])
 @flask_login.login_required
 def member_detail():
@@ -228,11 +268,15 @@ def member_detail():
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
+        #NEED TO ADD PARENT FUNCTIONALITY
+        parent = {'name':'', 'email':'', 'phone':''}
         return render_template('member-detail.html',
                 member=member,
                 rf_transactions=rf_transactions,
                 total_rf=total_rf,
                 member_uuid=member_uuid,
+                parent=parent,
+                role=flask_login.current_user.get_role(),
                 teams=teams
                 )
 
@@ -265,6 +309,9 @@ def member_detail():
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
 
+        #NEED TO ADD PARENT FUNCTIONALITY
+        parent = {'name':'', 'email':'', 'phone':''}
+
         return render_template('member-detail.html',
                 member=member,
                 rf_transactions=rf_transactions,
@@ -272,7 +319,26 @@ def member_detail():
                 member_uuid=member_uuid,
                 warning=warning,
                 teams=teams,
-                confirmation=confirmation
+                confirmation=confirmation,
+                role=flask_login.current_user.get_role(),
+                parent=parent
+                )
+
+@app.route('/member-detail-view', methods=['GET'])
+@flask_login.login_required
+def member_detail_view():
+    teams = pgtool.get_teams()
+    if flask.request.method == 'GET':
+        member_uuid = request.args.get('m_uuid','')
+        member = pgtool.get_member_info_uuid(member_uuid)
+        rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
+        total_rf = pgtool.get_member_total_uuid(member_uuid)
+        return render_template('member-detail-view.html',
+                member=member,
+                rf_transactions=rf_transactions,
+                total_rf=total_rf,
+                member_uuid=member_uuid,
+                teams=teams
                 )
 
 @app.route('/add-rf', methods=['GET','POST'])

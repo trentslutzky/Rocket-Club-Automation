@@ -5,17 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>new_admin_dashbaord</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='./edit-member/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit-member/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
-    <link rel="stylesheet" href="{{ url_for('static', filename='./edit-member/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='./edit-member/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit-member/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit-member/css/styles.css') }}">
 </head>
 
 <body>
-    <div id="top-area"><span id="top-area-heading">Member Info</span><span id="top-area-subheading">Edit member information</span><span id="top-area-rightheading">RC Admin</span></div>
+    <div id="top-area"><span id="top-area-heading">Member Info</span><span id="top-area-subheading">View member information</span><span id="top-area-rightheading">RC Admin</span></div>
     <div id="input-form">
         <form method="post">
             <h6>Search for Member</h6>
@@ -30,7 +31,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Edit</th>
+                        <th></th>
                         <th>Member ID</th>
                         <th>Name</th>
                         <th>Division</th>
@@ -60,10 +61,10 @@
     </div>
 </div>
 {% endif %}
-    <script src="{{ url_for('static', filename='./edit-member/js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='./edit-member/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='./edit-member/js/loading-msg.js') }}"></script>
-    <script src="{{ url_for('static', filename='./edit-member/js/navigation-buttons.js') }}"></script>
+    <script src="{{ url_for('static', filename='edit-member/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='edit-member/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='edit-member/js/loading-msg.js') }}"></script>
+    <script src="{{ url_for('static', filename='edit-member/js/navigation-buttons.js') }}"></script>
 </body>
 
 </html>

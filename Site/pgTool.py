@@ -69,6 +69,14 @@ def get_vm_tag(sheet_id):
         return -1
     db.close()
 
+def add_rf_transaction_uuid(member_uuid,mtype,subtype,amount):
+    db = connect()
+    print(Fore.WHITE + 'adding RF ' + str(member_uuid) + '...')
+    command = f"INSERT INTO rf_transactions(member_uuid,type,subtype,amount) VALUES('{member_uuid}','{mtype}','{subtype}',{amount})"
+    db.run(command)
+    db.commit()
+    db.close()
+
 ## add a new rf_transaction row based on member_id, type, subtype and amount
 def add_rf_transaction(member_id,mtype,subtype,amount):
     db = connect()
@@ -313,13 +321,20 @@ def get_member_misc_rf(member_id):
 
 def get_team_members(team_name):
     db = connect()
-    result = []
-    ps = qprep(db,"SELECT name FROM rc_members where team=:a")
-    names = ps.run(a=team_name)
-    for name in names:
-        result.append(name[0])
+    members = []
+    COMMAND = f"SELECT name,member_uuid FROM rc_members WHERE team = '{team_name}'"
+    mems = db.run(COMMAND)
+    for m in mems:
+        member_uuid = m[1]
+        COMMAND = f"select sum(amount) from rf_transactions where member_uuid = '{member_uuid}'"
+        sum = db.run(COMMAND)[0][0]
+        members.append(
+            {'name':m[0],
+            'uuid':member_uuid,
+            'total_rf':sum}
+        )
     db.close()
-    return result
+    return members
 
 def get_instructor(team_name):
     db = connect()
@@ -568,7 +583,7 @@ def check_code(member_id,code):
 
 @timer
 def main():
-    get_recent_rf_transactions('619e2d83-b9b6-43fe-bbd2-f148f1d98f76')
+    get_team_members('Noble NASAs')
 
 if __name__ == '__main__':
     main()
