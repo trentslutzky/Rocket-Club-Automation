@@ -32,6 +32,7 @@ def connect():
         host=secret.db['host'],            
         port=secret.db['port'],            
         database=secret.db['database'])    
+    db.run("set timezone = 'EST'")
     return db
 
 def qprep(db, string):
@@ -203,8 +204,9 @@ def get_member_info_uuid(member_uuid):
     return result[0]
 
 def get_recent_rf_transactions(member_uuid):
+    print('Loadding rf transactions for',member_uuid)
     db = connect()
-    ps = qprep(db,"SELECT type,amount,completed from rf_transactions where member_uuid = :a order by transaction_id desc limit 20")
+    ps = qprep(db,"SELECT type,amount,completed,subtype from rf_transactions where member_uuid = :a order by transaction_id desc limit 20")
     transactions = ps.run(a=member_uuid)
     db.close()
     results = []
@@ -214,9 +216,9 @@ def get_recent_rf_transactions(member_uuid):
         results.append({
             'type':t[0],
             'amount':t[1],
-            'date':t[2].astimezone(est).strftime(date_fmt)
+            'date':t[2].strftime(date_fmt),
+            'subtype':t[3]
             })
-    print(results[0]['date'])
     return results
 
 def get_member_total(member_id):
@@ -319,22 +321,76 @@ def get_member_misc_rf(member_id):
 ###################      STUFF FOR TEAM STATS     #########################
 ###########################################################################
 
+def update_attendance(team_name,attended):
+    db = connect()
+    members = []
+    COMMAND = f"SELECT member_uuid from rc_members where team = '{team_name}'"
+    member_uuids = db.run(COMMAND)
+    for member_uuid in member_uuids:
+        member_uuid = str(member_uuid[0])
+        db.run(f"delete from rf_transactions where date(completed) = current_date and type='class' and subtype='attendance' and member_uuid='{member_uuid}'")
+        db.commit()
+        if str(member_uuid) in attended:
+            add_rf_transaction_uuid(str(member_uuid),'class','attendance',50)
+    db.close()
+
 def get_team_members(team_name):
     db = connect()
     members = []
-    COMMAND = f"SELECT name,member_uuid FROM rc_members WHERE team = '{team_name}'"
+    COMMAND = f"SELECT name,member_id,member_uuid FROM rc_members WHERE team = '{team_name}' order by name"
     mems = db.run(COMMAND)
     for m in mems:
-        member_uuid = m[1]
+        member_uuid = m[2]
         COMMAND = f"select sum(amount) from rf_transactions where member_uuid = '{member_uuid}'"
         sum = db.run(COMMAND)[0][0]
         members.append(
             {'name':m[0],
+             'member_id':m[1],
             'uuid':member_uuid,
+            'attendance':get_attendance(member_uuid),
+            'competition':get_class_subtype(member_uuid,'competition'),
+            'wheel':get_class_subtype(member_uuid,'wheel'),
+            'kahoot':get_class_subtype(member_uuid,'kahoot'),
+            'bonus':get_class_subtype(member_uuid,'bonus'),
             'total_rf':sum}
         )
     db.close()
     return members
+
+def get_current_time():
+    db = connect()
+    COMMAND = "SELECT now()::timestamp(0);"
+    date_time_str = str(db.run(COMMAND)[0][0])
+    date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%d %H:%M:%S')
+    return (date_time_obj.strftime('%m/%-d %H:%M'))
+
+def update_class_category(member_uuid,subtype,amount):
+    print('updating',subtype,'for',member_uuid)
+    db = connect()
+    COMMAND = (f"delete from rf_transactions where date(completed) = current_date and type='class' and subtype='{subtype}' and member_uuid='{member_uuid}'")
+    db.run(COMMAND)  
+    db.commit()
+    db.close()
+    add_rf_transaction_uuid(member_uuid,'class',subtype,amount)
+
+def get_class_subtype(member_uuid,subtype):
+    db = connect()
+    ps = qprep(db,f"select sum(amount) from rf_transactions where date(completed) = current_date and type='class' and subtype='{subtype}' and member_uuid='{member_uuid}'")
+    result = ps.run()
+    db.close()
+    if not result[0][0]:
+        result[0][0] = 0
+    return result[0][0]
+
+def get_attendance(member_uuid):
+    db = connect()
+    ps = qprep(db,f"select count(*) from rf_transactions where date(completed) = current_date and type='class' and subtype='attendance' and member_uuid='{member_uuid}'")
+    result = ps.run()
+    db.close()
+    if result[0][0] == 1:
+        return True
+    else:
+        return False
 
 def get_instructor(team_name):
     db = connect()
@@ -583,7 +639,8 @@ def check_code(member_id,code):
 
 @timer
 def main():
-    get_team_members('Noble NASAs')
+    print(get_attendance('fe8385fa-c8cf-495b-b128-29c407153af2'))
+    print(get_attendance('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
 
 if __name__ == '__main__':
     main()

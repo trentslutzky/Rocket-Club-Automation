@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/Font%20Awesome%205%20Brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/Font%20Awesome%205%20Free.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/checkbox.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/styles.css') }}">
 </head>
 
@@ -71,6 +74,7 @@
                 <tr>
                     <th>Amount</th>
                     <th>Type</th>
+                    <th>Subype</th>
                     <th>Timestamp</th>
                 </tr>
             </thead>
@@ -79,6 +83,7 @@
                 <tr>
                     <td>{{t.amount}}</td>
                     <td>{{t.type}}</td>
+                    <td>{{t.subtype}}</td>
                     <td id="table-date">{{t.date}}</td>
                 </tr>
                 {% endfor %}

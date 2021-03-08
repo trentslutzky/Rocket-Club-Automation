@@ -236,6 +236,18 @@ body {
   width: 94%;
 }
 
+.class-rf-box {
+  background-color: white;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px rgba(128,128,128,0.52) solid;
+  border-top: 3px solid var(--sidebar_bg);
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
+  display: inline-flex;
+  flex-direction: column;
+}
+
 #input-form {
   background-color: white;
   margin: 10px;
@@ -274,6 +286,11 @@ body {
 }
 
 #submit-button {
+  background-color: var(--info);
+  border: none;
+}
+
+#class-rf-submit-button {
   background-color: var(--info);
   border: none;
 }
@@ -369,6 +386,12 @@ body {
   color: var(--confirm_orange);
   margin-left: 20px;
   font-size: 14px;
+}
+
+#class-rf-confirmation {
+  color: var(--confirm_orange);
+  margin-left: 20px;
+  font-size: 18px;
 }
 
 #add-member-submit-area {
@@ -576,10 +599,17 @@ input[type=number] {
 
 #table-date {
   font-family: 'B612 Mono';
+  font-size: 12px;
 }
 
 .dash-box-heading {
   font-size: 22px;
+}
+
+.class-rf-heading {
+  font-size: 21px;
+  margin-bottom: 3px;
+  text-align: center;
 }
 
 #rcl-code {
@@ -592,6 +622,12 @@ input[type=number] {
 
 .table-input {
   width: 111px;
+  border: 1px solid rgba(0,107,130,0.28);
+  border-radius: 5px;
+  height: 30px;
+  font-size: 17px;
+  font-family: 'B612 Mono';
+  padding-left: 5px;
 }
 
 .team-list-heading {
@@ -600,5 +636,24 @@ input[type=number] {
 
 .table {
   font-size: 15px;
+}
+
+.table-checkbox:checked + label {
+}
+
+input[type=checkbox]:checked + label {
+  box-sizing: border-box;
+}
+
+.class-rf-table {
+  border: 2px solid rgb(203,203,203);
+}
+
+.class-rf-back-link {
+  position: absolute;
+}
+
+#class-rf-submit-area {
+  margin-top: 11px;
 }
 

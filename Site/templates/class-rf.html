@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='class-rf/css/Font%20Awesome%205%20Brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='class-rf/css/Font%20Awesome%205%20Free.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="{{ url_for('static', filename='class-rf/css/checkbox.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='class-rf/css/styles.css') }}">
 </head>
 
@@ -25,41 +28,42 @@
         {% endfor %}
     </optgroup>
 </select>
-            <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit">Load Students</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
+            <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="load_class()">Load Students</button><span id="load-class-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
         </form>
-    </div>{% endif %}{% if ready %}
-<div id="add-member-lower-area">
-    <div id="recent-members-box">
-        <h1 class="team-list-heading">Add RF For {{team}}:<h1/>
-        <form method="post">    
-            <input class="form-control" type="hidden" name="form_type" value="rf-add" />
-            <input class="form-control" type="hidden" name="team" value="{{team}}" />
-            <div class="table-responsive table-bordered">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Member</th>
-                            <th>Current RF</th>
-                            <th>Add RF</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for member in team_members %}
-                        <tr>
-                            <td>{{member.name}}</td>
-                            <td>{{member.total_rf}} RF</td>
-                            <td>
-                                <input class="table-input"type="number" value="0" name="{{member.uuid}}"/>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-<div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit">Enter</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>            </div>
-        </form>
-    </div>
+    </div>{% endif %}
+    <hr>{% if ready %}
+    <div class="class-rf-box">
+        <div></div><a class="class-rf-back-link" href="class-rf">⬅️ Back</a><span class="class-rf-heading"><span class="dash-box-heading" style="color: rgb(101,181,119);"><strong>{{date}}</strong></span>&nbsp;Attendance &amp; RF for&nbsp;<span class="dash-box-heading" style="color: var(--edit_button_hover);"><strong>{{team}}</strong></span></span>
+        <form method="post"><input class="form-control" type="hidden" name="team" value="{{team}}"><input class="form-control" type="hidden" name="form_type" value="rf-add"><div class="table-responsive table-bordered class-rf-table">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th colspan="2">Member</th>
+                <th>Attendance</th>
+                <th>Wheel Wins</th>
+                <th>Kahoot Wins</th>
+                <th>Bonus</th>
+                <th>Competition</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for member in team_members%}
+            <tr>
+                <td>{{member.name}}</td>
+                <td>{{member.member_id}}</td>
+                <td class="text-center"><input type="checkbox" value="{{member.uuid}}" name="attendance" {% if member.attendance %}checked{% endif%}/></td>
+                <td><input type="number" class="table-input" name="{{member.uuid}}!wheel" value="{%if member.wheel%}{{member.wheel}}{%else%}0{%endif%}"/></td>
+                <td><input type="number" class="table-input" name="{{member.uuid}}!kahoot" value="{%if member.kahoot%}{{member.kahoot}}{%else%}0{%endif%}"/></td>
+                <td><input type="number" class="table-input" name="{{member.uuid}}!bonus" value="{%if member.bonus%}{{member.bonus}}{%else%}0{%endif%}"/></td>
+                <td><input type="number" class="table-input" name="{{member.uuid}}!competition" value="{%if member.competition%}{{member.competition}}{%else%}0{%endif%}"/></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
 </div>
-{% endif %}
+            <div class="d-md-flex justify-content-md-start align-items-md-center" id="class-rf-submit-area"><button class="btn btn-primary" id="class-rf-submit-button" onclick="class_rf_update()">&nbsp; Update&nbsp;&nbsp;</button><img id="class-loading-gif" class="loading-gif" src="{{ url_for('static', filename='class-rf/img/ajax-loader.gif') }}"><span id="class-rf-confirmation">{{ confirmation }}</span></div>
+        </form>
+    </div>{% endif %}
     <script src="{{ url_for('static', filename='class-rf/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='class-rf/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='class-rf/js/loading-msg.js') }}"></script>

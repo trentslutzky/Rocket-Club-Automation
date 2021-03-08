@@ -16,6 +16,9 @@ bcrypt = Bcrypt(app)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
+from datetime import date
+
+
 ##### DATABASE FUNCTIONS     ########
 
 def connect():           
@@ -24,6 +27,7 @@ def connect():
         host=secret.db['host'],            
         port=secret.db['port'],            
         database=secret.db['database'])    
+    db.run("set timezone = 'EST'")
     return db
 
 def qprep(db, string):
@@ -226,6 +230,9 @@ def edit_member():
 @app.route('/class-rf', methods=['GET','POST'])
 @flask_login.login_required
 def class_rf():
+    today = date.today()
+    dt = today.strftime("%B %-d")
+
     teams = pgtool.get_teams()
     if flask.request.method == 'GET':
         return render_template('class-rf.html', teams=teams,ready=False)
@@ -233,29 +240,48 @@ def class_rf():
     if flask.request.method == 'POST':
         form_type = request.form['form_type']
         team = request.form['team']
+        team_members = pgtool.get_team_members(team)
 
         if form_type == 'team_select':
-            team_members = pgtool.get_team_members(team)
             return render_template('class-rf.html', 
+                    date=dt,
                     team=team,
                     team_members=team_members,
                     ready=True)
 
         elif form_type == 'rf-add':
+            print('class-rf-add',team)
+            attended = request.form.getlist('attendance')
+            print('attended:',attended)
+            pgtool.update_attendance(team,attended)
             amount_changed = 0
+
             for line in request.form:
-                if line != 'form_type' and line != 'team':
-                    m_uuid = line
-                    amount = int(request.form[line])
-                    if amount != 0:
-                        pgtool.add_rf_transaction_uuid(m_uuid,'class','',amount)
-                        print(m_uuid,amount)
-                        amount_changed += 1
+                if line != 'form_type' and line != 'team' and line != 'attendance':
+                    amount = request.form[line]
+                    line_split = line.split('!')
+                    member_uuid = line_split[0]
+                    subtype = line_split[1]
+                    t_type = 'class'
+                    current_amount = 0
+
+                    for member in team_members:
+                        if str(member['uuid']) == member_uuid:
+                            if member[subtype]:
+                                current_amount = member[subtype]
+
+                    if int(amount) != current_amount:
+                        amount_changed = amount_changed + 1
+                        print(member_uuid,t_type,subtype,amount)
+                        pgtool.update_class_category(member_uuid,subtype,amount)
+
             team_members = pgtool.get_team_members(team)
+            current_time = pgtool.get_current_time()
             return render_template('class-rf.html', 
+                date=dt,
                 team=team,
                 team_members=team_members,
-                confirmation=f'Rocket Fuel added for {amount_changed} students.',
+                confirmation=f'Updated {current_time}',
                 ready=True)
 
 
