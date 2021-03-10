@@ -13,6 +13,7 @@ def main():
     r_css = ".css') }}\""
     r_js = ".js') }}\""
     r_png = ".png') }}\""
+    r_gif = ".gif') }}\""
     r_bg = ".png')}});"
     file_to_edit = open(html_file)
     lines = file_to_edit.readlines()
@@ -28,6 +29,7 @@ def main():
             line = line.replace('.css"',r_css)
             line = line.replace('.js"',r_js)
             line = line.replace('.png);',r_bg)
+            line = line.replace('.gif"',r_gif)
             line = line.replace('.png"',r_png)
             write_file = True
         new_lines.append(line)

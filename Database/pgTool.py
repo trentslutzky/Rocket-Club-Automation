@@ -29,6 +29,7 @@ def timer(function):
         end_time = time.time_ns()
         time_elapsed = (str(int((end_time-start_time) / 1000000)) + 'ms')
         print(time_elapsed)
+    db.run("set timezone = 'EST'")
     return rapper
 
 

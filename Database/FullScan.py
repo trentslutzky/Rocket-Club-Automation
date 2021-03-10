@@ -49,7 +49,6 @@ def main():
         scanTriviaWinners.main()
         scanWheelWinners.main()
         scanParentsNightWinners.main()
-        updateClassRF.main()
         scanRCLOther.main()
 
 if __name__ == '__main__':
