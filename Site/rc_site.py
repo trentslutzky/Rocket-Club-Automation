@@ -16,6 +16,8 @@ bcrypt = Bcrypt(app)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
+import datetime
+from datetime import datetime
 from datetime import date
 
 
@@ -231,8 +233,8 @@ def edit_member():
 @flask_login.login_required
 def class_rf():
     today = date.today()
-    dt = today.strftime("%B %-d")
-
+    dt = pgtool.get_date_today()
+    date_string = dt.strftime('%B %-d')
     teams = pgtool.get_teams()
     if flask.request.method == 'GET':
         return render_template('class-rf.html', teams=teams,ready=False)
@@ -244,7 +246,7 @@ def class_rf():
 
         if form_type == 'team_select':
             return render_template('class-rf.html', 
-                    date=dt,
+                    date=date_string,
                     team=team,
                     team_members=team_members,
                     ready=True)
@@ -281,7 +283,7 @@ def class_rf():
             team_members = pgtool.get_team_members(team)
             current_time = pgtool.get_current_time()
             return render_template('class-rf.html', 
-                date=dt,
+                date=date_string,
                 team=team,
                 team_members=team_members,
                 confirmation=f'Updated {current_time}',

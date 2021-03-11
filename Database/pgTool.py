@@ -214,10 +214,9 @@ def get_team_vms_completed(team_name):
     result.append(ps.run(a=team_name)[0][0])
     return result
 
-def get_member_class_rf(member_id):
-    uuid = get_member_uuid(member_id)
-    ps = db.prepare("SELECT sum(amount) from rf_transactions where member_uuid=:a and type = 'class';")
-    result = ps.run(a=uuid)
+def get_member_class_rf(member_uuid):
+    ps = db.prepare("SELECT sum(amount) from rf_transactions where member_uuid=:a and type = 'class'")
+    result = ps.run(a=member_uuid)
     return result[0][0]
 
 @timer
