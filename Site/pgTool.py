@@ -627,6 +627,12 @@ def get_date_today():
     today = date.today()
     return today
 
+def get_db_date():
+    db = connect()
+    result = db.run("select current_date")
+    db.close()
+    return result[0][0]
+
 def check_code(member_id,code):
     today = get_date_today()
     db = connect()

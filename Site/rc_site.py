@@ -233,7 +233,8 @@ def edit_member():
 @flask_login.login_required
 def class_rf():
     today = date.today()
-    dt = pgtool.get_date_today()
+    dt = pgtool.get_db_date()
+    print(type(dt),dt)
     date_string = dt.strftime('%B %-d')
     teams = pgtool.get_teams()
     if flask.request.method == 'GET':
