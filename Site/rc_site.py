@@ -264,6 +264,9 @@ def class_rf():
                     subtype = line_split[1]
                     t_type = 'class'
                     current_amount = 0
+                    amount = amount.replace(' ','')
+                    if amount = '':
+                        amount = 0
 
                     for member in team_members:
                         if str(member['uuid']) == member_uuid:
