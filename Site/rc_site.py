@@ -265,7 +265,7 @@ def class_rf():
                     t_type = 'class'
                     current_amount = 0
                     amount = amount.replace(' ','')
-                    if amount = '':
+                    if amount == '':
                         amount = 0
 
                     for member in team_members:
