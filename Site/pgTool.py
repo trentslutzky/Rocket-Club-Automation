@@ -352,6 +352,7 @@ def get_team_members(team_name):
             'wheel':get_class_subtype(member_uuid,'wheel'),
             'kahoot':get_class_subtype(member_uuid,'kahoot'),
             'bonus':get_class_subtype(member_uuid,'bonus'),
+            'participation':get_class_subtype(member_uuid,'participation'),
             'total_rf':sum}
         )
     db.close()

@@ -40,6 +40,7 @@
             <tr>
                 <th colspan="2">Member</th>
                 <th>Attendance</th>
+                <th>Participation</th>
                 <th>Wheel Wins</th>
                 <th>Kahoot Wins</th>
                 <th>Bonus</th>
@@ -52,7 +53,8 @@
                 <td>{{member.name}}</td>
                 <td>{{member.member_id}}</td>
                 <td class="text-center"><input type="checkbox" value="{{member.uuid}}" name="attendance" {% if member.attendance %}checked{% endif%}/></td>
-                <td><input type="number" class="table-input" name="{{member.uuid}}!wheel" value="{%if member.wheel%}{{member.wheel}}{%else%}0{%endif%}"/></td>
+                <td><input type="number" class="table-input" name="{{member.uuid}}!participation" value="{%if member.participation%}{{member.participation}}{%else%}0{%endif%}"/></td>
+                <td><input type="number" class="table-input" name="{{member.uuid}}!wheel" value="{%if member.wheel%}{{member.wheel}}{%else%}0{%endif%}"/></td>  
                 <td><input type="number" class="table-input" name="{{member.uuid}}!kahoot" value="{%if member.kahoot%}{{member.kahoot}}{%else%}0{%endif%}"/></td>
                 <td><input type="number" class="table-input" name="{{member.uuid}}!bonus" value="{%if member.bonus%}{{member.bonus}}{%else%}0{%endif%}"/></td>
                 <td><input type="number" class="table-input" name="{{member.uuid}}!competition" value="{%if member.competition%}{{member.competition}}{%else%}0{%endif%}"/></td>
