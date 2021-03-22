@@ -33,7 +33,7 @@ def timer(function):
     return rapper
 
 
-## retrieve the member_uuid from the members table based on member_id
+## retrieve the member_uuid from the rc_members table based on member_id
 def get_member_uuid(member_id):
     try:
         ps = db.prepare('SELECT member_uuid FROM rc_members WHERE member_id=:v')
@@ -103,7 +103,7 @@ def get_weekly_missions():
 
 ## get the member name, team, and division based on member_id
 def get_member_info(member_id):
-    ps = db.prepare('SELECT name,team,division FROM members WHERE member_id=:v')
+    ps = db.prepare('SELECT name,team,division FROM rc_members WHERE member_id=:v')
     result = ps.run(v=member_id)
     return result
 
@@ -113,65 +113,65 @@ def get_member_info(member_id):
 ###########################################################################
 
 def get_member_info(member_id):
-    ps = db.prepare("SELECT name,division,team from members where member_id = :a")
+    ps = db.prepare("SELECT name,division,team from rc_members where member_id = :a")
     result = ps.run(a=member_id)
     result[0][1] = 'Division ' + str(result[0][1])
     return result[0]
 
 def get_member_total(member_id):
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=rc_members.member_uuid WHERE member_id=:a")
     result = ps.run(a=member_id)
     return result[0][0]
 
 def get_vm_total_rf(member_id):
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:d and type='virtual_mission'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=rc_members.member_uuid WHERE member_id=:d and type='virtual_mission'")
     result = ps.run(d=member_id)[0][0]
     return result
 
 def get_member_vms_completed(member_id):
     result = []
-    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='rob_ov';")
+    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='rob_ov';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='coding_ov';")
+    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='coding_ov';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='python_1';")
+    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='python_1';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='robotics_1';")
+    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='robotics_1';")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='ent_1';")
+    ps = db.prepare("SELECT COUNT(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE member_id=:a AND category='ent_1';")
     result.append(ps.run(a=member_id)[0][0])
     return(result)
 
 def get_member_rcl_rf(member_id):
     result = []
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='attendance'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='attendance'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='trivia'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='trivia'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='parents_night'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcl' and subtype='parents_night'")
     result.append(ps.run(a=member_id)[0][0])
     return result
 
 def get_member_misc_rf(member_id):
     result = []
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='boost'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='boost'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcgt'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='rcgt'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='wheel_of_names'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='wheel_of_names'")
     result.append(ps.run(a=member_id)[0][0])
-    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='class'")
+    ps = db.prepare("SELECT sum(rf_transactions.amount) FROM rf_transactions LEFT JOIN rc_members ON rf_transactions.member_uuid=members.member_uuid WHERE member_id=:a and type='class'")
     result.append(ps.run(a=member_id)[0][0])
     return result
 ###########################################################################
 ###################      STUFF FOR TEAM STATS     #########################
 ###########################################################################
 
-def get_team_members(team_name):
+def get_team_rc_members(team_name):
     result = []
-    ps = db.prepare("SELECT name FROM members where team=:a")
+    ps = db.prepare("SELECT name FROM rc_members where team=:a")
     names = ps.run(a=team_name)
     for name in names:
         result.append(name[0])
@@ -196,21 +196,21 @@ def get_current_weekly_missions_completed(team_name):
     result = []
     for vm in weekly_missions:
         tag = vm[0]
-        ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and vm_tag=:b")
+        ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and vm_tag=:b")
         result.append(ps.run(a=team_name,b=tag)[0][0])
     return result
 
 def get_team_vms_completed(team_name):
     result = []
-    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='rob_ov'")
+    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='rob_ov'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='coding_ov'")
+    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='coding_ov'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='python_1'")
+    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='python_1'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='robotics_1'")
+    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='robotics_1'")
     result.append(ps.run(a=team_name)[0][0])
-    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='ent_1'")
+    ps = db.prepare("SELECT count(*) FROM vm_completions LEFT JOIN rc_members ON vm_completions.member_uuid=members.member_uuid WHERE team=:a and category='ent_1'")
     result.append(ps.run(a=team_name)[0][0])
     return result
 

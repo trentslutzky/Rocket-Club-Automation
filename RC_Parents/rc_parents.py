@@ -208,12 +208,17 @@ def get_membership(user_id):
 def get_team(team_name):
     db = connect()
     ps = qprep(db,"SELECT team_name,instructor,day,time FROM teams WHERE team_name=:n")
-    result = ps.run(n=team_name)
+    team = ps.run(n=team_name)
+    instructor = team[0][1]
+    ps = qprep(db,f"SELECT * from zoom_links where name = '{instructor}'")
+    zoom = ps.run()
     return {
-            'team_name':result[0][0],
-            'instructor':result[0][1],
-            'day':result[0][2],
-            'time':result[0][3]}
+            'team_name':team[0][0],
+            'instructor':instructor,
+            'zoom_link':zoom[0][1],
+            'zoom_password':zoom[0][2],
+            'day':team[0][2],
+            'time':team[0][3]}
     db.close()
 
 @app.route('/dashboard', methods=['GET','POST'])

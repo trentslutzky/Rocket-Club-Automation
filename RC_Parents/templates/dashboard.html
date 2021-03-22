@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Parent_Dashboard</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='dashboard/img/RCFavicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='dashboard/img/RCFavicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
@@ -36,7 +38,7 @@
     <p class="dashboard-text">{{student.team.team_name}}</p>
     <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
     <p class="dashboard-text">Instuctor: {{student.team.instructor}}</p>
-    <!--<p class="dashboard-text">Zoom: {{student.team.link}}</p>-->
+    <p class="dashboard-text">Zoom Link: <a href='{{student.team.zoom_link}}'>zoom.us</a> {%if zoom_password != 'none'%} Password: {{student.team.zoom_password}}{%endif%}</p>
 </div>
 {% endfor %}</div>
             <div class="dashboard-section">
@@ -72,11 +74,8 @@
                     <div class="tuition-subsection">
                         <h1 class="dashboard-text-bold tuition-label">Your Portion of Tuition</h1>
 			<h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}}&nbsp; {% if students|length > 1 %}Per Member{% endif %}</h1>
-                    </div>
+                    </div><span id="billing-statement" class="dashboard-text">Looking for a billing reciept? Email admin@officialrocketclub.com</span>
                 </div>
-                <form method="post"><button class="btn btn-primary button-link" type="submit">Request billing receipt</button>
-                    <p class="confirmation">{{ receipt_confirmation }}</p>
-                </form>
             </div>
             <div class="dashboard-section">
                 <h1 class="dashboard-heading"><i class="fa fa-question-circle"></i>&nbsp;Help Desk</h1>

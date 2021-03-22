@@ -535,3 +535,8 @@ footer {
   font-size: 17px;
 }
 
+#billing-statement {
+  font-size: 15px;
+  color: grey;
+}
+
