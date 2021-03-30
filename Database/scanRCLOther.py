@@ -5,6 +5,7 @@ import pgTool as pgtool
 
 launchpad_folder_id = "'1OUtf4janBlXOHrkzZeHn8A81N38ocXMj'"
 tech_tuesday_folder_id = "'1eNM_Bio1s1TfXC9iSBZi4UuHtCtSuDAb'"
+competition_sheet_id = '19eGaqcyhEquglXA9c77lRLcXAiYZt9hQlIca44iEvEc'
 
 def parse_score(scoreString):
     scoreSplit = str(scoreString).split()
@@ -89,10 +90,34 @@ def scan_tech_tuesday():
             if sheet_needs_updating:
                 rcdata.set_cells(sheet['id'],'A1:1000',current_sheet)
 
+def scan_competition_rf():
+        current_sheet = rcdata.get_cells(competition_sheet_id,'A1:G','competition rf') 
+        id_index = 1
+        score_index = 3
+        
+        sheet_needs_updating = False
+        for row in current_sheet:
+            if current_sheet.index(row) > 0:
+                new_score = parse_score(row[score_index])
+                member_id = row[id_index]
+                if('#' not in member_id):
+                    uuid = pgtool.get_member_uuid(member_id)
+                    if(uuid != -1):
+                        pgtool.add_rf_transaction(int(member_id),'rcl','competition',int(new_score))
+                        row[id_index] = '#' + row[id_index]
+                        sheet_needs_updating = True
+                    else:
+                        print('[' + Fore.YELLOW + '  warn  ' + Fore.WHITE + ']' + 
+                                ' invalid member id: ' + member_id)
+        if sheet_needs_updating:
+            rcdata.set_cells(competition_sheet_id,'A1:G',current_sheet)
+
 def main():
-    print(Fore.BLUE + 'Updating RCL Tech Tuedsay & Launchpad')
-    scan_launchpad()
-    scan_tech_tuesday()
+    print(Fore.BLUE + 'Scanning RCL Other')
+    #scan_launchpad()
+    #scan_tech_tuesday()
+    scan_competition_rf()
+
 if __name__ == '__main__':
     main()
 
