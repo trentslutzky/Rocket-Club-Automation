@@ -540,3 +540,10 @@ footer {
   color: grey;
 }
 
+#signups-heading {
+  color: white;
+  font-family: 'Poppins';
+  font-size: 25px;
+  margin-top: 15px;
+}
+

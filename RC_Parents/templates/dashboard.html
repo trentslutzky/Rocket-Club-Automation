@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background: url({{ url_for('static', filename='dashboard/img/stars.png')}});">
+<html style="background: url({{ url_for('static', filename='dashboard/img/stars.png')}})">
 
 <head>
     <meta charset="utf-8">
@@ -38,7 +38,7 @@
     <p class="dashboard-text">{{student.team.team_name}}</p>
     <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
     <p class="dashboard-text">Instuctor: {{student.team.instructor}}</p>
-    <p class="dashboard-text">Zoom Link: <a href='{{student.team.zoom_link}}'>zoom.us</a> {%if zoom_password != 'none'%} Password: {{student.team.zoom_password}}{%endif%}</p>
+    <p class="dashboard-text">Zoom: {{student.team.zoom_link}} {%if zoom_password != 'none'%}{{student.team.zoom_password}}{%endif%}</p>
 </div>
 {% endfor %}</div>
             <div class="dashboard-section">
@@ -53,8 +53,14 @@
                     <div class="icon-button" href="asht"><a class="icon-button-link" href="https://docs.google.com/document/d/1D25KJ8DyF4Oj7cUjLDq1Mv7Ca1XslaApMCNaeE97NZs/edit" target="_blank"><i class="fa fa-list-ul"></i>
                             <h5>Communities Glossary</h5>
                         </a></div>
-                    <div class="icon-button" href="asht"><a class="icon-button-link" href="https://share.hsforms.com/1v6smWFeaQoWs3i2ceMaqqA4f233" target="_blank"><i class="fa fa-check-square-o"></i>
-                            <h5>Communities signup</h5>
+                </div>
+                <h1 id="signups-heading">Community Signups</h1>
+                <div id="link-button-container">
+                    <div class="icon-button" href="asht" style="width: 269px;"><a class="icon-button-link" href="https://docs.google.com/forms/d/1dOs8ADuAZv6p02jstD5i3bcWrr-Gj8yA6EJmYcUyQ8w/viewform?edit_requested=true" target="_blank"><i class="fa fa-code"></i>
+                            <h5>Coding Community Signup</h5>
+                        </a></div>
+                    <div class="icon-button" href="asht" style="width: 269px;"><a class="icon-button-link" href="https://docs.google.com/forms/d/e/1FAIpQLSe3tS2QxWoOu7wCZwbZGFbIrhjNpLwpo8AoJ4tMdwv3mihUig/viewform" target="_blank"><i class="fa fa-plug"></i>
+                            <h5>Robotics Community Signup</h5>
                         </a></div>
                 </div>
             </div>
@@ -73,7 +79,7 @@
                 <div id="tuition-section">
                     <div class="tuition-subsection">
                         <h1 class="dashboard-text-bold tuition-label">Your Portion of Tuition</h1>
-			<h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}}&nbsp; {% if students|length > 1 %}Per Member{% endif %}</h1>
+			<h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}} {% if students|length > 1 %}Per Member{% endif %}</h1>
                     </div><span id="billing-statement" class="dashboard-text">Looking for a billing reciept? Email admin@officialrocketclub.com</span>
                 </div>
             </div>
@@ -82,6 +88,13 @@
                 <div>
                     <p class="dashboard-paragraph">Notice an issue with your or your member's account? Email admin@rocketclub.com or fill out a request ticket below:</p>
                     <div><a class="dashboard-link" href="helpdesk">Fill out a help request</a></div>
+                </div>
+            </div>
+            <div class="dashboard-section">
+                <h1 class="dashboard-heading"><i class="fa fa-gear"></i>&nbsp;Account</h1>
+                <div>
+                    <p class="dashboard-paragraph">Click below to update you account information</p>
+                    <div><a class="dashboard-link" href="account">Account Settings</a></div>
                 </div>
             </div>
         </div>
