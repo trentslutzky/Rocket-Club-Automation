@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background: url({{ url_for('static', filename='dashboard/img/stars.png')}})">
+<html style="background: url({{ url_for('static', filename='dashboard/img/stars.png')}});">
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles_4564968196.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_login_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/welcome_page.css') }}">
 </head>
@@ -24,6 +25,7 @@
             <div id="header-buttons-right"><a href="logout"><span id="logout-button" class="header-text-grey"><span id="logout-text" class="hide-when-small">Log Out</span><i class="fa fa-sign-out" id="logout-icon"></i></span></a></div>
         </div>
         <div id="dashboard-page">
+            <div style="margin-bottom: 21px;"><a id="brochure-link" href="https://drive.google.com/file/d/1uWLBmMefo6YZWLoSJQYTCfKzUj6vOIGq/view" target="_blank">Rocket Club Brochure</a><span class="pulse animated infinite" id="new" title="test">new</span></div>
             <div class="dashboard-section"><h1 class="dashboard-heading"><i class="fa fa-user-circle-o">
     </i> Your Member{% if students|length > 1 %}<span>s</span>{% endif %}
 </h1>{% for student in students %}
@@ -81,6 +83,11 @@
                         <h1 class="dashboard-text-bold tuition-label">Your Portion of Tuition</h1>
 			<h1 id="membership-cost-number" class="dashboard-text tuition-number">$ {{membership.cost}} {% if students|length > 1 %}Per Member{% endif %}</h1>
                     </div><span id="billing-statement" class="dashboard-text">Looking for a billing reciept? Email admin@officialrocketclub.com</span>
+                </div>
+                <div id="link-button-container">
+                    <div id="payment-button" class="icon-button" href="asht" style="width: 269px;"><a class="icon-button-link" href="https://rocketclub.com/payment" target="_blank"><i class="fa fa-credit-card-alt"></i>
+                            <h5>Rocket Club Payment</h5>
+                        </a></div>
                 </div>
             </div>
             <div class="dashboard-section">
