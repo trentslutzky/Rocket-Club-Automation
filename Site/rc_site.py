@@ -6,6 +6,8 @@ import pgTool as pgtool
 import secret
 import pg8000
 import rcCerts as rccerts
+import qrcode
+import time
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
@@ -49,6 +51,17 @@ def get_user(username):
                 }
     else:
         return None
+
+####
+
+def timer(function):
+    def rapper():
+        start_time = time.time_ns()
+        function()
+        end_time = time.time_ns()
+        time_elapsed = (str(int((end_time-start_time) / 1000000)) + 'ms')
+        print('loaded in' + time_elapsed)
+    return rapper
 
 ###### STUFF FOR ADMIN-SITE  #########
 class User():
@@ -301,7 +314,7 @@ def member_detail():
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
         #NEED TO ADD PARENT FUNCTIONALITY
-        parent = {'name':'', 'email':'', 'phone':''}
+        parent = pgtool.get_parent(member_uuid)
         return render_template('member-detail.html',
                 member=member,
                 rf_transactions=rf_transactions,
@@ -342,7 +355,7 @@ def member_detail():
         total_rf = pgtool.get_member_total_uuid(member_uuid)
 
         #NEED TO ADD PARENT FUNCTIONALITY
-        parent = {'name':'', 'email':'', 'phone':''}
+        parent = pgtool.get_parent(member_uuid)
 
         return render_template('member-detail.html',
                 member=member,
@@ -365,12 +378,14 @@ def member_detail_view():
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
+        parent = pgtool.get_parent(member_uuid)
         return render_template('member-detail-view.html',
                 member=member,
                 rf_transactions=rf_transactions,
                 total_rf=total_rf,
                 member_uuid=member_uuid,
-                teams=teams
+                teams=teams,
+                parent=parent
                 )
 
 @app.route('/add-rf', methods=['GET','POST'])
@@ -546,28 +561,6 @@ def gate_loading():
     return render_template('gate.html',
             warning = 'LOADING...')
 
-@app.route('/rcl_attendance', methods=['GET', 'POST'])
-def rcl_attendance():
-    date = pgtool.get_date_today()
-    if flask.request.method == 'GET':
-        return render_template('rcl_attendance.html',date=date,get=True)
-    
-    if flask.request.method == 'POST':
-        member_id = flask.request.form['member_id']
-        code_input = flask.request.form['code']
-        print(member_id,code_input)
-        attendance_check = pgtool.check_code(member_id,code_input)
-        if(attendance_check):
-            return render_template('rcl_attendance.html',
-                    date=date,get=False,
-                    confirmation='Attendance confirmed for Trent Slutzky'
-                    )
-        else:
-            return render_template('rcl_attendance.html',
-                    date=date,get=True,
-                    warning='Invalid Code!')
-    
-
 @app.route('/stats', methods=['GET', 'POST'])
 def show_stats():
     if request.method == 'POST':
@@ -623,7 +616,7 @@ def show_stats():
             #entrepreneurship_rf = vm_categories_rf[3],
             #past_rf = vm_categories_rf[4],
             #extra_credit_rf = vm_categories_rf[5],
-            #n_robotics = vm_completions[0],
+            #n_robotics ' vm_completions[0],
             #n_coding = vm_completions[1],
             #n_python = vm_completions[2],
             #n_robotics_1 = vm_completions[3],
@@ -772,6 +765,20 @@ def show_leaderboard():
                 trivia_leaders=trivia_leaders,
                 parents_night_leaders=parents_night_leaders
             )
+@app.route('/rclcode')
+@flask_login.login_required
+def rcl_code_show():
+    #load current rcl attendance code and display it on a page.
+    rcl_code = pgtool.get_rcl_code_today()
+    filename = 'QR_'+rcl_code+'.png'
+    return render_template('rclcode.html',rcl_code=rcl_code,qr_file=filename)
+
+@app.route('/rcl-attendance')
+def rcl_attendance():
+    code = ''
+    if(request.args):
+        code = request.args['code']
+    return render_template('rcl-attendance.html',code=code)
 
 def add_user(username,password,role):
     db = connect()

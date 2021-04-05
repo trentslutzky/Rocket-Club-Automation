@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html style="background: url(/static/rclcode/img/stars.png);">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Rocket Club Live Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='rclcode/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rclcode/css/styles.css') }}">
+</head>
+
+<body class="d-flex d-xl-flex flex-column justify-content-start align-items-center justify-content-xl-start" style="background: rgba(255,255,255,0);"><img class="d-flex" id="rcl-header-image" src="{{ url_for('static', filename='rclcode/img/rcl_without_your_host.png') }}">
+    <h1 id="rcl-heading">Today's Attendance Code</h1>
+    <h1 id="code-heading">{{rcl_code}}</h1>
+    <div class="d-flex justify-content-center align-items-center" id="qr-code-box"><img id="qr-code" src="/static/rclcode/img/{{qr_file}}"></div><img id="prize-img-vis" src="{{ url_for('static', filename='rclcode/img/rcl_rank_prizes.png') }}">
+    <script src="{{ url_for('static', filename='rclcode/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='rclcode/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

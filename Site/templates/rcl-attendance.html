@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html style="background: url({{ url_for('static', filename='rcl-attendance/img/stars.png')}});background-color: black;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RCL Attendance Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-attendance/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-attendance/css/styles.css') }}">
+</head>
+
+<body class="d-flex d-xl-flex flex-column justify-content-start align-items-center justify-content-xl-start" style="background: rgba(255,255,255,0);"><img class="d-flex" id="rcl-header-image" src="{{ url_for('static', filename='rcl-attendance/img/rcl_without_your_host.png') }}">
+    <h1 id="rcl-heading">Attendance</h1>
+    <p class="rcl-p"><strong>Today's code will be given to you by Morgan during Rocket Club Live.&nbsp;</strong><br><strong>Enter your member ID and today's code to get your RCL Attendance!</strong><br><br><em>Sharing the code with someone outside the zoom meeting that day will result in loss of rocket fuel.</em></p>
+    <form class="d-flex d-xl-flex flex-column align-items-end justify-content-xl-center" id="attendance-form">
+        <div class="input-line"><label class="form-label">Member ID</label><input class="form-control space-input" type="number" name="member_id"></div>
+        <div class="input-line"><label class="form-label">Code</label><input class="form-control space-input" type="text" name="code" value="{{code}}"></div><button class="btn btn-primary" id="rcl-button" type="submit">Submit</button>
+    </form><img id="prize-img" src="{{ url_for('static', filename='rcl-attendance/img/rcl_rank_prizes.png') }}">
+    <script src="{{ url_for('static', filename='rcl-attendance/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl-attendance/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

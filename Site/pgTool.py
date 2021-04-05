@@ -5,6 +5,8 @@ import secret
 from time import sleep
 import datetime, pytz
 from datetime import date,timezone
+import os
+import qrcode
 # Initialize Colorama for pretty terminal colors #
 from colorama import init
 init()
@@ -580,6 +582,7 @@ def add_parent(assoc_member_id,name,email,phone,cost,scholarship):
     temp_password = get_random_alphanumeric_string(10)
     username = generate_username_from_name(name)
     pw_hash = bcrypt.generate_password_hash(temp_password).decode('utf-8')
+    print(temp_password)
     command = f"INSERT INTO parents(assoc_member,name, username, email, phone, tuition, scholarship, temp_password, pw_hash) VALUES('{assoc_member}','{name}','{username}','{email}','{phone}',{cost},{scholarship},'{temp_password}','{pw_hash}')"
     db.run(command)
     db.commit()
@@ -622,23 +625,46 @@ def get_member_name(member_id):
     except:
         return None
 
+def get_parent(member_uuid):
+    db = connect()
+    COMMAND = f"select name,email,phone,temp_password from parents where assoc_member = '{member_uuid}' limit 1;"
+    result = db.run(COMMAND)
+    parent = {
+            'name':result[0][0],
+            'email':result[0][1],
+            'phone':result[0][2],
+            'temp_pw':result[0][3],
+            }
+    print(parent)
+    return(parent)
+
+
 # Rocket Club Live Attendance #
 
-def get_date_today():
-    today = date.today()
-    return today
+#create a qr code and put in the right place
+def generate_qr_code(code):
+    filename = 'QR_'+code+'.png'
+    if (os.path.isfile('./static/rclcode/img/'+filename)):
+        print('QR exists.')
+    else:
+        data = "https://www.rocketclubtools.com/rcl-attendance?code="+code
+        qr = qrcode.QRCode(version=1, box_size=8, border=0)
+        qr.add_data(data)
+        qr.make()
+        img = qr.make_image(fill_color="white", back_color="transparent")
+        img.save('./static/rclcode/img/'+filename)
 
-def get_db_date():
+def get_rcl_code_today():
     db = connect()
-    result = db.run("select current_date")
-    db.close()
-    return result[0][0]
+    ps = qprep(db,"SELECT code FROM rcl_codes WHERE date = current_date")
+    result = ps.run()[0][0]
+    generate_qr_code(result)
+    return(result)
 
 def check_code(member_id,code):
-    today = get_date_today()
     db = connect()
-    ps = qprep(db,"SELECT code FROM rcl_codes WHERE date = :d")
-    result = ps.run(d=today)
+    ps = qprep(db,"SELECT code FROM rcl_codes WHERE date = current_date")
+    result = ps.run()
     if(result[0][0] == code):
         return True
     else:
@@ -646,37 +672,8 @@ def check_code(member_id,code):
 
 @timer
 def main():
-    print(get_attendance('fe8385fa-c8cf-495b-b128-29c407153af2'))
-    print(get_attendance('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
+    print(get_parent('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
