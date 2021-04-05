@@ -670,6 +670,11 @@ def check_code(member_id,code):
     else:
         return False
 
+def get_db_date():
+    db = connect()
+    result = db.run('select current_date')
+    return(result[0][0])
+
 @timer
 def main():
     print(get_parent('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
