@@ -629,12 +629,20 @@ def get_parent(member_uuid):
     db = connect()
     COMMAND = f"select name,email,phone,temp_password from parents where assoc_member = '{member_uuid}' limit 1;"
     result = db.run(COMMAND)
-    parent = {
-            'name':result[0][0],
-            'email':result[0][1],
-            'phone':result[0][2],
-            'temp_pw':result[0][3],
-            }
+    if result:
+        parent = {
+                'name':result[0][0],
+                'email':result[0][1],
+                'phone':result[0][2],
+                'temp_pw':result[0][3],
+                }
+    else:
+        parent = {
+                'name':'',
+                'email':'',
+                'phone':'',
+                'temp_pw':'',
+                }
     print(parent)
     return(parent)
 
