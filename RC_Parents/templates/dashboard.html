@@ -40,7 +40,7 @@
     <p class="dashboard-text">{{student.team.team_name}}</p>
     <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
     <p class="dashboard-text">Instuctor: {{student.team.instructor}}</p>
-    <p class="dashboard-text">Zoom: {{student.team.zoom_link}} {%if zoom_password != 'none'%}{{student.team.zoom_password}}{%endif%}</p>
+    <p class="dashboard-text"><a href="{{student.team.zoom_link}}">Zoom Link</a></p>
 </div>
 {% endfor %}</div>
             <div class="dashboard-section">
