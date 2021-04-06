@@ -175,10 +175,10 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
-def get_students(user_id):
+def get_students(email):
     db=connect()
-    ps = qprep(db,"SELECT assoc_member FROM parents WHERE user_id=:u")
-    member_ids = ps.run(u=user_id)
+    ps = qprep(db, "SELECT assoc_member FROM parents WHERE email=:e")
+    member_ids = ps.run(e=email)
     students = []
     for member_id in member_ids:
         m = member_id[0]
@@ -225,11 +225,11 @@ def get_team(team_name):
 @flask_login.login_required
 def dashboard():
     user_id = flask_login.current_user.id
-    students = get_students(user_id)
     membership = get_membership(user_id)
     receipt_confirmation = ''
     user = get_user(user_id)
     email = user['email']
+    students = get_students(email)
     
     if request.method == 'POST': # this is called when they request a billing receipt.
         # code to handle a help desk request
