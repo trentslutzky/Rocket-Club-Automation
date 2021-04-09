@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/fonts/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles_4564968196.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles_4564941984.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_login_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/welcome_page.css') }}">
 </head>
@@ -40,7 +40,7 @@
     <p class="dashboard-text">{{student.team.team_name}}</p>
     <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
     <p class="dashboard-text">Instuctor: {{student.team.instructor}}</p>
-    <p class="dashboard-text"><a href="{{student.team.zoom_link}}">Zoom Link</a></p>
+    <p class="dashboard-text">Zoom: {{student.team.zoom_link}} {%if zoom_password != 'none'%}{{student.team.zoom_password}}{%endif%}</p>
 </div>
 {% endfor %}</div>
             <div class="dashboard-section">
@@ -86,9 +86,10 @@
                 </div>
                 <div id="link-button-container">
                     <div id="payment-button" class="icon-button" href="asht" style="width: 269px;"><a class="icon-button-link" href="https://rocketclub.com/payment" target="_blank"><i class="fa fa-credit-card-alt"></i>
-                            <h5>Update Payment Method</h5>
+                            <h5>Rocket Club Payment</h5>
                         </a></div>
                 </div>
+                <p id="billing-message">Please click above if you would like to update your payment method. <br>Tuition is deducted automatically each month from the card we have on <br>file.</p>
             </div>
             <div class="dashboard-section">
                 <h1 class="dashboard-heading"><i class="fa fa-question-circle"></i>&nbsp;Help Desk</h1>

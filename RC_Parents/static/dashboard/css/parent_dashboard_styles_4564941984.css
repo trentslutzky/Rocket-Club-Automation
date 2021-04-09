@@ -580,3 +580,11 @@ footer {
   }
 }
 
+#billing-message {
+  color: rgb(255,255,255);
+  font-family: 'Poppins';
+  margin-top: 10px;
+  width: 600px;
+  font-size: 14px;
+}
+
