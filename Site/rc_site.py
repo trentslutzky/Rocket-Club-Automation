@@ -765,6 +765,7 @@ def show_leaderboard():
                 trivia_leaders=trivia_leaders,
                 parents_night_leaders=parents_night_leaders
             )
+
 @app.route('/rclcode')
 @flask_login.login_required
 def rcl_code_show():

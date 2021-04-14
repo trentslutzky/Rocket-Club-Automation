@@ -576,12 +576,24 @@ def generate_username_from_name(name):
     username = rx.sub('',username).strip()
     return username
 
-def add_parent(assoc_member_id,name,email,phone,cost,scholarship):
-    assoc_member = get_member_uuid(assoc_member_id)
+def parent_exists(email):
     db = connect()
-    temp_password = get_random_alphanumeric_string(10)
+    count = db.run(f"select count(*) from parents where email = '{email}';")
+    if count[0][0] > 0: 
+        return(True)
+    else:
+        return(False)
+
+def add_parent(assoc_member_id,name,email,phone,cost,scholarship):
+    db = connect()
+    if parent_exists(email) == False:
+        temp_password = get_random_alphanumeric_string(10)
+        pw_hash = bcrypt.generate_password_hash(temp_password).decode('utf-8')
+    else:
+        temp_password = db.run(f"select temp_password from parents where email = '{email}'")[0][0];
+        pw_hash = db.run(f"select pw_hash from parents where email = '{email}'")[0][0];
+    assoc_member = get_member_uuid(assoc_member_id)
     username = generate_username_from_name(name)
-    pw_hash = bcrypt.generate_password_hash(temp_password).decode('utf-8')
     print(temp_password)
     command = f"INSERT INTO parents(assoc_member,name, username, email, phone, tuition, scholarship, temp_password, pw_hash) VALUES('{assoc_member}','{name}','{username}','{email}','{phone}',{cost},{scholarship},'{temp_password}','{pw_hash}')"
     db.run(command)
