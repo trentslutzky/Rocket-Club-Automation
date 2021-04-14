@@ -103,7 +103,7 @@ class User():
 def user_loader(user_id):
     print('user_loader',user_id)
     new_user = get_user(user_id)
-    if new_user = None:
+    if new_user == None:
         return None
     user=User()
     user.id=new_user['user_id']
