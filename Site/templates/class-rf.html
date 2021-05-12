@@ -45,6 +45,7 @@
                 <th>Kahoot Wins</th>
                 <th>Bonus</th>
                 <th>Competition</th>
+                <th>Communities</th>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +59,7 @@
                 <td><input type="number" class="table-input" name="{{member.uuid}}!kahoot" value="{%if member.kahoot%}{{member.kahoot}}{%else%}0{%endif%}"/></td>
                 <td><input type="number" class="table-input" name="{{member.uuid}}!bonus" value="{%if member.bonus%}{{member.bonus}}{%else%}0{%endif%}"/></td>
                 <td><input type="number" class="table-input" name="{{member.uuid}}!competition" value="{%if member.competition%}{{member.competition}}{%else%}0{%endif%}"/></td>
+		<td><input type="number" class="table-input" name="{{member.uuid}}!communities" value="{%if member.communities%}{{member.communities}}{%else%}0{%endif%}"/></td>
             </tr>
             {%endfor%}
         </tbody>
