@@ -22,7 +22,6 @@ import datetime
 from datetime import datetime
 from datetime import date
 
-
 ##### DATABASE FUNCTIONS     ########
 
 def connect():           
@@ -64,6 +63,7 @@ def timer(function):
     return rapper
 
 ###### STUFF FOR ADMIN-SITE  #########
+
 class User():
     role = ''
 
@@ -765,6 +765,9 @@ def show_leaderboard():
                 trivia_leaders=trivia_leaders,
                 parents_night_leaders=parents_night_leaders
             )
+####################################################################
+####################################################################
+# RCL ATTENDANCE
 
 @app.route('/rclcode')
 @flask_login.login_required
@@ -772,14 +775,50 @@ def rcl_code_show():
     #load current rcl attendance code and display it on a page.
     rcl_code = pgtool.get_rcl_code_today()
     filename = 'QR_'+rcl_code+'.png'
+    print('rclcode_qr',filename)
     return render_template('rclcode.html',rcl_code=rcl_code,qr_file=filename)
 
-@app.route('/rcl-attendance')
+@app.route('/rcl-attendance',methods=['GET', 'POST'])
 def rcl_attendance():
     code = ''
+    warning = ''
+    id_fill = ''
+    correct = False
+    amount = 0
     if(request.args):
         code = request.args['code']
-    return render_template('rcl-attendance.html',code=code)
+
+    if request.method == 'POST':
+        print('RCL Code Post')
+        member_id = request.form['member_id']
+        code = request.form['code']
+        member_uuid = pgtool.get_member_uuid(member_id)
+        if member_uuid != -1:
+            print('checking code',member_id,'for',code)
+            code_check = pgtool.check_code(member_id,code)
+            amount = pgtool.get_rcl_attendance_credits(member_uuid)
+            if code_check == 0:
+                correct = True
+                pgtool.give_rcl_attendance_credit(member_uuid,code)
+            elif code_check == 1:
+                warning = 'You already have credit for today.'
+                correct = True
+            elif code_check == 2:
+                warning = 'invalid code!'
+        else:
+            id_fill = member_id
+            warning = 'invalid member id'
+
+    return render_template('rcl-attendance.html',
+                            code=code, 
+                            correct=correct,
+                            warning=warning,
+                            id_fill=id_fill,
+                            amount=amount)
+                            
+
+####################################################################
+####################################################################
 
 def add_user(username,password,role):
     db = connect()

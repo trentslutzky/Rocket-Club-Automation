@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background: url(/static/rclcode/img/stars.png);">
+<html style="background: url({{ url_for('static', filename='rclcode/img/rcl_blue_background-tiledvertically.jpg')}});"background-size: contain;">
 
 <head>
     <meta charset="utf-8">
@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='rclcode/css/styles.css') }}">
 </head>
 
-<body class="d-flex d-xl-flex flex-column justify-content-start align-items-center justify-content-xl-start" style="background: rgba(255,255,255,0);"><img class="d-flex" id="rcl-header-image" src="{{ url_for('static', filename='rclcode/img/rcl_without_your_host.png') }}">
-    <h1 id="rcl-heading">Today's Attendance Code</h1>
-    <h1 id="code-heading">{{rcl_code}}</h1>
-    <div class="d-flex justify-content-center align-items-center" id="qr-code-box"><img id="qr-code" src="/static/rclcode/img/{{qr_file}}"></div><img id="prize-img-vis" src="{{ url_for('static', filename='rclcode/img/rcl_rank_prizes.png') }}">
+<body class="d-flex d-xl-flex flex-column justify-content-start align-items-center justify-content-xl-start" style="background: rgba(255,255,255,0);"><img class="d-flex" id="rcl-header-image" src="{{ url_for('static', filename='rclcode/img/rcl_attendance_header.png') }}">
+    <h1 id="rcl-heading">Todays Attendance Code</h1>
+    <div class="d-flex flex-column align-items-center justify-content-xl-center align-items-xl-center" id="qr-code-box">
+	    <h1 id="code-heading">{{rcl_code}}</h1><img id="qr-code" src="../static/rclcode/img/{{qr_file}}">
+    </div><img id="prize-img-vis" src="{{ url_for('static', filename='rclcode/img/rcl_rank_prizes.png') }}">
     <script src="{{ url_for('static', filename='rclcode/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='rclcode/bootstrap/js/bootstrap.min.js') }}"></script>
 </body>

@@ -666,14 +666,15 @@ def get_parent(member_uuid):
 def generate_qr_code(code):
     filename = 'QR_'+code+'.png'
     if (os.path.isfile('./static/rclcode/img/'+filename)):
-        print('QR exists.')
+        print('QR exists',filename)
     else:
         data = "https://www.rocketclubtools.com/rcl-attendance?code="+code
         qr = qrcode.QRCode(version=1, box_size=8, border=0)
         qr.add_data(data)
         qr.make()
-        img = qr.make_image(fill_color="white", back_color="transparent")
+        img = qr.make_image(fill_color="#FFDE59", back_color="transparent")
         img.save('./static/rclcode/img/'+filename)
+        print('generated',filename)
 
 def get_rcl_code_today():
     db = connect()
@@ -683,13 +684,31 @@ def get_rcl_code_today():
     return(result)
 
 def check_code(member_id,code):
+    member_uuid = get_member_uuid(member_id)
     db = connect()
+    COMMAND = f"SELECT count(*) FROM rcl_attendance_credits WHERE member_uuid = '{member_uuid}' AND code = '{code}'"
+    result = db.run(COMMAND)
+    if result[0][0] != 0:
+        return 1
     ps = qprep(db,"SELECT code FROM rcl_codes WHERE date = current_date")
     result = ps.run()
     if(result[0][0] == code):
-        return True
+        return 0
     else:
-        return False
+        return 2
+
+def get_rcl_attendance_credits(member_uuid):
+    db = connect()
+    COMMAND = f"SELECT count(*) FROM rcl_attendance_credits WHERE member_uuid = '{member_uuid}'"
+    result = db.run(COMMAND)[0][0]
+    return result
+
+def give_rcl_attendance_credit(member_uuid,code):
+    db = connect()
+    COMMAND = f"INSERT INTO rcl_attendance_credits(member_uuid,code) VALUES('{member_uuid}','{code}')"
+    db.run(COMMAND)
+    db.commit()
+    db.close()
 
 def get_db_date():
     db = connect()
