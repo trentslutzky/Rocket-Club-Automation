@@ -715,6 +715,15 @@ def get_db_date():
     result = db.run('select current_date')
     return(result[0][0])
 
+def get_rcl_attendance():
+    db = connect()
+    names = []
+    COMMAND = "select r.name from (select * from rcl_attendance_credits) e left join (select * from rc_members) r on e.member_uuid = r.member_uuid where code = (select code from rcl_codes where date = current_date)"
+    result = db.run(COMMAND)
+    for name in result:
+        names.append(name[0])
+    return names
+
 @timer
 def main():
     print(get_parent('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))

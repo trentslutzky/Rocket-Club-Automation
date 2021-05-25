@@ -796,10 +796,10 @@ def rcl_attendance():
         if member_uuid != -1:
             print('checking code',member_id,'for',code)
             code_check = pgtool.check_code(member_id,code)
-            amount = pgtool.get_rcl_attendance_credits(member_uuid)
             if code_check == 0:
                 correct = True
                 pgtool.give_rcl_attendance_credit(member_uuid,code)
+                amount = pgtool.get_rcl_attendance_credits(member_uuid)
             elif code_check == 1:
                 warning = 'You already have credit for today.'
                 correct = True
@@ -816,6 +816,15 @@ def rcl_attendance():
                             id_fill=id_fill,
                             amount=amount)
                             
+@app.route('/rcl-dashboard', methods=['GET'])
+@flask_login.login_required
+def rcl_dashboard():
+    current_code = pgtool.get_rcl_code_today()
+    attendance = pgtool.get_rcl_attendance()
+    return render_template('rcl-dashboard.html',
+            attendance=attendance,
+            rclcode=current_code)
+
 
 ####################################################################
 ####################################################################

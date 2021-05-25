@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>new_admin_dashbaord</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-dashboard/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-dashboard/css/Font%20Awesome%205%20Brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-dashboard/css/Font%20Awesome%205%20Free.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-dashboard/css/checkbox.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rcl-dashboard/css/styles.css') }}">
+</head>
+
+<body>
+    <div id="top-area"><span id="top-area-subheading">Rocket Club Live</span><span id="top-area-rightheading">RC Instructor</span></div>
+    <div class="d-xl-flex flex-column align-items-xl-start" id="rcl-main-container">
+        <div class="dash-box">
+            <h1 class="dash-box-heading">Today's Attendance Code</h1>
+            <h1 id="rcl-code">{{rclcode}}</h1><a href="https://www.rocketclubtools.com/rclcode" target="_blank">Click here to view the Rocket Club live code page</a>
+        </div>
+        <div class="dash-box">
+            <h1 class="dash-box-heading">Today's Attendance<a id="attendance-refresh" href="#" onclick="attendance_loading();window.location.reload();">Refresh</a><img id="attendance-loader" src="{{ url_for('static', filename='rcl-dashboard/img/ajax-loader.gif') }}"></h1>{% if attendance|length > 0 %}
+<textarea id="attendance-input" rows="{{attendance|length}}">{% for name in attendance %}
+{{name}}{%endfor%}</textarea>{% endif %}{% if attendance|length > 0 %}
+<button id="copy-button" class="btn btn-primary" type="button" onclick="copy_to_cb()">Copy To Clipboard</button>
+{% else %}
+            <p id="nobody">Hmm, looks like there's nobody here today... {%endif%}</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='rcl-dashboard/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl-dashboard/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl-dashboard/js/attendance-loading.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl-dashboard/js/copy_to_cb.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl-dashboard/js/loading-msg.js') }}"></script>
+    <script src="{{ url_for('static', filename='rcl-dashboard/js/navigation-buttons.js') }}"></script>
+</body>
+
+</html>

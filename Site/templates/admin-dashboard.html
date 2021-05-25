@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/css/Font%20Awesome%205%20Brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/css/Font%20Awesome%205%20Free.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/css/checkbox.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin-dashboard/css/styles.css') }}">
 </head>
 
@@ -21,14 +24,15 @@
             <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center" id="sidebar-heading"><img id="rc-helmet-icon" src="{{ url_for('static', filename='admin-dashboard/img/rc_helmet.png') }}">
                 <h5 id="sidebar-heading-text">Rocket Club<br>{{role}} Dashboard</h5>
             </div>
-            <div id="sidebar-buttons">{% if role == 'Admin' %}<button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="add-member" data-heading="Add New Members"><i class="fa fa-user sidebar-button-icon"></i><label class="sidebar-button-label">Add New Members</label></button>{% endif %}<button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="edit-member" data-heading="Add New Members"><i class="fa fa-pencil-square-o sidebar-button-icon"></i><label class="sidebar-button-label">Member Info</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="class-rf" data-heading="Add New Members"><i class="fa fa-graduation-cap sidebar-button-icon"></i><label class="sidebar-button-label">Class RF</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="certs" data-heading="Member Certifications"><i class="fa fa-check-square-o sidebar-button-icon"></i><label class="sidebar-button-label">Certifications</label></button></div>
+            <div id="sidebar-buttons">{% if role == 'Admin' %}<button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="add-member" data-heading="Add New Members"><i class="fa fa-user sidebar-button-icon"></i><label class="sidebar-button-label">Add New Members</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="edit-member" data-heading="Add New Members"><i class="fa fa-pencil-square-o sidebar-button-icon"></i><label class="sidebar-button-label">Member Info</label></button>{% endif %}<button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="class-rf" data-heading="Add New Members"><i class="fa fa-graduation-cap sidebar-button-icon"></i><label class="sidebar-button-label">Class RF</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="rcl-dashboard" data-heading="RCL Dashboard"><i class="fa fa-video-camera sidebar-button-icon"></i><label class="sidebar-button-label">Rocket Club Live</label></button><button class="btn btn-primary d-md-flex d-lg-flex sidebar-button" onclick="navigation_button()" data-dest="certs" data-heading="Member Certifications"><i class="fa fa-check-square-o sidebar-button-icon"></i><label class="sidebar-button-label">Certifications</label></button></div>
         </aside>
         <div id="main-page">
-            <div class="d-md-flex d-lg-flex d-xl-flex justify-content-md-end align-items-md-center justify-content-lg-end align-items-lg-center justify-content-xl-end align-items-xl-center" id="top-bar"><span id="signed-in-as">Signed in As</span><span id="top-bar-username">{{ username }}</span><i class="fa fa-user"></i><a id="top-bar-log-out" href="logout">Log Out</a></div><iframe id="main-page-iframe" src=""></iframe>
+            <div class="d-md-flex d-lg-flex d-xl-flex justify-content-md-end align-items-md-center justify-content-lg-end align-items-lg-center justify-content-xl-end align-items-xl-center" id="top-bar"><span id="signed-in-as">Signed in As</span><span id="top-bar-username">{{ username }}</span><i class="fa fa-user"></i><a id="top-bar-log-out" href="logout">Log Out</a></div><iframe id="main-page-iframe" src="dashboard-start"></iframe>
         </div>
     </div>
     <script src="{{ url_for('static', filename='admin-dashboard/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin-dashboard/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin-dashboard/js/copy_to_cb.js') }}"></script>
     <script src="{{ url_for('static', filename='admin-dashboard/js/loading-msg.js') }}"></script>
     <script src="{{ url_for('static', filename='admin-dashboard/js/navigation-buttons.js') }}"></script>
 </body>
