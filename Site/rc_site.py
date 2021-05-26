@@ -118,6 +118,13 @@ def request_loader(request):
 def index():
     return flask.redirect(flask.url_for('dashboard'))
 
+@app.route('/dashboard-start')
+@flask_login.login_required
+def dashboard_start():
+    role = flask_login.current_user.get_role() 
+    return render_template('dashboard-start.html',
+            role=role)
+
 @app.route('/dashboard')
 @flask_login.login_required
 def dashboard():
