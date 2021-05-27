@@ -625,9 +625,11 @@ def get_types():
 def get_member_name(member_uuid):
     db = connect()
     try:
-        name = db.run("SELECT name FROM rc_members where member_uuid = '{member_uuid}'")
+        name = db.run(f"SELECT name FROM rc_members where member_uuid = '{member_uuid}'")
+        db.close()
         return name[0][0]
     except:
+        db.close()
         return None
 
 def get_parent(member_uuid):
@@ -650,6 +652,14 @@ def get_parent(member_uuid):
                 }
     print(parent)
     return(parent)
+
+def get_member_num_certs(member_uuid):
+    print('get_member_num_certs')
+    db = connect()
+    COMMAND = f"SELECT count(*) from member_certs where member_uuid = '{member_uuid}'"
+    result = db.run(COMMAND)[0][0]
+    db.close()
+    return result
 
 
 # Rocket Club Live Attendance #

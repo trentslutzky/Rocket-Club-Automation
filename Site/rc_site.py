@@ -508,7 +508,10 @@ def update_certs():
     if flask.request.method == 'GET':
         member_id_get = request.args.get('member_id_get') 
         if(member_id_get):
-            member_name = pgtool.get_member_name(int(member_id_get))
+            member_uuid = pgtool.get_member_uuid(int(member_id_get))
+            member_name = pgtool.get_member_name(member_uuid)
+            num_certs = pgtool.get_member_num_certs(member_uuid)
+            print('NAME',type(member_id_get),member_name)
             if(member_name != None):
                 data = get_cert_page(member_id_get)
                 return render_template('update_certs.html',ready=True,
@@ -520,6 +523,7 @@ def update_certs():
                         tech_certs_current = data[4],
                         tech_certs_noncurrent = data[5],
                         member_name = member_name,
+                        num_certs = num_certs,
                         member_id = member_id_get)
         else:
             return render_template('update_certs.html',ready=False)
