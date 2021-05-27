@@ -759,19 +759,16 @@ def show_team_stats(team_name):
 @app.route('/leaderboard')
 def show_leaderboard():
     #get top ten table
-    team_standings = pgtool.get_team_standings()
-    division_standings = pgtool.get_division_standings()
-    legacy_leaders = pgtool.get_legacy_leaders()
-    trivia_leaders = pgtool.get_trivia_leaders()
-    parents_night_leaders = pgtool.get_parents_night_leaders()
+    top_rf = pgtool.get_top_rf()
+    top_rf_monthly = pgtool.get_top_rf_monthly()
+    month = pgtool.get_current_month()
 
-    return render_template('test_leaderboard.html',
-                team_standings=team_standings,
-                division_standings=division_standings,
-                legacy_leaders=legacy_leaders,
-                trivia_leaders=trivia_leaders,
-                parents_night_leaders=parents_night_leaders
+    return render_template('leaderboard.html',
+            top_rf=top_rf,
+            top_rf_monthly=top_rf_monthly,
+            month=month
             )
+
 ####################################################################
 ####################################################################
 # RCL ATTENDANCE
@@ -806,7 +803,6 @@ def rcl_attendance():
             if code_check == 0:
                 correct = True
                 pgtool.give_rcl_attendance_credit(member_uuid,code)
-                amount = pgtool.get_rcl_attendance_credits(member_uuid)
             elif code_check == 1:
                 warning = 'You already have credit for today.'
                 correct = True
@@ -815,6 +811,9 @@ def rcl_attendance():
         else:
             id_fill = member_id
             warning = 'invalid member id'
+
+        if member_uuid != -1:
+            amount = pgtool.get_rcl_attendance_credits(member_uuid)
 
     return render_template('rcl-attendance.html',
                             code=code, 

@@ -28,6 +28,28 @@ week_string = str(year)+str(week_number)
 week_int = int(week_string)
 est = pytz.timezone('US/Eastern')
 
+## SLACK BOT STUFF
+
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
+client = WebClient(token=secret.app_token)                 
+# ID of channel you want to post message to    
+channel_id = "C023AUQ5GN8"
+
+def send_message(channel,message):
+    try:                                           
+        # Call the conversations.list method using the WebClient
+        result = client.chat_postMessage(
+            channel=channel,
+            text=message         
+            # You could also use a blocks[] array to send richer content
+        )                               
+        # Print result, which includes information about the message (like TS)
+        print(result)
+
+    except SlackApiError as e:
+        print(f"Slack Error: {e}")
+
 def connect():           
     db = pg8000.connect(secret.db['user'],
         password=secret.db['password'],       
@@ -445,73 +467,37 @@ def get_team_vms_completed(team_name):
 ###  Leaderboard Stuff  ###
 ###########################
 
-def get_team_standings():
+def get_top_rf():
+    output = []
     db = connect()
-    result = []
-    standing = []
-    for d in range(1,4):
-        ps = qprep(db,"SELECT team,count(DISTINCT vm_completions.member_uuid) FROM vm_completions LEFT JOIN rc_members ON rc_members.member_uuid = vm_completions.member_uuid LEFT JOIN virtual_missions ON virtual_missions.vm_tag = vm_completions.vm_tag LEFT JOIN rf_transactions ON rf_transactions.member_uuid = rc_members.member_uuid WHERE rc_members.division=:a AND amount>20 AND virtual_missions.week = :w GROUP BY team ORDER BY count(DISTINCT vm_completions.member_uuid) desc limit 6;")
-        standing = ps.run(a=d,w=str(week_int-1))
-        for team in standing:
-            ps = qprep(db,"SELECT COUNT(*) FROM rc_members WHERE team=:a")
-            team.append(ps.run(a=team[0])[0][0])
-        
-        standing_percentage = []
-        for team in standing:
-            percentage = (team[1]/team[2]) * 100
-            percentage = int(round(percentage, -1))
-            standing_percentage.append([team[0],percentage])
-
-        standing_percentage = sorted(standing_percentage, key=lambda standing_percentage: standing_percentage[1], reverse=True)
-        result.append(standing_percentage)   
-
-    for d in result:
-        for team in d:
-            team[0] = team[0][:13]
-
+    COMMAND = "select b.name,a.sum from (select member_uuid,sum(amount) from rf_transactions group by member_uuid) a left join (select * from rc_members) b on a.member_uuid=b.member_uuid where b.team != 'Admin' and b.enrolled = True order by sum desc limit 10"
+    result = db.run(COMMAND)
+    for line in result:
+        amount = "{:,}".format(line[1])
+        output.append({'place':result.index(line)+1,
+            'name':line[0],
+            'rf':amount})
     db.close()
-    return result
+    return(output)
 
-def get_division_standings():
+def get_current_month():
     db = connect()
-    result = [] 
-    for d in range(1,4):
-        ps = qprep(db,"SELECT name,sum(amount) FROM rf_transactions LEFT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid WHERE division = :a GROUP BY name ORDER BY sum(amount) desc limit 3;")
-        got = ps.run(a=d)
-        result.append(got)
-        for a in got:
-            a[1] =str(format(int(a[1]),','))
+    result = db.run("SELECT TO_CHAR(current_timestamp, 'Month')")[0][0].replace(' ','')
     db.close()
-    return result
+    return(result)
 
-def get_legacy_leaders():
+def get_top_rf_monthly():
+    output = []
     db = connect()
-    ps = qprep(db,'SELECT rc_members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid GROUP BY rc_members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 10;')
-    result = ps.run()
-    for member in result:
-        member[1] =str(format(int(member[1]),','))
-
+    COMMAND = "select b.name,a.sum from (select member_uuid,sum(amount) from rf_transactions where extract(month from completed) = extract(month from now()) group by member_uuid) a left join (select * from rc_members) b on a.member_uuid=b.member_uuid where b.team != 'Admin' and b.enrolled = True order by sum desc limit 10"
+    result = db.run(COMMAND)
+    for line in result:
+        amount = "{:,}".format(line[1])
+        output.append({'place':result.index(line)+1,
+            'name':line[0],
+            'rf':amount})
     db.close()
-    return result
-
-def get_trivia_leaders():
-    db = connect()
-    ps = qprep(db,"SELECT rc_members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'trivia' GROUP BY rc_members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
-    result = ps.run()
-    for member in result:
-        member[1] =str(format(int(member[1]),','))
-
-    db.close()
-    return result
-
-def get_parents_night_leaders():
-    db = connect()
-    ps = qprep(db,"SELECT rc_members.name,sum(rf_transactions.amount) FROM rf_transactions RIGHT JOIN rc_members ON rc_members.member_uuid = rf_transactions.member_uuid WHERE subtype = 'parents_night' GROUP BY rc_members.name ORDER BY sum(rf_transactions.amount) desc LIMIT 5;")
-    result = ps.run()
-    for member in result:
-        member[1] =str(format(int(member[1]),','))
-    db.close()
-    return result
+    return(output)
 
 # ADMIN TOOLS
 
@@ -601,6 +587,12 @@ def add_parent(assoc_member_id,name,email,phone,cost,scholarship):
     db.commit()
     db.close()
 
+def get_member(member_uuid):
+    db = connect()
+    result = db.run("select * from rc_members where member_uuid = {member_uuid}")
+    for r in result:
+        print(r)
+
 ##################################################################
 ################     STUFF FOR EDIT MEMBER       #################
 ##################################################################
@@ -630,10 +622,10 @@ def get_types():
         results.append(type[0])
     return results
 
-def get_member_name(member_id):
+def get_member_name(member_uuid):
     db = connect()
     try:
-        name = db.run("SELECT name FROM rc_members where member_id = %i" % member_id)
+        name = db.run("SELECT name FROM rc_members where member_uuid = '{member_uuid}'")
         return name[0][0]
     except:
         return None
@@ -709,6 +701,10 @@ def give_rcl_attendance_credit(member_uuid,code):
     db.run(COMMAND)
     db.commit()
     db.close()
+
+def check_rcl_rewards(member_uuid):
+    amount = get_rcl_attendance_credits(member_uuid)
+    member_id = get_member(member_uuid)
 
 def get_db_date():
     db = connect()
