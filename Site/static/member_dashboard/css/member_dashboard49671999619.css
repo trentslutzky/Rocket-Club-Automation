@@ -106,13 +106,6 @@ form {
   justify-content: center;
 }
 
-:root {
-  background: black;
-  background-image: url("../../assets/img/background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 #top_logo {
   height: 120px;
 }
@@ -244,6 +237,7 @@ form {
 
 #bottom-container {
   margin-top: 0.5vh;
+  height: 1300px;
 }
 
 #left-column {
@@ -311,9 +305,12 @@ form {
 }
 
 #right-column-heading {
-  font-size: 4.5vw;
-  text-align: left;
+  font-size: 3.5vw;
+  text-align: center;
   margin-top: 1vh;
+  font-family: 'Orbitron';
+  margin-top: 15px;
+  font-weight: 600;
 }
 
 .category-heading {
@@ -338,16 +335,17 @@ form {
 .certification-text-cert {
   text-align: right;
   width: 30%;
+  float: right;
 }
 
 .certification-text-bullet {
 }
 
-.certification-line-certified {
+.line-certified {
   font-size: 1.8vw;
 }
 
-.certification-line-not-certified {
+.line-not-certified {
   font-size: 1.8vw;
   color: rgb(167,167,167);
 }
@@ -366,13 +364,13 @@ form {
 
 @media (min-width: 1200px) {
   .certification-line-not-certified {
-    font-size: 23px;
+    font-size: 20px;
   }
 }
 
 @media (min-width: 1200px) {
   .certification-line-certified {
-    font-size: 23px;
+    font-size: 20px;
   }
 }
 
@@ -459,5 +457,96 @@ form {
 
 .nav-p {
   font-size: 15px;
+}
+
+.right-column-subheading {
+  font-size: 1.2vw;
+  text-align: center;
+  text-decoration: underline;
+  margin-top: -5px;
+  margin-bottom: 1vh;
+  font-weight: 600;
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+}
+
+.certification-line {
+  font-size: 1.6vw;
+  margin-bottom: 0.5vw;
+  font-family: 'Source Sans Pro';
+}
+
+@media (min-width: 1200px) {
+  .certification-line {
+    font-size: 18px;
+    margin-bottom: 6px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.right-column-category {
+  font-size: 2.1vw;
+  font-family: 'Source Sans Pro';
+}
+
+@media (min-width: 1200px) {
+  .right-column-category {
+    font-size: 20px;
+  }
+}
+
+.right-column-category-2 {
+  font-size: 2.1vw;
+  margin-top: 1vh;
+  font-family: 'Source Sans Pro';
+}
+
+@media (min-width: 1200px) {
+  .right-column-category-2 {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .right-column-subheading {
+    font-size: 17px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+}
+
+#resume-heading {
+  text-align: center;
+  font-family: 'Orbitron';
+  color: rgb(200,227,255);
+  font-size: 17px;
+  padding-bottom: 10px;
+}
+
+#resume {
+  height: 100%;
+}
+
+.certification-flair {
+  margin-left: 20px;
+}
+
+.left-column-info-section.awards-section {
+  margin-top: 150px;
+}
+
+@media (min-width: 1200px) {
+  .left-column-heading.personal-business {
+    font-size: 31px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .left-column-heading.personal-business {
+    font-size: 2.1vw;
+  }
 }
 

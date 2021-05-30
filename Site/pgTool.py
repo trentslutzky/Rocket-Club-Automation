@@ -661,6 +661,45 @@ def get_member_num_certs(member_uuid):
     db.close()
     return result
 
+def get_member_journeys(member_uuid):
+    # initialize database
+    db = connect()
+    
+    # get member completed journeys
+    COMMAND = f"SELECT cert_id from journey_completions where member_uuid = '{member_uuid}'"
+    journey_completions_db = db.run(COMMAND)
+    journey_completions = []
+    num_certified = 0
+    for j in journey_completions_db:
+        journey_completions.append(j[0])
+        num_certified = num_certified + 1
+    percent_complete = int((num_certified / 24)*100)
+
+    #get all journeys
+    COMMAND = "SELECT * from journeys"
+    journeys = db.run(COMMAND)
+
+    #lists for both categories
+    entre_journeys = []
+    science_journeys = []
+
+    for j in journeys:
+        journey = {'cert_order':j[1],
+                   'flair':j[3],
+                   'certified':'',
+                   'cert_id':j[0],
+                   'category':j[2]}
+        if journey['cert_id'] in journey_completions:
+            journey['certified'] = 'CERTIFIED'
+        if journey['category'] == 'entre':
+            entre_journeys.append(journey)
+        if journey['category'] == 'science_and_tech':
+            science_journeys.append(journey)
+
+    return {'entre_journeys':entre_journeys,
+            'science_journeys':science_journeys,
+            'percent_complete':percent_complete,
+            'num_certified':num_certified}
 
 # Rocket Club Live Attendance #
 
@@ -732,7 +771,7 @@ def get_rcl_attendance():
 
 @timer
 def main():
-    print(get_parent('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
+    print(get_member_journeys('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
 
 if __name__ == '__main__':
     main()

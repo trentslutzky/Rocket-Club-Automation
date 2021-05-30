@@ -579,70 +579,25 @@ def show_stats():
         #Get member name, team, division
         member_id = request.form['member-id']
        
-        test = pgtool.get_member_uuid(member_id)
+        member_uuid = pgtool.get_member_uuid(member_id)
 
-        if test == -1:
+        if member_uuid == -1:
             return render_template('gate.html',
                 warning = 'Invalid member id!')
         else:
             gate_loading()
             # Member info from pgtool
             member_info = pgtool.get_member_info(member_id)
-            # Member total RF
             member_rf = pgtool.get_member_total(member_id)
-            # Member Virtual Mission RF
-            vm_total = pgtool.get_vm_rf(member_id)
-            # categories for vm categories
-            vm_categories_rf = pgtool.get_vm_rf_categories(member_id)
-            # VMs completed
-            vm_completions = pgtool.get_member_vms_completed(member_id)
-            # RCL RF
-            rcl_rf = pgtool.get_member_rcl_rf(member_id)
-            # MISC RF
-            misc_rf = pgtool.get_member_misc_rf(member_id)
             
             member_rf =str(format(int(member_rf),','))
-
-            data = get_cert_page(member_id)
 
             return render_template('member_dashboard.html', 
             name = member_info[0], 
             division = member_info[1], 
             team = member_info[2], 
             rf_total = member_rf,
-            entre_certs_current = data[0],
-            entre_certs_noncurrent = data[1],
-            robotics_certs_current = data[2],
-            robotics_certs_noncurrent = data[3],
-            tech_certs_current = data[4],
-            tech_certs_noncurrent = data[5],
-            grad_date = member_info[4],
-            phone = '(201) 292-3565',
-            email = 'admin@rocketclub.com',
-            website = 'rocketclub.com',
-            #rf_vm = vm_total,
-            #robotics_rf = vm_categories_rf[0],
-            #coding_rf = vm_categories_rf[1],
-            #engineering_rf = vm_categories_rf[2],
-            #entrepreneurship_rf = vm_categories_rf[3],
-            #past_rf = vm_categories_rf[4],
-            #extra_credit_rf = vm_categories_rf[5],
-            #n_robotics ' vm_completions[0],
-            #n_coding = vm_completions[1],
-            #n_python = vm_completions[2],
-            #n_robotics_1 = vm_completions[3],
-            #n_engineering = 0,
-            #n_entre = vm_completions[4],
-            #rf_rcl_attendance = rcl_rf[1],
-            #rf_trivia = rcl_rf[2],
-            #rf_won = misc_rf[2],
-            #rf_rcl_total = rcl_rf[0],
-            #rf_boost = misc_rf[0],
-            #rf_rcgt = misc_rf[1],
-            #rf_parents = rcl_rf[3],
-            #rf_class = misc_rf[3],
-            #rf_launchpad = rcl_rf[4],
-            #rf_tech_tuesday = rcl_rf[5]
+            journeys = pgtool.get_member_journeys(member_uuid)
             )
 
 @app.route('/resume/<string:m_id>')
