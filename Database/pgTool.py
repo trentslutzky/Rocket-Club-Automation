@@ -2,6 +2,7 @@
 import pg8000
 import time
 import datetime
+import secret
 from datetime import date
 # Initialize Colorama for pretty terminal colors #
 from colorama import init
@@ -9,11 +10,11 @@ init()
 from colorama import Fore, Back, Style
 #####################################################################
 ## connecting to the database as the root user 'postgres'
-db = pg8000.connect("postgres", 
-        password="Falcon2019", 
-        host='35.199.36.16', 
-        port=5432, 
-        database='rocket_club')
+db = pg8000.connect(secret.db['user'],
+        password=secret.db['password'],       
+        host=secret.db['host'],            
+        port=secret.db['port'],            
+        database=secret.db['database'])
 
 ## setup the 'week_string' which is used to compare the current week to the 
  # weekly status of the virtual missions.

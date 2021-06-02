@@ -94,6 +94,22 @@ base_delay = 1
 base_delay_site = .1
 error_delay = 5
 
+def scan_folder(folder_id):
+    new_q = folder_id + " in parents"
+    children = drive_service.files().list(q = new_q, 
+                                    fields='nextPageToken, files(id, name,trashed,mimeType)',
+                                    pageToken=None).execute() 
+    result = []
+    for child in children.get('files',[]):
+        # only get files that are spreadsheets and not in the trash
+        if child['trashed'] == False:
+            if child['mimeType'] == 'application/vnd.google-apps.spreadsheet':
+                result.append(child)
+    return result
+
+def rename_sheet(sheet_id,name):
+    drive_service.files().update(fileId=sheet_id,body={'name':name}).execute()
+
 def get_cells(sheet_id, newRange, sheet_name):
     while True:
         try:
