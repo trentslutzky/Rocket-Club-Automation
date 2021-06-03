@@ -1,36 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: black;">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Rocket Club Leader Board</title>
+    <link rel="icon" type="image/png" sizes="300x300" href="{{ url_for('static', filename='leaderboard/img/1.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard/css/styles.css') }}">
 </head>
 
-<body class="d-flex d-xl-flex flex-column align-items-center justify-content-xl-start align-items-xl-center" style="background-size: cover;background-image: url({{ url_for('static', filename='leaderboard/img/background-cut.png')}});background-attachment: fixed;">
+<body class="d-flex d-xl-flex flex-column align-items-center justify-content-xl-start align-items-xl-center" style="background-size: cover;background-image: url({{ url_for('static', filename='leaderboard/img/background-cut.png')}});background-attachment: fixed;background-color: black;">
     <div class="d-flex justify-content-center" id="leaderboard-title"><img id="header-image" src="{{ url_for('static', filename='leaderboard/img/RCLeaderboardsHeader.png') }}"></div>
+    <h1 id="month-of">Month of <strong>{{month}}</strong></h1>
     <div class="d-flex justify-content-center leaderboard-section-line">
-        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/RF_Leaderboards_Header.png') }}">
-            <h1 class="leaderboard-subheading">Overall&nbsp; Lifetime&nbsp; Leaders</h1><div class="table-responsive table-borderless leaderboard-table">
-    <table class="table table-bordered">
-        <tbody>
-            {% for line in top_rf %}
-            <tr class="leaderboard-table-line">
-                <td><img class="leaderboard-place-img" src="/static/leaderboard/img/{{line.place}}.png" /></td>
-                <td class="leaderboard-table-line-text">{{line.name}}</td>
-                <td class="leaderboard-table-line-text">{{line.rf}} RF</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-        </div>
-        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/RF_Leaderboards_Header.png') }}">
-            <h1 class="leaderboard-subheading">{{ month }}&nbsp; Leaders</h1><div class="table-responsive table-borderless leaderboard-table">
+        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/MonthlyRFLeaderboardheader.png') }}"><div class="table-responsive table-borderless leaderboard-table">
     <table class="table table-bordered">
         <tbody>
             {% for line in top_rf_monthly %}
@@ -42,9 +28,79 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
-        </div>
+</div></div>
+        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/AttendanceLeaderboard.png') }}"><div class="table-responsive table-borderless leaderboard-table">
+    <table class="table table-bordered">
+        <tbody>
+            {% for line in monthly_attendance %}
+            <tr class="leaderboard-table-line">
+                <td><img class="leaderboard-place-img" src="/static/leaderboard/img/{{line.place}}.png" /></td>
+                <td class="leaderboard-table-line-text">{{line.name}}</td>
+                <td class="leaderboard-table-line-text">{{line.score}} Days</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
     </div>
+    <div class="d-flex justify-content-center leaderboard-section-line">
+        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/MonthlyKahootLeaderboardHeader.png') }}"><div class="table-responsive table-borderless leaderboard-table">
+    <table class="table table-bordered">
+        <tbody>
+            {% for line in monthly_kahoot %}
+            <tr class="leaderboard-table-line">
+                <td><img class="leaderboard-place-img" src="/static/leaderboard/img/{{line.place}}.png" /></td>
+                <td class="leaderboard-table-line-text">{{line.name}}</td>
+                <td class="leaderboard-table-line-text">{{line.score}} Points</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/TeamLeaderboardHeader.png') }}"><div class="table-responsive table-borderless leaderboard-table">
+    <table class="table table-bordered">
+        <tbody>
+            {% for line in team_monthly %}
+            <tr class="leaderboard-table-line">
+                <td><img class="leaderboard-place-img" src="/static/leaderboard/img/{{line.place}}.png" /></td>
+                <td class="leaderboard-table-line-text">{{line.name}}</td>
+                <td class="leaderboard-table-line-text">{{line.score}} RF</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+    </div>
+    <h1 id="heading-lifetime">Lifetime</h1>
+    <div class="d-flex justify-content-center leaderboard-section-line">
+        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/LifetimeRFLeaderboardHeader.png') }}"><div class="table-responsive table-borderless leaderboard-table">
+    <table class="table table-bordered">
+        <tbody>
+            {% for line in top_rf %}
+            <tr class="leaderboard-table-line">
+                <td><img class="leaderboard-place-img" src="/static/leaderboard/img/{{line.place}}.png" /></td>
+                <td class="leaderboard-table-line-text">{{line.name}}</td>
+                <td class="leaderboard-table-line-text">{{line.rf}} RF</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+        <div class="leaderboard-section"><img class="leaderboard-section-image" src="{{ url_for('static', filename='leaderboard/img/LifetimeKahootLeaderboardHeader.png') }}"><div class="table-responsive table-borderless leaderboard-table">
+    <table class="table table-bordered">
+        <tbody>
+            {% for line in lifetime_kahoot %}
+            <tr class="leaderboard-table-line">
+                <td><img class="leaderboard-place-img" src="/static/leaderboard/img/{{line.place}}.png" /></td>
+                <td class="leaderboard-table-line-text">{{line.name}}</td>
+                <td class="leaderboard-table-line-text">{{line.score}} Points</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+    </div>
+    <div id="foot"></div>
     <script src="{{ url_for('static', filename='leaderboard/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='leaderboard/bootstrap/js/bootstrap.min.js') }}"></script>
 </body>

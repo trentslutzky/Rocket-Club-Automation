@@ -718,14 +718,22 @@ def show_team_stats(team_name):
 @app.route('/leaderboard')
 def show_leaderboard():
     #get top ten table
-    top_rf = pgtool.get_top_rf()
-    top_rf_monthly = pgtool.get_top_rf_monthly()
     month = pgtool.get_current_month()
+    top_rf_monthly = pgtool.get_top_rf_monthly()
+    monthly_attendance = pgtool.get_monthly_attendance()
+    kahoot_monthly = pgtool.get_kahoot_monthly()
+    team_monthly = pgtool.get_team_RF_monthly()
+    life_kahoot = pgtool.get_lifetime_kahoot() 
+    top_rf = pgtool.get_top_rf()
 
     return render_template('leaderboard.html',
-            top_rf=top_rf,
+            month=month,
             top_rf_monthly=top_rf_monthly,
-            month=month
+            monthly_attendance=monthly_attendance,
+            monthly_kahoot=kahoot_monthly,
+            team_monthly=team_monthly,
+            life_kahoot=life_kahoot,
+            top_rf=top_rf
             )
 
 ####################################################################

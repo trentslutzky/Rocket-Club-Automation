@@ -4,8 +4,8 @@
 
 #header-image {
   width: 100%;
-  max-width: 600px;
-  margin-top:30px;
+  max-width: 700px;
+  margin-top: 30px;
 }
 
 .leaderboard-section-line {
@@ -75,5 +75,39 @@
   font-size: 20px;
   font-family: 'Orbitron';
   text-align: center;
+}
+
+#month-of {
+  font-size: 30px;
+  font-family: 'Orbitron';
+  color: #f58611;
+}
+
+#heading-lifetime {
+  font-size: 30px;
+  font-family: 'Orbitron';
+  color: #f58611;
+  margin-top: 10px;
+}
+
+a {
+}
+
+@media (max-width: 700px) {
+  #month-of {
+    font-size: 6vw;
+  }
+}
+
+@media (max-width: 700px) {
+  #heading-lifetime {
+    font-size: 6vw;
+  }
+}
+
+#foot {
+  height: 300px;
+  width: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 4%, rgba(0,0,0,0) 100%);
 }
 

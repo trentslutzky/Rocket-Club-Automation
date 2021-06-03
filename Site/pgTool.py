@@ -499,6 +499,58 @@ def get_top_rf_monthly():
     db.close()
     return(output)
 
+def get_kahoot_monthly():
+    db = connect()
+    output = []
+    COMMAND = "select name,sum,team from (select member_uuid,sum(score) from kahoot_scores where extract(month from timestamp) = extract(month from now()) group by kahoot_scores.member_uuid)b left join (select * from rc_members)a on a.member_uuid = b.member_uuid where team not in ('Admin','instructor') order by sum desc limit 10"
+    result = db.run(COMMAND)
+    for line in result:
+        score = "{:,}".format(line[1])
+        output.append({'place':result.index(line)+1,
+            'name':line[0],
+            'score':score})
+    db.close()
+    return(output)
+
+def get_lifetime_kahoot():
+    db = connect()
+    output = []
+    COMMAND = "select name,sum,team from (select member_uuid,sum(score) from kahoot_scores group by kahoot_scores.member_uuid)b left join (select * from rc_members)a on a.member_uuid = b.member_uuid order by sum desc"
+    result = db.run(COMMAND)
+    for line in result:
+        score = "{:,}".format(line[1])
+        output.append({'place':result.index(line)+1,
+            'name':line[0],
+            'score':score})
+    db.close()
+    return(output)
+
+def get_monthly_attendance():
+    db = connect()
+    output = []
+    COMMAND = "select name,count from (select member_uuid,count(*) from rcl_attendance_credits where extract(month from timestamp) = extract(month from now()) group by member_uuid) a left join (select member_uuid,name,team from rc_members) b on a.member_uuid=b.member_uuid where team not in ('','DROP','Admin','instructor') order by count desc limit 10"
+    result = db.run(COMMAND)
+    for line in result:
+        score = "{:,}".format(line[1])
+        output.append({'place':result.index(line)+1,
+            'name':line[0],
+            'score':score})
+    db.close()
+    return(output)
+
+def get_team_RF_monthly():
+    db = connect()
+    output = []
+    COMMAND = "select b.team,sum(amount) from (select * from rf_transactions where extract(month from completed) = extract(month from now()))a left join (select member_uuid,team from rc_members)b on a.member_uuid = b.member_uuid  where team not in ('Admin','instructor','DROP','') group by team order by sum desc limit 10"
+    result = db.run(COMMAND)
+    for line in result:
+        score = "{:,}".format(line[1])
+        output.append({'place':result.index(line)+1,
+            'name':line[0],
+            'score':score})
+    db.close()
+    return(output)
+
 # ADMIN TOOLS
 
 def get_teams():
@@ -771,7 +823,7 @@ def get_rcl_attendance():
 
 @timer
 def main():
-    print(get_member_journeys('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
+    print(get_kahoot_monthly())
 
 if __name__ == '__main__':
     main()
