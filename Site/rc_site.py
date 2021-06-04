@@ -782,21 +782,33 @@ def rcl_attendance():
         if member_uuid != -1:
             amount = pgtool.get_rcl_attendance_credits(member_uuid)
 
+    enabled = pgtool.get_rcl_code_enabled()
+
     return render_template('rcl-attendance.html',
                             code=code, 
                             correct=correct,
                             warning=warning,
                             id_fill=id_fill,
-                            amount=amount)
+                            amount=amount,
+                            enabled=enabled)
                             
-@app.route('/rcl-dashboard', methods=['GET'])
+@app.route('/rcl-dashboard', methods=['GET','POST'])
 @flask_login.login_required
 def rcl_dashboard():
+    if request.method == 'POST':
+        form_type = request.form['form-type']
+        if form_type == 'enable_rclcode':
+            pgtool.toggle_rcl_code_enabled()
+            print('toggle')
+    enabled = pgtool.get_rcl_code_enabled()
     current_code = pgtool.get_rcl_code_today()
     attendance = pgtool.get_rcl_attendance()
+    attendance_credits = pgtool.get_all_attendance_credits()
     return render_template('rcl-dashboard.html',
             attendance=attendance,
-            rclcode=current_code)
+            attendance_credits=attendance_credits,
+            rclcode=current_code,
+            enabled=enabled)
 
 
 ####################################################################

@@ -177,6 +177,17 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for('login'))
 
+def get_member_uuid(member_id):
+    db = connect()
+    try:
+        ps = qprep(db,'SELECT member_uuid FROM rc_members WHERE member_id=:v')
+        result = ps.run(v=member_id)
+        db.close() 
+        return result[0][0]
+    except:
+        db.close() 
+        return -1     
+
 def get_students(email):
     db=connect()
     ps = qprep(db, "SELECT assoc_member FROM parents WHERE email=:e")
@@ -184,12 +195,16 @@ def get_students(email):
     students = []
     for member_id in member_ids:
         m = member_id[0]
-        ps = qprep(db,"SELECT name,member_id,team,division,grad_date from rc_members where member_uuid=:u")
-        result = ps.run(u=member_id[0])
+        COMMAND=f"SELECT name,member_id,team,division,grad_date from rc_members where member_uuid='{m}'"
+        result = db.run(COMMAND)
+        num_journeys = db.run(f"select count(*) from journey_completions where member_uuid = '{m}'")[0][0]
+        journey_percent = int((num_journeys/24)*100)
         team_name = result[0][2]
         team = get_team(team_name)
         students.append({
                 'name':result[0][0],
+                'num_journeys':num_journeys,
+                'journey_percent':journey_percent,
                 'member_id':result[0][1],
                 'team':team,
                 'division':result[0][3],

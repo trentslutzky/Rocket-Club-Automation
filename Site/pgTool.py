@@ -1,4 +1,4 @@
-#################/ ########  IMPORTS  #################################
+################/ ########  IMPORTS  #################################
 import pg8000
 import time
 import secret
@@ -241,7 +241,7 @@ def get_recent_rf_transactions(member_uuid):
             'type':t[0],
             'amount':t[1],
             'date':t[2].strftime(date_fmt),
-            'subtype':t[3]
+            'subtype':t[3],
             })
     return results
 
@@ -580,15 +580,18 @@ def get_recent_members(num):
     db = connect()
     ps = qprep(db,"SELECT member_id,name,division,team from rc_members order by member_id desc limit :n")
     member_list = ps.run(n=num)
-    db.close()
     result = []
     for member in member_list:
+        member_uuid = get_member_uuid(member[0])
+        added = db.run(f"select to_char(completed,'Mon DD HH12:MIpm') from rf_transactions where type='base_rf' and member_uuid = '{member_uuid}'")[0][0]
         result.append({
             'id':member[0],
             'name':member[1],
             'division':member[2],
-            'team':member[3]
+            'team':member[3],
+            'added':added
             })
+    db.close()
     return result
 
 def add_new_member(member_id,name,division,team,grad_date):
@@ -776,6 +779,10 @@ def get_rcl_code_today():
     generate_qr_code(result)
     return(result)
 
+def get_rcl_code_enabled():
+    db = connect()
+    return db.run("select enabled from rcl_attendance_enabled")[0][0]
+
 def check_code(member_id,code):
     member_uuid = get_member_uuid(member_id)
     db = connect()
@@ -810,6 +817,7 @@ def check_rcl_rewards(member_uuid):
 def get_db_date():
     db = connect()
     result = db.run('select current_date')
+    db.close()
     return(result[0][0])
 
 def get_rcl_attendance():
@@ -819,11 +827,31 @@ def get_rcl_attendance():
     result = db.run(COMMAND)
     for name in result:
         names.append(name[0])
+    db.close()
     return names
+    
+def toggle_rcl_code_enabled():
+    db=connect()
+    enabled = not get_rcl_code_enabled()
+    db.run(f"update rcl_attendance_enabled set enabled = {enabled}")
+    db.commit()
+    db.close()
+
+def get_all_attendance_credits():
+    db = connect()
+    output = []
+    COMMAND = "select name,count from (select member_uuid,count(*) from rcl_attendance_credits group by member_uuid)a left join (select * from rc_members)b on a.member_uuid = b.member_uuid where team not in ('Admin','instructor','DROP') order by count desc"
+    #COMMAND = "select name,count from (select member_uuid,count(*) from rcl_attendance_credits group by member_uuid)a left join (select * from rc_members)b on a.member_uuid = b.member_uuid order by count desc"
+    result = db.run(COMMAND)
+    for line in result:
+        output.append({'name':line[0],'count':line[1]})
+    db.close()
+    return output
 
 @timer
 def main():
-    print(get_kahoot_monthly())
+    toggle_rcl_code_enabled()
+    print(get_rcl_code_enabled())
 
 if __name__ == '__main__':
     main()

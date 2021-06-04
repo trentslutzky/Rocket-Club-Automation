@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>new_admin_dashbaord</title>
+    <title>Rocket Club Admin Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='rcl-dashboard/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
@@ -23,14 +23,47 @@
         <div class="dash-box">
             <h1 class="dash-box-heading">Today's Attendance Code</h1>
             <h1 id="rcl-code">{{rclcode}}</h1><a href="https://www.rocketclubtools.com/rclcode" target="_blank">Click here to view the Rocket Club live code page</a>
+            <div id="enable-button-area">{% if enabled %}
+<span id="rclcode-enabled-text">Status: enabled</span>
+{% else %}
+<span id="rclcode-disabled-text">Status: disabled</span>
+{% endif %}
+                <form method="post"><input class="form-control" type="hidden" name="form-type" value="enable_rclcode">
+                    <div><button class="btn btn-primary" id="enable-button" type="submit" onclick="enable_loading()">Click to enable</button><img id="enable-loader" src="{{ url_for('static', filename='rcl-dashboard/img/ajax-loader.gif') }}"></div>
+                </form>
+            </div>
         </div>
         <div class="dash-box">
-            <h1 class="dash-box-heading">Today's Attendance<a id="attendance-refresh" href="#" onclick="attendance_loading();window.location.reload();">Refresh</a><img id="attendance-loader" src="{{ url_for('static', filename='rcl-dashboard/img/ajax-loader.gif') }}"></h1>{% if attendance|length > 0 %}
+            <h1 class="dash-box-heading">Today's Attendance<a id="attendance-refresh" href="rcl-dashboard" onclick="attendance_loading();">Refresh</a><img id="attendance-loader" src="{{ url_for('static', filename='rcl-dashboard/img/ajax-loader.gif') }}"></h1>{% if attendance|length > 0 %}
 <textarea id="attendance-input" rows="{{attendance|length}}">{% for name in attendance %}
 {{name}}{%endfor%}</textarea>{% endif %}{% if attendance|length > 0 %}
 <button id="copy-button" class="btn btn-primary" type="button" onclick="copy_to_cb()">Copy To Clipboard</button>
 {% else %}
             <p id="nobody">Hmm, looks like there's nobody here today... {%endif%}</p>
+        </div>
+        <div class="dash-box">
+            <h1 class="dash-box-heading">RCL Attendance Credits<a id="attendance-refresh" href="rcl-dashboard" onclick="attendance_loading();">Refresh</a><img id="attendance-loader" src="{{ url_for('static', filename='rcl-dashboard/img/ajax-loader.gif') }}"></h1>{% if attendance_credits|length > 0 %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Attendance Credits</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in attendance_credits %}
+            <tr>
+                <td>{{ line.name }}</td>
+                <td>{{ line.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h1 id="no_attendance_data">There's no data yet...</h1>
+{% endif %}
         </div>
     </div>
     <script src="{{ url_for('static', filename='rcl-dashboard/js/jquery.min.js') }}"></script>
