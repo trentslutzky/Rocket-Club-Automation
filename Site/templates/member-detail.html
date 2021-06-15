@@ -40,11 +40,12 @@
                 <h6>Name: {{parent.name}}</h6>
                 <h6>Email: {{parent.email}}</h6>
                 <h6>Phone Number: {{parent.phone}}</h6>
+                <h6>Temp Password: {{parent.temp_pw}}</h6>
             </div>{% if role == 'Admin' %}
             <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
                 <h1 id="edit-member-into-heading">Edit Member Information</h1>
                 <div id="member-detail-edit-info-form">
-                    <form method="post" action="member-detail">
+                    <form method="post" action="member-detail"><input class="form-control" type="hidden" name="formtype" value="info">
                         <h6>Member ID</h6><input class="form-control input-box" type="number" name="member_id" value="{{ member.member_id }}">
                         <h6 id="form-heading">Name</h6><input class="form-control input-box" type="text" name="name" value="{{ member.name }}"><input class="form-control" type="text" id="uuid-hidden" name="member_uuid" value="{{ member_uuid }}">
                         <h6 id="form-heading">Division</h6><input class="form-control input-box" type="number" name="division" value="{{ member.division }}">
@@ -65,15 +66,16 @@
             </div>{% endif %}
         </div>
         <div id="member-detail-right-pane"><div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
-    <form method='post'>    
-        <h1 id="member-stats-heading" style="border-bottom: 3px solid rgba(0,107,130,0.28);">Member Journeys</h1>
+    <form method='post' action='member-detail'>    
+        <input/ type="hidden" name="formtype" value="journeys">
+        <h1 id="member-stats-heading">Member Journeys</h1>
         <h1 id="member-stats-subheading" style="font-weight: 1000;">Entrepreneurship and Business</h1>
         {% for j in journeys.entre_journeys %} 
-            <div class="journey-line"><input type="checkbox" {% if j.certified %}checked{% endif %}/><span class="journey-line-label">{{j.flair}}</span></div>    
+            <div class="journey-line"><input name="cert_checkbox" value="{{j.flair}}" type="checkbox" {% if j.certified %}checked{% endif %}/><span class="journey-line-label">{{j.flair}}</span></div>    
         {% endfor %}
         <h1 id="member-stats-subheading" style="font-weight: 1000;">Science, Technology, Engineering, and Mathematics</h1>
         {% for j in journeys.science_journeys %} 
-            <div class="journey-line"><input type="checkbox" {% if j.certified %}checked{% endif %}/><span class="journey-line-label">{{j.flair}}</span></div>    
+            <div class="journey-line"><input name="cert_checkbox" value="{{j.flair}}" type="checkbox" {% if j.certified %}checked{% endif %}/><span class="journey-line-label">{{j.flair}}</span></div>    
         {% endfor %}
         <div>
             <button type='submit' id='journey-submit-button' onclick="load_journeys()">Update Journeys</button>
