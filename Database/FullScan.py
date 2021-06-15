@@ -6,7 +6,7 @@ import getKahootScores
 
 def main():
     while True:
-        getKahootScores.main()
+#        getKahootScores.main()
         scanRCLAttendance.main()
         scanVirtualMissions.main()
         scanRFStore.main()

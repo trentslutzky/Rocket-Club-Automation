@@ -1,7 +1,173 @@
 input[type=checkbox], input[type=radio] {
   font-size: 20px;
-  height: 22px;
-  width: 22px;
+  height: 15px;
+  width: 15px;
   text-align: center;
+  margin-top: 4px;
+}
+
+.loading-gif {
+  margin-left: 20px;
+  visibility: hidden;
+}
+
+#attendance-box {
+  background-color: rgb(222,222,222);
+  padding: 10px;
+  border: 1px solid rgb(179,179,179);
+  border-radius: 5px;
+}
+
+#nobody {
+  color: rgb(174,174,174);
+}
+
+#attendance-refresh {
+  float: right;
+  font-size: medium;
+  margin-top: 5px;
+}
+
+#attendance-input {
+  background-color: rgb(235,235,235);
+  margin-right: 10px;
+  resize: none;
+}
+
+#copy-button {
+  margin-top: 15px;
+}
+
+#attendance-loader {
+  float: right;
+  margin-top: 5px;
+  margin-right: 10px;
+  visibility: hidden;
+}
+
+#dashboard-start-heading {
+  font-size: 25px;
+  margin: 15px;
+}
+
+.dashboard-start-button {
+  background-color: var(--sidebar_bg);
+  width: 300px;
+  height: 150px;
+  border: 2px solid rgb(236,236,236);
+  border-radius: 10px;
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.dashboard-start-button-title {
+  font-family: 'Noto Sans JP';
+  text-align: center;
+  margin-top: 10px;
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+.dashboard-start-button-icon {
+  text-align: center;
+  font-size: 30px;
+}
+
+#dashboard-start-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
+
+@media (max-width: 478px) {
+  .dashboard-start-button {
+    width: 100%;
+  }
+}
+
+.dashboard-start-button-link {
+  text-decoration: none;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin: 0px;
+  height: 100%;
+}
+
+.dashboard-start-button-link:hover {
+  color: rgb(255,255,255);
+  text-decoration: none;
+}
+
+.dashboard-start-button-link {
+  color: rgb(227,227,227);
+}
+
+.dashboard-start-button:hover {
+  background-color: #3d6e9e;
+}
+
+#enable-button {
+  height: 30px;
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+}
+
+#enable-button-area {
+  margin-top: 10px;
+}
+
+#rclcode-enabled-text {
+  color: green;
+}
+
+#rclcode-disabled-text {
+  color: red;
+}
+
+#enable-loader {
+  margin-top: 6px;
+  margin-left: 6px;
+  visibility: hidden;
+}
+
+#no_attendance_data {
+  font-size: 16px;
+  color: rgb(137,137,137);
+  text-align: center;
+}
+
+.journey-line-label {
+  margin-left: 10px;
+  font-size: 12px;
+  padding-top: 1px;
+}
+
+.journey-line {
+  display: flex;
+  margin-bottom: 6px;
+  margin-left: 8px;
+}
+
+input[type=checkbox] :checked {
+}
+
+#journey-submit-button {
+  background-color: var(--cyan);
+  border: 3px solid var(--info);
+  border-radius: 4px;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: white;
+  margin-top: 10px;
+}
+
+#journeys_confirm {
+  margin-left: 14px;
+  font-size: 17px;
+  color: var(--confirm_orange);
 }
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>new_admin_dashbaord</title>
+    <title>Rocket Club Admin Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
@@ -25,12 +25,14 @@
             <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start member-dashboard-box" id="member-detail-top-card">
                 <div id="member-detail-top-card-left"><i class="fa fa-user" id="member-detail-profile-picture"></i></div>
                 <div id="member-detail-top-card-right">
-                    <h2 id="member-detail-top-card-name">{{ member.name }}</h2>
+                    <h3 id="member-detail-top-card-name">{{ member.name }}</h3>
                     <h6 id="member-detail-top-card-uuid">{{ member.uuid }}</h6>
-                    <h5>Member ID:&nbsp;{{ member.member_id }}</h5>
-                    <h5>Team: {{ member.team }}</h5>
-                    <h5>Division: {{ member.division }}</h5>
-                    <h5>RC&nbsp;Graduation Date: {{ member.grad_date }}</h5>
+                    <h6>Member ID:&nbsp;{{ member.member_id }}</h6>
+                    <h6>Team: {{ member.team }}</h6>
+                    <h6>Division: {{ member.division }}</h6>
+                    <h6>RC&nbsp;Graduation Date: {{ member.grad_date }}</h6>
+                    <h6>Rocket Fuel: {{ member.total_rf }}</h6>
+                    <h6>RCL Attendance: {{ member.rcl_attendance }} days</h6>
                 </div>
             </div>
             <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
@@ -38,7 +40,6 @@
                 <h6>Name: {{parent.name}}</h6>
                 <h6>Email: {{parent.email}}</h6>
                 <h6>Phone Number: {{parent.phone}}</h6>
-                <h6>Temp Password: {{parent.temp_pw}}</h6>
             </div>{% if role == 'Admin' %}
             <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
                 <h1 id="edit-member-into-heading">Edit Member Information</h1>
@@ -63,11 +64,23 @@
                 </div>
             </div>{% endif %}
         </div>
-        <div id="member-detail-right-pane">
-            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
-                <h1 id="member-stats-heading">Member Stats</h1>
-                <h1 id="member-stats-subheading">Rocket Fuel: {{total_rf}}</h1>
-            </div><div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start member-dashboard-box" id="member-detail-recent-transactions">
+        <div id="member-detail-right-pane"><div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
+    <form method='post'>    
+        <h1 id="member-stats-heading" style="border-bottom: 3px solid rgba(0,107,130,0.28);">Member Journeys</h1>
+        <h1 id="member-stats-subheading" style="font-weight: 1000;">Entrepreneurship and Business</h1>
+        {% for j in journeys.entre_journeys %} 
+            <div class="journey-line"><input type="checkbox" {% if j.certified %}checked{% endif %}/><span class="journey-line-label">{{j.flair}}</span></div>    
+        {% endfor %}
+        <h1 id="member-stats-subheading" style="font-weight: 1000;">Science, Technology, Engineering, and Mathematics</h1>
+        {% for j in journeys.science_journeys %} 
+            <div class="journey-line"><input type="checkbox" {% if j.certified %}checked{% endif %}/><span class="journey-line-label">{{j.flair}}</span></div>    
+        {% endfor %}
+        <div>
+            <button type='submit' id='journey-submit-button' onclick="load_journeys()">Update Journeys</button>
+            <span id='journeys_confirm'></span>
+        </div>
+    </form>
+</div><div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start member-dashboard-box" id="member-detail-recent-transactions">
     <div class="table-responsive">
         <h1 id="member-detail-recent-transactions-heading">Recent Rocket Fuel Transactions</h1>
         <table class="table">
@@ -91,11 +104,12 @@
             </tbody>
         </table>
     </div>
-</div>
-        </div>
+</div></div>
     </div>
     <script src="{{ url_for('static', filename='member-detail/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='member-detail/js/attendance-loading.js') }}"></script>
+    <script src="{{ url_for('static', filename='member-detail/js/copy_to_cb.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/loading-msg.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/navigation-buttons.js') }}"></script>
 </body>

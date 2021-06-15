@@ -6,6 +6,7 @@ import pgTool as pgtool
 import secret
 import pg8000
 import rcCerts as rccerts
+import rcJourneys
 import qrcode
 import time
 
@@ -320,9 +321,11 @@ def member_detail():
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
+        journeys = rcJourneys.get_member_journeys(member_uuid)
         #NEED TO ADD PARENT FUNCTIONALITY
         parent = pgtool.get_parent(member_uuid)
         return render_template('member-detail.html',
+                journeys=journeys,
                 member=member,
                 rf_transactions=rf_transactions,
                 total_rf=total_rf,
@@ -732,7 +735,7 @@ def show_leaderboard():
             monthly_attendance=monthly_attendance,
             monthly_kahoot=kahoot_monthly,
             team_monthly=team_monthly,
-            life_kahoot=life_kahoot,
+            lifetime_kahoot=life_kahoot,
             top_rf=top_rf
             )
 
@@ -813,6 +816,19 @@ def rcl_dashboard():
 
 ####################################################################
 ####################################################################
+
+# ERROR HANDLING #
+@app.errorhandler(500)
+def error_page(error):
+    return render_template('error.html',error_message='Something went wrong. Try again later',error_code=500),500
+
+@app.errorhandler(404)
+def error_page(error):
+    return render_template('error.html',error_message='Error 404: URL Not Found',error_code=404),404
+
+@app.errorhandler(400)
+def error_page(error):
+    return render_template('error.html',error_message='Error 400: Bad request',error_code=400),400
 
 def add_user(username,password,role):
     db = connect()

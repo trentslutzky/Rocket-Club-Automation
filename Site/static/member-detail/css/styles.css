@@ -293,6 +293,7 @@ body {
 #class-rf-submit-button {
   background-color: var(--info);
   border: none;
+  opacity: 100%;
 }
 
 #select-input {
@@ -380,6 +381,12 @@ body {
   color: var(--text_grey);
   margin-left: 20px;
   margin-top: 8px;
+}
+
+#load-class-confirmation {
+  color: var(--confirm_orange);
+  margin-left: 20px;
+  font-size: 14px;
 }
 
 #add-member-confirmation {

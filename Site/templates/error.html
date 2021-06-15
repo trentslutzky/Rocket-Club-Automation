@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html style="background: url({{ url_for('static', filename='error/img/background-cut.png')}}) left / auto no-repeat;background-color: black;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ErrorPages</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/css/styles.css') }}">
+</head>
+
+<body><img id="rc-logo" src="{{ url_for('static', filename='error/img/rocket_club_header.png') }}"><span id="error-message">{{error_message}}</span><span id="error-code">{{error_code}}</span>
+    <script src="{{ url_for('static', filename='error/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='error/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>
