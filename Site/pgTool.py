@@ -515,7 +515,7 @@ def get_kahoot_monthly():
 def get_lifetime_kahoot():
     db = connect()
     output = []
-    COMMAND = "select name,sum,team from (select member_uuid,sum(score) from kahoot_scores group by kahoot_scores.member_uuid)b left join (select * from rc_members)a on a.member_uuid = b.member_uuid order by sum desc"
+    COMMAND = "select name,sum,team from (select member_uuid,sum(score) from kahoot_scores group by kahoot_scores.member_uuid)b left join (select * from rc_members)a on a.member_uuid = b.member_uuid order by sum desc limit 10"
     result = db.run(COMMAND)
     for line in result:
         score = "{:,}".format(line[1])
