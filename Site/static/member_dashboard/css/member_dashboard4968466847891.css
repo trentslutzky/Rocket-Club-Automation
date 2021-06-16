@@ -24,7 +24,6 @@
 
 .nav-p {
   color: black;
-  font-family: 'Source Sans Pro';
   font-weight: 500;
 }
 
@@ -47,9 +46,6 @@
   margin-top: 15px;
 }
 
-.navbar-light .navbar-toggler {
-}
-
 .newsletter-subscribe {
   width: 100%;
   margin-top: 100px;
@@ -65,11 +61,14 @@
   font-family: 'Orbitron';
 }
 
-.navbar.navbar-light.navbar-expand-md {
-  margin-top: 25px;
-  margin-left: 20px;
-  margin-right: 20px;
-  height: 150px;
+@media (min-width: 768px) {
+  .navbar.navbar-light.navbar-expand-md {
+    margin-top: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 150px;
+    background-color: transparent;
+  }
 }
 
 #horizontal_white {
@@ -106,8 +105,10 @@ form {
   justify-content: center;
 }
 
-#top_logo {
-  height: 120px;
+@media (min-width: 768px) {
+  #top_logo {
+    height: 100px;
+  }
 }
 
 #rc-logo-fancy {
@@ -148,7 +149,7 @@ form {
 
 @media (max-width: 579px) {
   #large-name {
-    font-size: 6vw;
+    font-size: 5vw;
   }
 }
 
@@ -156,17 +157,6 @@ form {
   font-family: 'Orbitron';
   color: rgba(255,255,255,0.73);
   font-size: 1.8vw;
-}
-
-#total-rf-block {
-  margin-top: 50px;
-  margin-bottom: 100px;
-}
-
-@media (max-width: 576px) {
-  #total-rf-block {
-    margin-top: 30px;
-  }
 }
 
 #total-rocket-fuel {
@@ -178,10 +168,10 @@ form {
 #total-rocket-fuel-label {
   font-family: 'Orbitron';
   font-size: 2vw;
-  margin: 3vw;
+  margin: 1vw;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   #large-name {
     font-size: 50px;
   }
@@ -189,7 +179,7 @@ form {
 
 @media (max-width: 768px) {
   #total-rocket-fuel {
-    font-size: 6vw;
+    font-size: 5vw;
   }
 }
 
@@ -218,20 +208,19 @@ form {
 }
 
 #rocket-icon {
-  font-size: 5vw;
+  font-size: 3vw;
   color: orange;
 }
 
 @media (min-width: 768px) {
   #rocket-icon {
-    font-size: 50px;
-    margin-left: 20px;
+    font-size: 25px;
   }
 }
 
 @media (max-width: 575px) {
   #division-team {
-    font-size: 3vw;
+    font-size: 2vw;
   }
 }
 
@@ -394,14 +383,14 @@ form {
 @media (min-width: 1200px) {
   #total-rocket-fuel-label {
     font-size: 25px;
-    margin: 35px;
+    margin: 15px;
   }
 }
 
 @media (min-width: 1200px) {
   #total-rocket-fuel {
-    font-size: 70px;
-    margin-left: 25px;
+    font-size: 48px;
+    margin-left: 23px;
   }
 }
 
@@ -456,6 +445,8 @@ form {
 
 .nav-p {
   font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .right-column-subheading {
@@ -566,5 +557,47 @@ form {
   #resume-heading {
     font-size: 2vw;
   }
+}
+
+@media (max-width: 767px) {
+  #top_logo {
+    height: 46px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar.navbar-light.navbar-expand-md {
+    margin-bottom: 24px;
+    background-color: black;
+  }
+}
+
+.navbar-light .navbar-toggler-icon {
+  color: white;
+}
+
+#navbar-toggle-icon {
+  color: white;
+}
+
+#resume-heading {
+  margin-top: 8px;
+}
+
+#top-row {
+  padding-top: 15px;
+}
+
+@media (min-width:768px) {
+  .navbar-expand-md {
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+}
+
+body {
+  margin-bottom: 100px;
 }
 

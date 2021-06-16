@@ -494,10 +494,12 @@ body {
   padding-left: 25px;
   padding-right: 25px;
   border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.11);
 }
 
 #member-detail-top-card-left {
-  width: 30%;
+  width: 31%;
+  margin-top: 12px;
 }
 
 #member-detail-top-card-right {
@@ -667,5 +669,11 @@ input[type=checkbox]:checked + label {
 
 #class-rf-submit-area {
   margin-top: 11px;
+}
+
+#payment-confirm {
+  margin-left: 14px;
+  font-size: 15px;
+  color: var(--confirm_orange);
 }
 

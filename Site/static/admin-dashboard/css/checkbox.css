@@ -165,9 +165,50 @@ input[type=checkbox] :checked {
   margin-top: 10px;
 }
 
+#payment-submit-button {
+  background-color: var(--cyan);
+  border: 3px solid var(--info);
+  border-radius: 4px;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: white;
+  margin-top: 10px;
+}
+
 #journeys-confirm {
   margin-left: 14px;
   font-size: 15px;
   color: var(--confirm_orange);
+}
+
+.form-control.input-box.number-box {
+  width: 110px !important;
+  background-color: rgb(243,243,243);
+}
+
+#payment-form {
+  background-color: var(--page_bg);
+  padding-left: 10px;
+  padding-bottom: 10px;
+  width: 300px;
+  padding-top: 10px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+#payment-form-line {
+  display: flex;
+  width: 300px;
+}
+
+.payment-form-line-div {
+  margin-right: 24px;
+}
+
+#update-payment-heading {
+  font-size: 18px;
+  border-bottom: 2px solid var(--cyan);
+  width: 151px;
+  padding-bottom: 5px;
 }
 

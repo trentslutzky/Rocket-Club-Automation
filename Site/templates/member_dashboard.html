@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background-image: url({{ url_for('static', filename='member_dashboard/img/background.jpg')}});background-repeat: no-repeat;background-size: cover;background-color: black;">
+<html style="background-image: url({{ url_for('static', filename='member_dashboard/img/background.jpg')}});background-repeat: no-repeat;background-size: cover;background-color: black;background-attachment: fixed;">
 
 <head>
     <meta charset="utf-8">
@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="{{ url_for('static', filename='member_dashboard/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='member_dashboard/css/member_dashboard496.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member_dashboard/css/member_dashboard4968466847891.css') }}">
 </head>
 
 <body style="color: rgb(255,255,255);background: transparent;">
     <nav class="navbar navbar-light navbar-expand-md">
-        <div class="container-fluid"><a href="https://rocketclub.com/"><img id="top_logo" src="{{ url_for('static', filename='member_dashboard/img/Rocket+Club+Final-horizontal+transparent+background.png') }}"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container-fluid"><a href="https://rocketclub.com/"><img id="top_logo" src="{{ url_for('static', filename='member_dashboard/img/Rocket+Club+Final-horizontal+transparent+background.png') }}"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-right" id="navbar-toggle-icon"></i></button>
             <div class="collapse navbar-collapse d-md-flex d-lg-flex d-xl-flex justify-content-md-end justify-content-lg-end justify-content-xl-end" id="navcol-1">
                 <ul class="nav navbar-nav">
                     <li class="nav-item"><a class="nav-link active" href="https://rocketclub.com/admissions">
@@ -31,19 +31,21 @@
             </div>
         </div>
     </nav>
-    <hr id="horizontal_white">
     <div id="total-rf-block">
-        <div class="container" id="top-container"><a id="back-link" href="my-rf">Back</a>
-            <div class="row d-flex">
+        <div class="container" id="top-container">
+            <div class="row d-flex" id="top-row">
                 <div class="col-4 col-sm-4 col-md-5 col-lg-5 offset-xl-0 d-flex align-items-center"><img id="rc-logo-fancy" src="{{ url_for('static', filename='member_dashboard/img/rc_logo_fancy.png') }}"></div>
                 <div class="col-8 col-sm-8 col-md-7 col-lg-7 col-xl-7 offset-0 offset-sm-0 offset-md-0 offset-lg-0 offset-xl-0" id="top-right-column">
-                    <h5 id="heading-member-dashboard">MEMBER DASHBOARD</h5>
-                    <h1 id="large-name">{{ name }}</h1>
-                    <h6 id="division-team">Division {{ division }} team {{ team }}</h6>
+                    <h1 id="large-name">{{ member.name }}</h1>
+                    <h6 id="division-team">Division {{member.division}} team {{member.team}}</h6>
                     <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center"><i class="fa fa-rocket" id="rocket-icon"></i>
                         <h6 id="total-rocket-fuel-label">Total Rocket Fuel</h6>
                     </div>
-                    <h1 id="total-rocket-fuel">{{ rf_total }}</h1>
+                    <h1 id="total-rocket-fuel">{{member.total_rf}} RF</h1>
+                    <div class="d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center"><i class="fa fa-video-camera" id="rocket-icon"></i>
+                        <h6 id="total-rocket-fuel-label">Rocket Club Live Attendance</h6>
+                    </div>
+                    <h1 id="total-rocket-fuel">{{member.rcl_attendance}} Days</h1>
                 </div>
             </div>
             <h1 id="resume-heading">View Member Resume Below:</h1>
@@ -54,7 +56,7 @@
                     <div class="left-column-info-section">
                         <h1 class="left-column-heading">Information</h1>
                         <hr id="top-line" class="left-column-line">
-                        <p id="member-info" class="left-column-p">Name: <strong>{{ name }}</strong><br>Phone: <strong>(201) 292-3565</strong><br>Email: <strong>admin@rocketclub.com</strong><br>Website: <strong>rocketclub.com</strong></p>
+                        <p id="member-info" class="left-column-p">Name: <strong>{{ member.name }}</strong><br>Phone: <strong>(201) 292-3565</strong><br>Email: <strong>admin@rocketclub.com</strong><br>Website: <strong>rocketclub.com</strong></p>
                     </div>
                     <div class="left-column-info-section">
                         <h1 class="left-column-heading personal-business">Personal Business</h1>

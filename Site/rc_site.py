@@ -339,8 +339,10 @@ def member_detail():
 
     if flask.request.method == 'POST':
         formtype = request.form['formtype']
+        print(formtype)
         warning = ''
         confirmation = ''
+        payment_confirm = ''
         # get info needed to render page
         member_uuid = request.form['member_uuid']
         if formtype == 'info':
@@ -369,7 +371,13 @@ def member_detail():
             certs = request.form.getlist('cert_checkbox')
             pgtool.update_member_journeys(member_uuid,certs)
             journey_confirmation = 'Updated journeys'
-
+        
+        elif formtype == 'payment':
+            new_tuition = request.form['tuition']
+            new_scholarship = request.form['scholarship']
+            print(new_tuition,new_scholarship)
+            pgtool.update_parent_payment(member_uuid,new_tuition,new_scholarship)
+            payment_confirm = 'updated payment.'
 
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
@@ -390,6 +398,7 @@ def member_detail():
                 role=flask_login.current_user.get_role(),
                 parent=parent,
                 journeys=journeys,
+                payment_confirm=payment_confirm,
                 journey_confirmation=journey_confirmation
                 )
 
@@ -604,16 +613,10 @@ def show_stats():
         else:
             gate_loading()
             # Member info from pgtool
-            member_info = pgtool.get_member_info(member_id)
-            member_rf = pgtool.get_member_total(member_id)
-            
-            member_rf =str(format(int(member_rf),','))
+            member = pgtool.get_member_info_uuid(member_uuid)
 
             return render_template('member_dashboard.html', 
-            name = member_info[0], 
-            division = member_info[1], 
-            team = member_info[2], 
-            rf_total = member_rf,
+            member = member,
             journeys = pgtool.get_member_journeys(member_uuid)
             )
 

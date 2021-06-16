@@ -8,6 +8,11 @@ function load_journeys(){
     journeys_confirm.innerHTML = 'Loading...';
 }
 
+payment_confirm = document.getElementById("payment-confirm")
+function load_payments(){
+    payment_confirm.innerHTML = 'Loading...';
+}
+
 class_confirm = document.getElementById("class-rf-confirmation")
 class_loading_gif = document.getElementById("class-loading-gif")
 class_update_button = document.getElementById("class-rf-submit-button")

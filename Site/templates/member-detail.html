@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/Font%20Awesome%205%20Brands.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/Font%20Awesome%205%20Free.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/checkbox.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/styles18461384623.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/checkbox65498498795.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/styles1846559879879871.css') }}">
 </head>
 
 <body>
@@ -41,6 +42,23 @@
                 <h6>Email: {{parent.email}}</h6>
                 <h6>Phone Number: {{parent.phone}}</h6>{% if role == 'Admin' %}
 <h6>Temp Password: {{parent.temp_pw}}</h6>
+<form method="post" id="payment-form">
+    <input type="hidden" name="formtype" value="payment"/> 
+    <input type="hidden" name="member_uuid" value="{{member_uuid}}"/>
+    <h5 id="update-payment-heading">Update Payment</h5>
+    <div id='payment-form-line'>
+        <div class='payment-form-line-div'>
+            <h6>Tuition</h6>
+            <input type ="number" class="form-control input-box number-box" name="tuition" value="{{parent.tuition}}"/>
+        </div>
+        <div class='payment-form-line-div'>
+            <h6>Scholarsihp</h6>
+            <input type ="number" class="form-control input-box number-box" name="scholarship" value="{{parent.scholarship}}"/>
+        </div>
+    </div>  
+    <button type='submit' id='payment-submit-button' onclick="load_payments()">Save</button>
+            <span id='payment-confirm'>{{payment_confirm}}</span>
+</form>
 {% endif %}
             </div>{% if role == 'Admin' %}
             <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
@@ -114,7 +132,7 @@
     <script src="{{ url_for('static', filename='member-detail/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/attendance-loading.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/copy_to_cb.js') }}"></script>
-    <script src="{{ url_for('static', filename='member-detail/js/loading-msg846138413.js') }}"></script>
+    <script src="{{ url_for('static', filename='member-detail/js/loading-msg84613498798789798798888.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/navigation-buttons.js') }}"></script>
 </body>
 

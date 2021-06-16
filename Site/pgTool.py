@@ -213,11 +213,17 @@ def get_member_info(member_id):
 def get_member_info_uuid(member_uuid):
     db = connect()
     ps = qprep(db,"SELECT * from rc_members where member_uuid = :a")
+    total_rf = db.run(f"select sum(amount) from rf_transactions where member_uuid = '{member_uuid}'")[0][0]
+    rcl_attendance = db.run(f"SELECT count(*) from rcl_attendance_credits where member_uuid = '{member_uuid}'")[0][0]
+    total_rf = int(total_rf)
+    total_rf = "{:,}".format(total_rf)
     member_list = ps.run(a=member_uuid)
     db.close()
     result = []
     for member in member_list:
         result.append({
+            'rcl_attendance':rcl_attendance,
+            'total_rf':total_rf,
             'uuid':member[0],
             'member_id':member[1],
             'name':member[2],
@@ -642,6 +648,13 @@ def add_parent(assoc_member_id,name,email,phone,cost,scholarship):
     db.commit()
     db.close()
 
+def update_parent_payment(member_uuid,tuition,scholarship):
+    db = connect()
+    db.run(f"UPDATE parents SET tuition = {tuition} where assoc_member = '{member_uuid}'")
+    db.run(f"UPDATE parents SET scholarship = {scholarship} where assoc_member = '{member_uuid}'")
+    db.commit()
+    db.close()
+
 def get_member(member_uuid):
     db = connect()
     result = db.run("select * from rc_members where member_uuid = {member_uuid}")
@@ -689,7 +702,7 @@ def get_member_name(member_uuid):
 
 def get_parent(member_uuid):
     db = connect()
-    COMMAND = f"select name,email,phone,temp_password from parents where assoc_member = '{member_uuid}' limit 1;"
+    COMMAND = f"select name,email,phone,temp_password,tuition,scholarship from parents where assoc_member = '{member_uuid}' limit 1;"
     result = db.run(COMMAND)
     if result:
         parent = {
@@ -697,6 +710,8 @@ def get_parent(member_uuid):
                 'email':result[0][1],
                 'phone':result[0][2],
                 'temp_pw':result[0][3],
+                'tuition':result[0][4],
+                'scholarship':result[0][5],
                 }
     else:
         parent = {
@@ -704,8 +719,9 @@ def get_parent(member_uuid):
                 'email':'',
                 'phone':'',
                 'temp_pw':'',
+                'tuition':'',
+                'scholarship':'',
                 }
-    print(parent)
     return(parent)
 
 def get_member_num_certs(member_uuid):
