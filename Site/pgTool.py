@@ -756,6 +756,29 @@ def get_member_journeys(member_uuid):
             'percent_complete':percent_complete,
             'num_certified':num_certified}
 
+
+def update_member_journeys(member_uuid,journeys):
+    db = connect()
+    print(f'updating certs for {member_uuid}')
+    new_journeys = journeys
+    current_journeys_db = db.run(f"select cert_id from journey_completions where member_uuid = '{member_uuid}'")
+    current_journeys = []
+    for line in current_journeys_db:
+        current_journeys.append(line[0])
+
+    print(current_journeys,new_journeys)
+
+    for j in current_journeys:
+        if(j not in new_journeys):
+            db.run(f"delete from journey_completions where member_uuid = '{member_uuid}' and cert_id = '{j}'")
+
+    for j in new_journeys:
+        if(j not in current_journeys):
+            db.run(f"INSERT INTO journey_completions(member_uuid,cert_id) VALUES('{member_uuid}','{j}')")
+
+    db.commit()
+    db.close()
+
 # Rocket Club Live Attendance #
 
 #create a qr code and put in the right place

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>new_admin_dashbaord</title>
+    <title>Rocket Club Admin Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
@@ -15,33 +15,43 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/fonts/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/checkbox.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/styles18461384623.css') }}">
 </head>
 
 <body>
-    <h1 id="dashboard-start-heading" class="dashboard-heading">{{role}} Dashboard</h1>
-    <div id="dashboard-start-buttons">
-        <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button"><a class="dashboard-start-button-link" href="add-member">
-                <p class="dashboard-start-button-title">Add Members</p><i class="fa fa-user dashboard-start-button-icon"></i>
-            </a></div>
-        <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button"><a class="dashboard-start-button-link" href="member-info">
-                <p class="dashboard-start-button-title">Member Info</p><i class="fa fa-edit dashboard-start-button-icon"></i>
-            </a></div>
-        <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button"><a class="dashboard-start-button-link" href="class-rf">
-                <p class="dashboard-start-button-title">Class Rocket Fuel</p><i class="fa fa-graduation-cap dashboard-start-button-icon"></i>
-            </a></div>
-        <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button"><a class="dashboard-start-button-link" href="rcl-dashboard">
-                <p class="dashboard-start-button-title">Rocket Club Live</p><i class="fa fa-video-camera dashboard-start-button-icon"></i>
-            </a></div>
-        <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button"><a class="dashboard-start-button-link" href="certs">
-                <p class="dashboard-start-button-title">Certifications</p><i class="fa fa-list dashboard-start-button-icon"></i>
-            </a></div>
+    <h1 id="dashboard-start-heading" class="dashboard-heading">{{role}} Dashboard</h1><div id="dashboard-start-buttons">
+    {% if role == 'Admin' %}
+    <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
+        <a class="dashboard-start-button-link" href="add-member">
+            <p class="dashboard-start-button-title">Add Members</p>
+            <i class="fa fa-user dashboard-start-button-icon"></i>
+        </a>
     </div>
+    {% endif %}
+    <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
+        <a class="dashboard-start-button-link" href="edit-member">
+            <p class="dashboard-start-button-title">Member Info and Certs</p>
+            <i class="fa fa-edit dashboard-start-button-icon"></i>
+        </a>
+    </div>
+    <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
+        <a class="dashboard-start-button-link" href="class-rf">
+            <p class="dashboard-start-button-title">Class Rocket Fuel</p>
+            <i class="fa fa-graduation-cap dashboard-start-button-icon"></i>
+        </a>
+    </div>
+    <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
+        <a class="dashboard-start-button-link" href="rcl-dashboard">
+            <p class="dashboard-start-button-title">Rocket Club Live</p>
+            <i class="fa fa-video-camera dashboard-start-button-icon"></i>
+        </a>
+    </div>
+</div>
     <script src="{{ url_for('static', filename='dashboard-start/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/js/attendance-loading.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/js/copy_to_cb.js') }}"></script>
-    <script src="{{ url_for('static', filename='dashboard-start/js/loading-msg.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard-start/js/loading-msg846138413.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/js/navigation-buttons.js') }}"></script>
 </body>
 

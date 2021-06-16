@@ -592,12 +592,17 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#member-stats-subheading-science {
+  font-size: 17px;
+  margin-top: 15px;
+}
+
 #member-stats-subheading {
-  font-size: 16px;
+  font-size: 17px;
 }
 
 #member-stats-heading {
-  font-size: 24px;
+  font-size: 26px;
 }
 
 #uuid-hidden {

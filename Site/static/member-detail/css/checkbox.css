@@ -142,7 +142,7 @@ input[type=checkbox], input[type=radio] {
 
 .journey-line-label {
   margin-left: 10px;
-  font-size: 12px;
+  font-size: 16px;
   padding-top: 1px;
 }
 
@@ -165,9 +165,9 @@ input[type=checkbox] :checked {
   margin-top: 10px;
 }
 
-#journeys_confirm {
+#journeys-confirm {
   margin-left: 14px;
-  font-size: 17px;
+  font-size: 15px;
   color: var(--confirm_orange);
 }
 

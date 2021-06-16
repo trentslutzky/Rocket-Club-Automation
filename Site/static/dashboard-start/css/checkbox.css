@@ -1,8 +1,9 @@
 input[type=checkbox], input[type=radio] {
   font-size: 20px;
-  height: 22px;
-  width: 22px;
+  height: 15px;
+  width: 15px;
   text-align: center;
+  margin-top: 4px;
 }
 
 .loading-gif {
@@ -105,5 +106,68 @@ input[type=checkbox], input[type=radio] {
 
 .dashboard-start-button:hover {
   background-color: #3d6e9e;
+}
+
+#enable-button {
+  height: 30px;
+  padding: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+}
+
+#enable-button-area {
+  margin-top: 10px;
+}
+
+#rclcode-enabled-text {
+  color: green;
+}
+
+#rclcode-disabled-text {
+  color: red;
+}
+
+#enable-loader {
+  margin-top: 6px;
+  margin-left: 6px;
+  visibility: hidden;
+}
+
+#no_attendance_data {
+  font-size: 16px;
+  color: rgb(137,137,137);
+  text-align: center;
+}
+
+.journey-line-label {
+  margin-left: 10px;
+  font-size: 16px;
+  padding-top: 1px;
+}
+
+.journey-line {
+  display: flex;
+  margin-bottom: 6px;
+  margin-left: 8px;
+}
+
+input[type=checkbox] :checked {
+}
+
+#journey-submit-button {
+  background-color: var(--cyan);
+  border: 3px solid var(--info);
+  border-radius: 4px;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: white;
+  margin-top: 10px;
+}
+
+#journeys-confirm {
+  margin-left: 14px;
+  font-size: 15px;
+  color: var(--confirm_orange);
 }
 

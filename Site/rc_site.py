@@ -316,15 +316,17 @@ def class_rf():
 @flask_login.login_required
 def member_detail():
     teams = pgtool.get_teams()
+    journey_confirmation = ''
     if flask.request.method == 'GET':
         member_uuid = request.args.get('m_uuid','')
+        journeys = rcJourneys.get_member_journeys(member_uuid)
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
-        journeys = rcJourneys.get_member_journeys(member_uuid)
         #NEED TO ADD PARENT FUNCTIONALITY
         parent = pgtool.get_parent(member_uuid)
         return render_template('member-detail.html',
+                journey_confirmation=journey_confirmation,
                 journeys=journeys,
                 member=member,
                 rf_transactions=rf_transactions,
@@ -336,32 +338,42 @@ def member_detail():
                 )
 
     if flask.request.method == 'POST':
+        formtype = request.form['formtype']
+        warning = ''
+        confirmation = ''
         # get info needed to render page
         member_uuid = request.form['member_uuid']
+        if formtype == 'info':
+            # get data from change-info form
+            new_member_id = request.form['member_id']
+            new_name = request.form['name']
+            new_division = request.form['division']
+            new_team = request.form['team']
+            new_grad_date = request.form['grad_date']
 
-        # get data from change-info form
-        new_member_id = request.form['member_id']
-        new_name = request.form['name']
-        new_division = request.form['division']
-        new_team = request.form['team']
-        new_grad_date = request.form['grad_date']
+            # send new data to the database
+            update = pgtool.update_member_info(member_uuid,
+                    new_member_id,new_name,new_team,new_division,new_grad_date)
 
-        # send new data to the database
-        update = pgtool.update_member_info(member_uuid,
-                new_member_id,new_name,new_team,new_division,new_grad_date)
+            # render page
+            warning = '';
+            confirmation = '';
+            if(update == 2):
+                warning = 'Member ID Exists! Try again.'
+            if(update == 0):
+                confirmation = 'Updated!'
+            if(update == 1):
+                confirmation = 'You didn\'t change anything...'
 
-        # render page
-        warning = '';
-        confirmation = '';
-        if(update == 2):
-            warning = 'Member ID Exists! Try again.'
-        if(update == 0):
-            confirmation = 'Updated!'
-        if(update == 1):
-            confirmation = 'You didn\'t change anything...'
+        elif formtype == 'journeys':
+            certs = request.form.getlist('cert_checkbox')
+            pgtool.update_member_journeys(member_uuid,certs)
+            journey_confirmation = 'Updated journeys'
+
 
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
+        journeys = rcJourneys.get_member_journeys(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
 
         #NEED TO ADD PARENT FUNCTIONALITY
@@ -376,7 +388,9 @@ def member_detail():
                 teams=teams,
                 confirmation=confirmation,
                 role=flask_login.current_user.get_role(),
-                parent=parent
+                parent=parent,
+                journeys=journeys,
+                journey_confirmation=journey_confirmation
                 )
 
 @app.route('/member-detail-view', methods=['GET'])
