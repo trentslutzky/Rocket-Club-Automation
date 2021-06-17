@@ -601,3 +601,14 @@ body {
   margin-bottom: 100px;
 }
 
+#award-list {
+  margin-left: -16px;
+  margin-top: 10px;
+  font-family: 'Source Sans Pro';
+  font-size: 18px;
+}
+
+.award-list-item {
+  margin-bottom: 8px;
+}
+

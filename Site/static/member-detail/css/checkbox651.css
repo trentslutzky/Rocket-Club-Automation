@@ -165,6 +165,16 @@ input[type=checkbox] :checked {
   margin-top: 10px;
 }
 
+#awards-submit-button {
+  background-color: var(--cyan);
+  border: 3px solid var(--info);
+  border-radius: 4px;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: white;
+  margin-top: 10px;
+}
+
 #payment-submit-button {
   background-color: var(--cyan);
   border: 3px solid var(--info);
@@ -176,6 +186,12 @@ input[type=checkbox] :checked {
 }
 
 #journeys-confirm {
+  margin-left: 14px;
+  font-size: 15px;
+  color: var(--confirm_orange);
+}
+
+#awards-confirm {
   margin-left: 14px;
   font-size: 15px;
   color: var(--confirm_orange);
@@ -211,5 +227,9 @@ input[type=checkbox] :checked {
   border-bottom: 2px solid var(--cyan);
   width: 151px;
   padding-bottom: 5px;
+}
+
+#Member-awards-heading {
+  font-size: 21px;
 }
 

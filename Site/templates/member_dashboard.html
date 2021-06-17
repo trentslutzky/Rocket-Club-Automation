@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Orbitron">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" href="{{ url_for('static', filename='member_dashboard/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='member_dashboard/css/member_dashboard4968466847891.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member_dashboard/css/member_dashboard496846.css') }}">
 </head>
 
 <body style="color: rgb(255,255,255);background: transparent;">
@@ -65,8 +65,13 @@
                     </div>
                     <div class="left-column-info-section awards-section">
                         <h1 class="left-column-heading">Awards</h1>
-                        <hr id="top-line-1" class="left-column-line">
-                        <p id="member-info-1" class="left-column-p">Coming Soon...</p>
+                        <hr id="top-line-1" class="left-column-line"><ul id="award-list">
+    {% for award in member_awards %}
+        {% if award.has %}
+            <li class="award-list-item left-column-p">{{award.flair}}</li>
+        {% endif %}
+    {% endfor%}
+</ul>
                     </div>
                 </div>
                 <div class="col" id="right-column">

@@ -724,6 +724,28 @@ def get_parent(member_uuid):
                 }
     return(parent)
 
+def update_member_awards(member_uuid,awards):
+    db = connect()
+    print(f'updating awards for {member_uuid}')
+    new_awards = awards
+    current_awards_db = db.run(f"select award from member_awards where member_uuid = '{member_uuid}'")
+    current_awards = []
+    for line in current_awards_db:
+        current_awards.append(line[0])
+
+    print(current_awards,new_awards)
+
+    for a in new_awards:
+        if a not in current_awards:
+            print('adding',a)
+            db.run(f"INSERT INTO member_awards(member_uuid,award) VALUES('{member_uuid}','{a}')")
+    for a in current_awards:
+        if a not in new_awards:
+            print('removing',a)
+            db.run(f"delete from member_awards where member_uuid='{member_uuid}' and award ='{a}'")
+    db.commit()
+    db.close()
+
 def get_member_num_certs(member_uuid):
     print('get_member_num_certs')
     db = connect()
@@ -731,6 +753,36 @@ def get_member_num_certs(member_uuid):
     result = db.run(COMMAND)[0][0]
     db.close()
     return result
+
+def get_member_awards(member_uuid):
+    # initialize database
+    db = connect()
+    
+    # get member completed journeys
+    COMMAND = f"SELECT award from member_awards where member_uuid = '{member_uuid}'"
+    member_awards_db = db.run(COMMAND)
+    member_awards = []
+    for a in member_awards_db:
+        member_awards.append(a[0])
+
+    # get all journeys
+    COMMAND = "SELECT * from awards"
+    awards_db = db.run(COMMAND)
+
+    awards = []
+
+    for award in awards_db:
+        line = ({
+            'award':award[0],
+            'flair':award[1],
+            'has':False
+            })
+        if award[0] in member_awards:
+            line['has'] = True
+        awards.append(line)
+
+    return awards
+
 
 def get_member_journeys(member_uuid):
     # initialize database
@@ -889,8 +941,7 @@ def get_all_attendance_credits():
 
 @timer
 def main():
-    toggle_rcl_code_enabled()
-    print(get_rcl_code_enabled())
+    print(get_member_awards('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
 
 if __name__ == '__main__':
     main()

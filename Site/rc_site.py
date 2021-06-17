@@ -317,32 +317,23 @@ def class_rf():
 def member_detail():
     teams = pgtool.get_teams()
     journey_confirmation = ''
+    warning = ''
+    confirmation = ''
+    payment_confirm = ''
+
     if flask.request.method == 'GET':
         member_uuid = request.args.get('m_uuid','')
         journeys = rcJourneys.get_member_journeys(member_uuid)
+        member_awards = pgtool.get_member_awards(member_uuid)
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
         #NEED TO ADD PARENT FUNCTIONALITY
         parent = pgtool.get_parent(member_uuid)
-        return render_template('member-detail.html',
-                journey_confirmation=journey_confirmation,
-                journeys=journeys,
-                member=member,
-                rf_transactions=rf_transactions,
-                total_rf=total_rf,
-                member_uuid=member_uuid,
-                parent=parent,
-                role=flask_login.current_user.get_role(),
-                teams=teams
-                )
 
     if flask.request.method == 'POST':
         formtype = request.form['formtype']
         print(formtype)
-        warning = ''
-        confirmation = ''
-        payment_confirm = ''
         # get info needed to render page
         member_uuid = request.form['member_uuid']
         if formtype == 'info':
@@ -379,28 +370,35 @@ def member_detail():
             pgtool.update_parent_payment(member_uuid,new_tuition,new_scholarship)
             payment_confirm = 'updated payment.'
 
+        elif formtype == 'awards':
+            member_awards_get = request.form.getlist('award_checkbox')
+            print(member_awards_get)
+            pgtool.update_member_awards(member_uuid,member_awards_get)
+
         member = pgtool.get_member_info_uuid(member_uuid)
         rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
         journeys = rcJourneys.get_member_journeys(member_uuid)
+        member_awards = pgtool.get_member_awards(member_uuid)
         total_rf = pgtool.get_member_total_uuid(member_uuid)
 
         #NEED TO ADD PARENT FUNCTIONALITY
         parent = pgtool.get_parent(member_uuid)
 
-        return render_template('member-detail.html',
-                member=member,
-                rf_transactions=rf_transactions,
-                total_rf=total_rf,
-                member_uuid=member_uuid,
-                warning=warning,
-                teams=teams,
-                confirmation=confirmation,
-                role=flask_login.current_user.get_role(),
-                parent=parent,
-                journeys=journeys,
-                payment_confirm=payment_confirm,
-                journey_confirmation=journey_confirmation
-                )
+    return render_template('member-detail.html',
+            member=member,
+            member_awards=member_awards,
+            rf_transactions=rf_transactions,
+            total_rf=total_rf,
+            member_uuid=member_uuid,
+            warning=warning,
+            teams=teams,
+            confirmation=confirmation,
+            role=flask_login.current_user.get_role(),
+            parent=parent,
+            journeys=journeys,
+            payment_confirm=payment_confirm,
+            journey_confirmation=journey_confirmation
+            )
 
 @app.route('/member-detail-view', methods=['GET'])
 @flask_login.login_required
@@ -614,10 +612,12 @@ def show_stats():
             gate_loading()
             # Member info from pgtool
             member = pgtool.get_member_info_uuid(member_uuid)
+            member_awards = pgtool.get_member_awards(member_uuid)
 
             return render_template('member_dashboard.html', 
-            member = member,
-            journeys = pgtool.get_member_journeys(member_uuid)
+                member_awards=member_awards,
+                member = member,
+                journeys = pgtool.get_member_journeys(member_uuid)
             )
 
 @app.route('/resume/<string:m_id>')

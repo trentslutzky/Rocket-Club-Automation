@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/checkbox65498498795.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/styles1846559879879871.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/checkbox651.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='member-detail/css/styles18465598.css') }}">
 </head>
 
 <body>
@@ -82,6 +82,19 @@
                         <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_button_clicked()">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
                     </form>
                 </div>
+            </div>
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
+                <h1 id="Member-awards-heading">Member Awards</h1><form method='post' action='member-detail'>    
+        <input type="hidden" name="formtype" value="awards"/> 
+        <input type="hidden" name="member_uuid" value="{{member_uuid}}"/>
+        {% for a in member_awards %} 
+            <div class="journey-line"><input name="award_checkbox" value="{{a.award}}" type="checkbox" {% if a.has %}checked{% endif %}/><span class="journey-line-label">{{a.flair}}</span></div>
+        {% endfor %}
+        <div>
+            <button type='submit' id='awards-submit-button' onclick="load_awards()">Save</button>
+            <span id='awards-confirm'>{{award_confirmation}}</span>
+        </div>
+    </form>
             </div>{% endif %}
         </div>
         <div id="member-detail-right-pane"><div class="d-sm-flex d-md-flex d-xl-flex justify-content-xl-start align-items-xl-start member-dashboard-box">
@@ -132,7 +145,7 @@
     <script src="{{ url_for('static', filename='member-detail/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/attendance-loading.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/copy_to_cb.js') }}"></script>
-    <script src="{{ url_for('static', filename='member-detail/js/loading-msg84613498798789798798888.js') }}"></script>
+    <script src="{{ url_for('static', filename='member-detail/js/loading-msg8461349.js') }}"></script>
     <script src="{{ url_for('static', filename='member-detail/js/navigation-buttons.js') }}"></script>
 </body>
 
