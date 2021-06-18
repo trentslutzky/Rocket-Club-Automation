@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Rocket Club Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='select-member/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select-member/css/Font%20Awesome%205%20Brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select-member/css/Font%20Awesome%205%20Free.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select-member/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select-member/css/checkbox651.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='select-member/css/styles18465598.css') }}">
+</head>
+
+<body>
+    <div id="top-area"><span id="top-area-heading">{{page_title}}</span><span id="top-area-subheading">{{select_message}}</span><span id="top-area-rightheading">RC Admin</span></div>
+    <div class="member-dashboard-box-container">
+        <div class="member-dashboard-box-sizing">
+            <div id="member-search-line"><i class="fa fa-search" id="member-search-icon"></i><input type="text" id="member-search-input" value="" onkeyup="member_search()" placeholder="Search for members..."></div><div class="table-responsive table-hover" id="member-search-table">
+    <table class="table" id="member-search-table-table">
+        <thead>
+            <th>Member ID</th>
+            <th>Name</th>
+            <th>Class</th>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr class="member-search-row" onclick="memberClicked('{{member.member_uuid}}','{{dest}}')">
+                <td>{{member.member_id}}</td>
+                <td>{{member.name}}</td>
+                <td>{{member.team}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p id="member-search-no-results">No Results</p>
+</div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='select-member/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='select-member/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='select-member/js/attendance-loading.js') }}"></script>
+    <script src="{{ url_for('static', filename='select-member/js/copy_to_cb.js') }}"></script>
+    <script src="{{ url_for('static', filename='select-member/js/loading-msg8461349.js') }}"></script>
+    <script src="{{ url_for('static', filename='select-member/js/member_search.js') }}"></script>
+    <script src="{{ url_for('static', filename='select-member/js/navigation-buttons.js') }}"></script>
+</body>
+
+</html>

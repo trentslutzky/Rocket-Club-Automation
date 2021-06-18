@@ -323,6 +323,11 @@ def member_detail():
 
     if flask.request.method == 'GET':
         member_uuid = request.args.get('m_uuid','')
+        
+        # if someone somehow gets to the page without a member uuid passed, go back to the selection page
+        if member_uuid == '':
+            return redirect("https://www.rocketclubtools.com/select-member/member-detail")
+
         journeys = rcJourneys.get_member_journeys(member_uuid)
         member_awards = pgtool.get_member_awards(member_uuid)
         member = pgtool.get_member_info_uuid(member_uuid)
@@ -419,33 +424,40 @@ def member_detail_view():
                 parent=parent
                 )
 
-@app.route('/add-rf', methods=['GET','POST'])
+@app.route('/add-rf')
 @flask_login.login_required
 def add_rf():
-    if flask.request.method == 'GET':
-        types = pgtool.get_types()
-        return render_template('add-rf.html',
-                types = types)
+    print('add_rf')
+    member_uuid = request.args.get('m_uuid','')
+    
+    # if someone somehow gets to the page without a member uuid passed, go back to the selection page
+    if member_uuid == '':
+        return redirect("https://www.rocketclubtools.com/select-member/add-rf")
 
-    elif flask.request.method == 'POST':
+    member = pgtool.get_member_info_uuid(member_uuid)
+    return render_template('add-rf.html',member=member)
 
-        member_id = request.form['member_id']
-        mtype = request.form['type']
-        amount = request.form['amount']
+@app.route('/select-member/<string:destination>')
+@flask_login.login_required
+def select_member(destination):
+    dest = 'member-detail'
+    select_message = 'select a member to edit their information:'
+    try:
+        dest = destination
+        if dest == 'add-rf':
+            select_message = 'select a member to add RF:'
+    except:
+        print('no dest')
 
-        name = pgtool.get_member_name(int(member_id))
+    page_title = dest
+    page_title = page_title.replace('-',' ')
 
-        if(name):
-            confirm = str(amount) + ' RF added for ' + name
-            pgtool.add_rf_transaction(member_id,mtype,'',amount)
-        else:
-            confirm = 'INVALID MEMBER ID. Please try again'
-
-
-        print('Adding RF',member_id,mtype,name)
-        return render_template('add-rf.html',
-                types = pgtool.get_types(),
-                confirm = confirm)
+    members = pgtool.get_all_members()
+    return render_template('select-member.html',
+            page_title=page_title,
+            select_message=select_message,
+            members=members,
+            dest=dest)
 
 @app.route('/logout')
 def logout():

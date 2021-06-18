@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/Font%20Awesome%205%20Brands.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/Font%20Awesome%205%20Free.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/fonts/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/checkbox.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/styles18461384623.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/checkbox651.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-start/css/styles18465598.css') }}">
 </head>
 
 <body>
@@ -29,9 +30,15 @@
     </div>
     {% endif %}
     <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
-        <a class="dashboard-start-button-link" href="edit-member">
+        <a class="dashboard-start-button-link" href="select-member/member-detail">
             <p class="dashboard-start-button-title">Member Info and Certs</p>
             <i class="fa fa-edit dashboard-start-button-icon"></i>
+        </a>
+    </div>
+    <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
+        <a class="dashboard-start-button-link" href="select-member/add-rf">
+            <p class="dashboard-start-button-title">Add Rocket Fuel</p>
+            <i class="fa fa-rocket dashboard-start-button-icon"></i>
         </a>
     </div>
     <div class="d-md-flex flex-column justify-content-md-start dashboard-start-button">
@@ -51,7 +58,8 @@
     <script src="{{ url_for('static', filename='dashboard-start/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/js/attendance-loading.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/js/copy_to_cb.js') }}"></script>
-    <script src="{{ url_for('static', filename='dashboard-start/js/loading-msg846138413.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard-start/js/loading-msg8461349.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard-start/js/member_search.js') }}"></script>
     <script src="{{ url_for('static', filename='dashboard-start/js/navigation-buttons.js') }}"></script>
 </body>
 

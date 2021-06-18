@@ -939,9 +939,24 @@ def get_all_attendance_credits():
     db.close()
     return output
 
+def get_all_members():
+    db = connect()
+    data = db.run("select member_uuid,member_id,name,team from rc_members where team != 'DROP'")
+    members = []
+    for d in data:
+        members.append({
+            'member_uuid':d[0],
+            'member_id':d[1],
+            'name':d[2],
+            'team':d[3],
+            })
+    print(members[0])
+    db.close()
+    return members
+
 @timer
 def main():
-    print(get_member_awards('619e2d83-b9b6-43fe-bbd2-f148f1d98f76'))
+    get_all_members()
 
 if __name__ == '__main__':
     main()

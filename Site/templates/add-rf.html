@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-<html style="background-color: #000000;">
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>RC-Admin</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/fonts/fontawesome-all.min.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Contact-Form-Clean.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Features-Boxed.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Login-Form-Clean.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/Login-Form-Dark.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='add-member/css/styles.css')}}">
+    <title>Rocket Club Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-rf/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-rf/css/Font%20Awesome%205%20Brands.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-rf/css/Font%20Awesome%205%20Free.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-rf/css/checkbox651.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='add-rf/css/styles18465598.css') }}">
 </head>
 
-<body style="background-color: rgba(255,255,255,0);">
-    <div class="contact-clean">
-        <form method="post">
-            <h2 class="text-center">Add Rocket Fuel</h2>
-	    <input class="form-control" type="number" name="member_id" placeholder="Member ID">
-	    <select class="form-control", type="text", name="type">
-		    <option value="" selected="" id="default">Type</option>
-		    {% for type in types %}
-		    <option value="{{type}}">{{type}}</option>
-		    {% endfor %}
-	    </select>
-		<input class="form-control" type="number" name="amount" placeholder="Amount">
-                <div class="form-group">
-			<button class="btn btn-primary" id="add-button" type="submit">
-				Apply
-			</button>
-		</div>
-		<h5 style="color: rgb(255,153,0);">{{ confirm }}</h5
-		><button class="btn btn-primary" id="back-button" type="button">BACK To DASHBOARD</button>
-	</form>
+<body>
+    <div id="top-area"><span id="top-area-heading">Add Rocket Fuel</span><span id="top-area-subheading"></span><span id="top-area-rightheading">RC Admin</span></div>
+    <div class="member-dashboard-box-container">
+        <div class="member-dashboard-box-sizing">
+            <form>
+                <h5 class="dashboard-heading">Add Rocket Fuel for {{member.name}}:</h5>
+            </form>
+            <p>Under construction...</p>
+        </div>
     </div>
-    <script src="{{ url_for('static', filename='add-rf/js/jquery.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='add-rf/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/attendance-loading.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/copy_to_cb.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/loading-msg8461349.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/member_search.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/navigation-buttons.js') }}"></script>
 </body>
 
 </html>
