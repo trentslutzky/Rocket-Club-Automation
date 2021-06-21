@@ -477,8 +477,64 @@ def add_rf():
 
 @app.route('/api')
 def api():
-    test_json = {'message':'api is under contruction...'}
-    return test_json
+    args = request.args
+    api_key = secret.api_key
+    print(args)
+    provided_key = args.get('api_key','-1')
+    message = 'incorrect api key.'
+    if provided_key == api_key:
+        message = 'good'
+    data = {'message':message}
+    return data
+
+@app.before_request
+def authorize():
+    print(request.remote_addr)
+    args = request.args
+    if '/api' in request.base_url:
+        api_key = secret.api_key
+        provided_key = args.get('api_key',-1)
+        if provided_key != api_key:
+            data = {'message':'unauthorized'}
+            return data,401
+
+
+@app.route('/api/rf_transactions/',defaults={'action':None})
+@app.route('/api/rf_transactions/<action>')
+def api_rf_transaction(action):
+    args = request.args
+    
+    transaction_id = args.get('transaction_id',-1)
+    member_uuid = args.get('member_uuid',-1)
+
+    if member_uuid == -1:
+        data = {'message':'member_uuid not provided...'}
+        return data
+
+    member_uuid = "'"+member_uuid+"'"
+
+    data = {}
+
+    if action == None:
+        data = pgtool.get_table_dict('rf_transactions','member_uuid',member_uuid)
+        for line in data:
+            print(data[line])
+    elif action == 'remove':
+        if transaction_id == -1:
+            data = {'message':'transaction_id not provided...'}
+            return data
+        else:
+            message = 'transaction removed'
+            transaction = pgtool.get_table_dict('rf_transactions','transaction_id',transaction_id,'member_uuid',member_uuid)
+            if transaction == {} or transaction == -1:
+                message = 'transaction not found. Possibly incorrect member_uuid or transaction_id'
+            data = {'message':message,
+                    'transaction':transaction,
+                    'transaction_id':transaction_id}
+
+    return data
+    
+
 
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required

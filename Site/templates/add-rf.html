@@ -39,10 +39,25 @@
                         <h6 class="form-heading">Subcategory</h6><select class="form-control" id="subcategory-select" onChange="sub_category_select()" name="subcategory" required>
     <option value="0" selected disabled id="subcategory-placeholder">Select a subcategory...</option>   
     <optgroup label="Rocket Club Live" id="optgroup-rcl">
-        <option value="kahoot_1">Kahoot 1st place</option>
-        <option value="kahoot_2">Kahoot 2nd place</option>
-        <option value="kahoot_3">Kahoot 3rd place</option>
+        <optgroup label="Kahoot">
+            <option value="kahoot_1">Kahoot 1st place</option>
+            <option value="kahoot_2">Kahoot 2nd place</option>
+            <option value="kahoot_3">Kahoot 3rd place</option>
+        </optgroup>
         <option value="wheel_of_names">Wheel of Names</option>
+        <option value="wheel_birthday">Birthday Wheel</option>
+        <option value="wheel_tech_tues">Tech Tuesday Wheel</option>
+        <option value="bonus">Bonus</option>
+        <option value="competition">Competition</option>
+        <optgroup label="Parents Night">
+            <option value="parents_1_first">Parents Night (#1) 1st Place</option>
+            <option value="parents_1_second">Parents Night (#1) 2nd Place</option>
+            <option value="parents_1_third">Parents Night (#1) 3rd Place</option>
+            <option value="parents_2_first">Parents Night (#2) 1st Place</option>
+            <option value="parents_2_second">Parents Night (#2) 2nd Place</option>
+            <option value="parents_2_third">Parents Night (#2) 3rd Place</option>
+        </optgroup>
+        <option value="showdown">Showdown</option>
     </optgroup>
     <optgroup label="Communities" id="communities_optgroup">
         {% for c in communities %}
@@ -83,9 +98,10 @@
 </div>
     <script src="{{ url_for('static', filename='add-rf/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='add-rf/js/add-rf-selector4568489849849.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/add-rf-selector456848984984988.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/attendance-loading.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/copy_to_cb.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='add-rf/js/loading-msg84615.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/member_search.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/navigation-buttons.js') }}"></script>

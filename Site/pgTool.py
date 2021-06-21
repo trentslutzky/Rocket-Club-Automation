@@ -236,7 +236,7 @@ def get_member_info_uuid(member_uuid):
 def get_recent_rf_transactions(member_uuid):
     print('Loadding rf transactions for',member_uuid)
     db = connect()
-    ps = qprep(db,"SELECT type,amount,completed,subtype from rf_transactions where member_uuid = :a order by transaction_id desc limit 20")
+    ps = qprep(db,"SELECT type,amount,completed,subtype,transaction_id from rf_transactions where member_uuid = :a order by transaction_id desc limit 20")
     transactions = ps.run(a=member_uuid)
     db.close()
     results = []
@@ -248,8 +248,15 @@ def get_recent_rf_transactions(member_uuid):
             'amount':t[1],
             'date':t[2].strftime(date_fmt),
             'subtype':t[3],
+            'transaction_id':t[4]
             })
     return results
+
+def remove_rf_transaction(member_uuid,transaction_id):
+    db = connect()
+    db.run(f"delete from rf_transactions where transaction_id = {transaction_id} and member_uuid = {member_uuid}")
+    db.commit()
+    db.close()
 
 def get_member_total(member_id):
     db = connect()
@@ -954,26 +961,39 @@ def get_all_members():
     db.close()
     return members
 
-def get_table_dict(table_name):
+def get_table_dict(table_name,where_col=None,where=None,where_2_col=None,where_2=None):
     db = connect()
-    table = []
-    rows = db.run(f"SELECT * from {table_name}")
-    column_names = db.run(f"select column_name from information_schema.columns where table_name = '{table_name}'")
+    table = {}
+    try:
+        if where_col and where and not(where_2 and where_2_col):
+            rows = db.run(f"SELECT * from {table_name} where {where_col} = {where}")
+        elif where_col and where and where_2_col and where_2:
+            rows = db.run(f"SELECT * from {table_name} where {where_col} = {where} and {where_2_col} = {where_2}")
+        else:
+            rows = db.run(f"SELECT * from {table_name}")
 
-    for row in rows:
-        col_ind = 0
-        line = {}
-        for r in row:
-            line[column_names[col_ind][0]] = r
-            col_ind = col_ind + 1
+        column_names = db.run(f"select column_name from information_schema.columns where table_name = '{table_name}'")
 
-        table.append(line)
+        for row in rows:
+            col_ind = 0
+            line = {}
+            for r in row:
+                line[column_names[col_ind][0]] = r
+                col_ind = col_ind + 1
 
-    return(table)
+            table[rows.index(row)] = line
+
+        return(table)
+    except:
+        return(-1)
 
 @timer
 def main():
-    get_table_dict('communities')
+    data = get_table_dict('rf_transactions','member_uuid',"'619e2d83-b9b6-43fe-bbd2-f148f1d98f76'")
+    if data != -1:
+        print(data)
+    else:
+        print(-1)
 
 if __name__ == '__main__':
     main()
