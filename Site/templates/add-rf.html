@@ -22,17 +22,71 @@
     <div id="top-area"><span id="top-area-heading">Add Rocket Fuel</span><span id="top-area-subheading"></span><span id="top-area-rightheading">RC Admin</span></div>
     <div class="member-dashboard-box-container">
         <div class="member-dashboard-box-sizing">
-            <form>
-                <h5 class="dashboard-heading">Add Rocket Fuel for {{member.name}}:</h5>
+            <form method="post"><input class="form-control" type="hidden" name="m_uuid" value="{{member.uuid}}">
+                <h5 class="dashboard-heading">Add Rocket Fuel for</h5>
+                <h1>{{member.name}}</h1>
+                <div style="display: flex;">
+                    <div class="form-double" style="margin-right: 15px;">
+                        <h6 class="form-heading">Category</h6><select class="form-control" id="category-select" onChange="category_select()" name="category" required>
+    <option value="0" selected disabled>Select a category...</option>
+    <option value="rcl">Rocket Club Live</option>
+    <option value="bonus">Bonus</option>
+    <option value="other">Other</option>
+    <option value="communities">Communities</option>
+</select>
+                    </div>
+                    <div id="subcategory-section" class="form-double">
+                        <h6 class="form-heading">Subcategory</h6><select class="form-control" id="subcategory-select" onChange="sub_category_select()" name="subcategory" required>
+    <option value="0" selected disabled id="subcategory-placeholder">Select a subcategory...</option>   
+    <optgroup label="Rocket Club Live" id="optgroup-rcl">
+        <option value="kahoot_1">Kahoot 1st place</option>
+        <option value="kahoot_2">Kahoot 2nd place</option>
+        <option value="kahoot_3">Kahoot 3rd place</option>
+        <option value="wheel_of_names">Wheel of Names</option>
+    </optgroup>
+    <optgroup label="Communities" id="communities_optgroup">
+        {% for c in communities %}
+        <option value="{{c.name}}" >{{c.community_id}}</option>
+        {% endfor %}
+    </optgroup>
+</select>
+                    </div>
+                </div>
+                <h6 class="form-heading">Amount</h6><input class="form-control" type="number" id="rf-amount-form" placeholder="Enter an RF amount..." name="amount" required="">
+                <div><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_rf_submit()">Submit</button><img id="loading-icon" class="loading-gif" src="{{ url_for('static', filename='add-rf/img/ajax-loader.gif') }}"><span id="add-member-confirmation">{{ confirmation }}</span></div>
             </form>
-            <p>Under construction...</p>
         </div>
+    </div><div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-md-start align-items-xl-start member-dashboard-box" id="member-detail-recent-transactions">
+    <div class="table-responsive">
+        <h1 id="member-detail-recent-transactions-heading">Recent Rocket Fuel Transactions</h1>
+        <table class="table" id="rf_transactions_table" name="" onload="flash_table()">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Subype</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in rf_transactions %}
+                <tr>
+                    <td>{{t.amount}}</td>
+                    <td>{{t.type}}</td>
+                    <td>{{t.subtype}}</td>
+                    <td id="table-date">{{t.date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
     <script src="{{ url_for('static', filename='add-rf/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/add-rf-selector4568489849849.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/attendance-loading.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/copy_to_cb.js') }}"></script>
-    <script src="{{ url_for('static', filename='add-rf/js/loading-msg8461349.js') }}"></script>
+    <script src="{{ url_for('static', filename='add-rf/js/loading-msg84615.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/member_search.js') }}"></script>
     <script src="{{ url_for('static', filename='add-rf/js/navigation-buttons.js') }}"></script>
 </body>

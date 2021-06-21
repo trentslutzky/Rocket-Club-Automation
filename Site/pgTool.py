@@ -954,9 +954,26 @@ def get_all_members():
     db.close()
     return members
 
+def get_table_dict(table_name):
+    db = connect()
+    table = []
+    rows = db.run(f"SELECT * from {table_name}")
+    column_names = db.run(f"select column_name from information_schema.columns where table_name = '{table_name}'")
+
+    for row in rows:
+        col_ind = 0
+        line = {}
+        for r in row:
+            line[column_names[col_ind][0]] = r
+            col_ind = col_ind + 1
+
+        table.append(line)
+
+    return(table)
+
 @timer
 def main():
-    get_all_members()
+    get_table_dict('communities')
 
 if __name__ == '__main__':
     main()

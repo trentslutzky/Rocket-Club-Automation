@@ -3,6 +3,11 @@ function add_button_clicked(){
     conf_text.innerHTML = 'Loading...';   
 }
 
+add_rf_confirm = document.getElementById("loading-icon")
+function add_rf_submit(){
+    add_rf_confirm.style.visibility = 'visible';
+}
+
 journeys_confirm = document.getElementById("journeys-confirm")
 function load_journeys(){
     journeys_confirm.innerHTML = 'Loading...';

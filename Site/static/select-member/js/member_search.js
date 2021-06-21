@@ -32,7 +32,7 @@ window.addEventListener('load', (event) => {
 });
 
 function memberClicked(member_uuid,dest){
-    url = 'https://www.rocketclubtools.com/'+dest+'?m_uuid='+member_uuid
+    url = '/'+dest+'?m_uuid='+member_uuid
     console.log(url)
     window.location.href = url;
 }

@@ -286,3 +286,15 @@ input[type=checkbox] :checked {
   cursor: pointer;
 }
 
+.form-double {
+  width: 100%;
+}
+
+#rf-amount-form {
+  margin-bottom: 15px;
+}
+
+#subcategory-section {
+  visibility: hidden;
+}
+

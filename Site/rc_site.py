@@ -424,18 +424,61 @@ def member_detail_view():
                 parent=parent
                 )
 
-@app.route('/add-rf')
+@app.route('/add-rf', methods=['GET','POST'])
 @flask_login.login_required
 def add_rf():
     print('add_rf')
     member_uuid = request.args.get('m_uuid','')
-    
-    # if someone somehow gets to the page without a member uuid passed, go back to the selection page
-    if member_uuid == '':
-        return redirect("https://www.rocketclubtools.com/select-member/add-rf")
+    communities = pgtool.get_table_dict('communities')
+    member = None
 
-    member = pgtool.get_member_info_uuid(member_uuid)
-    return render_template('add-rf.html',member=member)
+    confirmation = ''
+    
+    if flask.request.method == 'GET':
+        # if someone somehow gets to the page without a member uuid passed, go back to the selection page
+        if member_uuid == '':
+            return redirect("select-member/add-rf")
+        member = pgtool.get_member_info_uuid(member_uuid)
+
+    if flask.request.method == 'POST':
+        print(request.form)
+        member_uuid = request.form['m_uuid']
+        category = ''
+        try:
+            category = request.form['category']
+        except:
+            category = ''
+        subcategory = ''
+        try:
+            subcategory = request.form['subcategory']
+        except Exception as err:
+            print(err)
+
+        amount = request.form['amount']
+        print(member_uuid,category,subcategory)
+        member = pgtool.get_member_info_uuid(member_uuid)
+
+        print(category,subcategory,amount)
+
+        confirmation = 'Rocket Fuel added! ↓'
+
+        if category == '':
+            confirmation = 'Please select a category.'
+        else:
+            pgtool.add_rf_transaction_uuid(member_uuid,category,subcategory,amount)
+
+    rf_transactions = pgtool.get_recent_rf_transactions(member_uuid)
+
+    return render_template('add-rf.html',
+                           confirmation=confirmation,
+                           member=member,
+                           rf_transactions=rf_transactions,
+                           communities=communities)
+
+@app.route('/api')
+def api():
+    test_json = {'message':'api is under contruction...'}
+    return test_json
 
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required
@@ -858,6 +901,10 @@ def error_page(error):
 @app.errorhandler(400)
 def error_page(error):
     return render_template('error.html',error_message='Error 400: Bad request',error_code=400),400
+
+@app.errorhandler(405)
+def error_page(error):
+    return render_template('error.html',error_message='Something went wrong',error_code=405),405
 
 def add_user(username,password,role):
     db = connect()
