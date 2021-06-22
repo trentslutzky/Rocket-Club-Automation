@@ -298,3 +298,11 @@ input[type=checkbox] :checked {
   visibility: hidden;
 }
 
+.rf_transaction_remove_button {
+  background: red;
+  border: none;
+  border-radius: 10px;
+  width: 26px;
+  height: 26px;
+}
+

@@ -6,33 +6,33 @@ var amount_field = document.getElementById("rf-amount-form")
 var subcategory_placeholder = document.getElementById("subcategory-placeholder")
 
  // option groups
-var rcl_optgroup = document.getElementById("optgroup-rcl")
+var rcl_optgroup = document.getElementById("rcl_optgroup")
 var communities_optgroup = document.getElementById("communities_optgroup")
 
 function category_select(){
     cat_val = cat_select.value;
     console.log(cat_val);
     sub_cat_select.selectedIndex = 0;
+    
     if (cat_val == "rcl") {
         sub_cat_section.style.visibility = "visible";
         communities_optgroup.style.display = "none";
         rcl_optgroup.style.display = "";
         subcategory_placeholder.innerHTML = "Select a Subcategory...";
-        communities_optgroup.disabled = true;
-        rcl_optgroup.disabled = false;
     }
+    
     else if (cat_val == "communities") {
         sub_cat_section.style.visibility = "visible";
         communities_optgroup.style.display = "";
         rcl_optgroup.style.display = "none";
         subcategory_placeholder.innerHTML = "Select a community...";
-        communities_optgroup.disabled = false;
-        rcl_optgroup.disabled = true;
     }
+    
     else {
         sub_cat_section.style.visibility = "hidden";
         communities_optgroup.style.display = "";
         rcl_optgroup.style.display = "";
+        amount_field.value = null;
     }
 }
 
@@ -59,10 +59,4 @@ function sub_category_select(){
     else {
         amount_field.value = null;
     }
-}
-
-window.onload = function flash_table(){
-    console.log('flash_table');
-    var first_item = document.getElementById("rf_transactions_table").rows[0];
-    console.log(first_item);
 }

@@ -989,11 +989,9 @@ def get_table_dict(table_name,where_col=None,where=None,where_2_col=None,where_2
 
 @timer
 def main():
-    data = get_table_dict('rf_transactions','member_uuid',"'619e2d83-b9b6-43fe-bbd2-f148f1d98f76'")
-    if data != -1:
-        print(data)
-    else:
-        print(-1)
+    coms = get_table_dict('communities')
+    for c in coms:
+        print(coms[c])
 
 if __name__ == '__main__':
     main()

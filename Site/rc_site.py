@@ -531,7 +531,8 @@ def api_rf_transaction(action):
             data = {'message':message,
                     'transaction':transaction,
                     'transaction_id':transaction_id}
-
+    
+    #data['remote_addr'] = request.remote_addr
     return data
     
 
