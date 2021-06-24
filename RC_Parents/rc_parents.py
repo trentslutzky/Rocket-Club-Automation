@@ -134,7 +134,7 @@ def index():
     if (flask_login.current_user.is_authenticated):
         return redirect(url_for('dashboard'))
     else:
-        return render_template('welcome.html')
+        return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

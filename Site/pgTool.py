@@ -987,11 +987,68 @@ def get_table_dict(table_name,where_col=None,where=None,where_2_col=None,where_2
     except:
         return(-1)
 
+def get_table_json(table_name,where_col=None,where=None,where_2_col=None,where_2=None,order=None,limit=None):
+    print('GET Table JSON '+table_name)
+    db = connect()
+    table = {'result':[]}
+    try:
+        COMMAND = f"SELECT * FROM {table_name}"
+        if where_col and where and not(where_2 and where_2_col):
+            COMMAND = COMMAND + (f" {table_name} where {where_col} = {where}")
+        elif where_2_col and where_2:
+            COMMAND = COMMAND + (f" and {where_2_col} = {where_2}")
+        
+        if(order):
+            COMMAND = COMMAND + (f" order by {order} desc")
+
+        if(limit):
+            COMMAND = COMMAND + (f" limit {limit}")
+
+        print(COMMAND)
+
+        rows = db.run(COMMAND)
+        
+        column_names = db.run(f"select column_name from information_schema.columns where table_name = '{table_name}'")
+
+        for row in rows:
+            col_ind = 0
+            line = {}
+            for r in row:
+                line[column_names[col_ind][0]] = r
+                col_ind = col_ind + 1
+
+            table['result'].append(line)
+
+        return(table)
+    except Exception as err:
+        return(err)
+
+def get_rf_transactions_json(member_uuid):
+    db = connect()
+    rows = db.run(f"SELECT * from rf_transactions where member_uuid = '{member_uuid}'")
+    column_names = db.run(f"select column_name from information_schema.columns where table_name = 'rf_transactions'")
+    
+    table = {'result':[]}
+
+    for row in rows:
+        col_ind = 0
+        line = {}
+        for r in row:
+            line[column_names[col_ind][0]] = r
+            col_ind = col_ind + 1
+
+        table['result'].append(line)
+    
+    return(table)
+
+def get_member_info_json(member_uuid):
+    db = connect()
+    info = db.run(f"SELECT * FROM rc_members where member_uuid = '{member_uuid}'")
+    print(info)
+
 @timer
 def main():
-    coms = get_table_dict('communities')
-    for c in coms:
-        print(coms[c])
+    print(get_table_json(table_name='rf_transactions',where_col='member_uuid',where="'619e2d83-b9b6-43fe-bbd2-f148f1d98f76'",order='transaction_id'))
 
 if __name__ == '__main__':
     main()

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 import flask_login, flask
 import os,sys
 import pgTool as pgtool
@@ -13,6 +14,7 @@ import time
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = secret.app_secret
 bcrypt = Bcrypt(app)
 
@@ -281,6 +283,7 @@ def class_rf():
             amount_changed = 0
 
             for line in request.form:
+                print(line)
                 if line != 'form_type' and line != 'team' and line != 'attendance':
                     amount = request.form[line]
                     line_split = line.split('!')
@@ -511,12 +514,16 @@ def api_rf_transaction(action):
         data = {'message':'member_uuid not provided...'}
         return data
 
-    member_uuid = "'"+member_uuid+"'"
-
     data = {}
 
     if action == None:
-        data = pgtool.get_table_dict('rf_transactions','member_uuid',member_uuid)
+        data = pgtool.get_table_json(
+                table_name='rf_transactions',
+                where_col='member_uuid',
+                where="'"+member_uuid+"'",
+                order='transaction_id',
+                limit=20
+        )
         for line in data:
             print(data[line])
     elif action == 'remove':
@@ -535,7 +542,13 @@ def api_rf_transaction(action):
     #data['remote_addr'] = request.remote_addr
     return data
     
-
+@app.route('/api/members/',defaults={'member_uuid':None})
+@app.route('/api/members/<member_uuid>')
+def api_members(member_uuid):
+    if not member_uuid:
+        return({'message':"no member_uuid provided."})
+    member_uuid = "'"+member_uuid+"'"
+    return(pgtool.get_table_json('rc_members','member_uuid',member_uuid))
 
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Parent_Dashboard</title>
+    <title>RC Parent Dashboard</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='dashboard/img/RCFavicon.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='dashboard/img/RCFavicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/bootstrap/css/bootstrap.min.css') }}">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/fonts/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles_4564941984.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_dashboard_styles_4564941984645541.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/parent_login_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard/css/welcome_page.css') }}">
 </head>
@@ -41,9 +41,12 @@
     <p class="dashboard-text">{{student.team.team_name}}</p>
     <p class="dashboard-text">{{student.team.day}} {{student.team.time}}</p>
     <p class="dashboard-text">Instuctor: {{student.team.instructor}}</p>
-    <p class="dashboard-text"><a href='{{student.team.zoom_link}}'>Click here to join Zoom</a></p>
+    <p class="dashboard-text"><a href='{{student.team.zoom_link}}'  target="_blank">Click here to join Zoom</a></p>
 </div>
-{% endfor %}</div>
+
+{% endfor %}
+    <a href='https://vimeo.com/user/8572064/folder/4315118' target="_blank" class="crash-course-link">Rocket Club Crash Courses</a>
+    </div>
             <div class="dashboard-section">
                 <h1 class="dashboard-heading"><i class="fa fa-shield"></i>&nbsp;Rocket Club Communities</h1>
                 <div id="link-button-container">

@@ -110,7 +110,7 @@ def scan_folder(folder_id):
 def rename_sheet(sheet_id,name):
     drive_service.files().update(fileId=sheet_id,body={'name':name}).execute()
 
-def get_cells(sheet_id, newRange, sheet_name):
+def get_cells(sheet_id, newRange, sheet_name=''):
     while True:
         try:
             result = sheet.values().get(spreadsheetId=sheet_id, range=newRange).execute()

@@ -16,6 +16,8 @@ db = pg8000.connect(secret.db['user'],
         port=secret.db['port'],            
         database=secret.db['database'])
 
+db.run("SET TIMEZONE='EST'")
+
 ## setup the 'week_string' which is used to compare the current week to the 
  # weekly status of the virtual missions.
 year = datetime.date.today().year
