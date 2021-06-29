@@ -47,6 +47,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Attendance Credits</th>
             </tr>
@@ -54,6 +55,7 @@
         <tbody>
             {% for line in attendance_credits %}
             <tr>
+                <td>{{ line.member_id }}</td>
                 <td>{{ line.name }}</td>
                 <td>{{ line.count }}</td>
             </tr>

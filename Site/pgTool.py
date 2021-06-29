@@ -941,11 +941,11 @@ def toggle_rcl_code_enabled():
 def get_all_attendance_credits():
     db = connect()
     output = []
-    COMMAND = "select name,count from (select member_uuid,count(*) from rcl_attendance_credits group by member_uuid)a left join (select * from rc_members)b on a.member_uuid = b.member_uuid where team not in ('Admin','instructor','DROP') order by count desc"
+    COMMAND = "select name,count,member_id from (select member_uuid,count(*) from rcl_attendance_credits group by member_uuid)a left join (select * from rc_members)b on a.member_uuid = b.member_uuid where team not in ('Admin','instructor','DROP') order by count desc"
     #COMMAND = "select name,count from (select member_uuid,count(*) from rcl_attendance_credits group by member_uuid)a left join (select * from rc_members)b on a.member_uuid = b.member_uuid order by count desc"
     result = db.run(COMMAND)
     for line in result:
-        output.append({'name':line[0],'count':line[1]})
+        output.append({'member_id':line[2],'name':line[0],'count':line[1]})
     db.close()
     return output
 
