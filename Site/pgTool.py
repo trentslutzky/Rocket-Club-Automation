@@ -117,6 +117,15 @@ def add_rf_transaction(member_id,mtype,subtype,amount):
         print('Member ID not found. Skipping.')
     db.close()
 
+def remove_rf_transaction(member_uuid,transaction_id):
+    db = connect()
+    # test if rf_transaction exists
+    test = db.run(f"SELECT count(*) FROM rf_transactions WHERE member_uuid = '{member_uuid}' AND transaction_id = {transaction_id};")[0][0]
+    if test == 0:
+        return -1
+    db.close()
+
+
 def add_vm_completion(member_id,vm_tag,category):
     db = connect()
     uuid = get_member_uuid(int(member_id))
@@ -251,12 +260,6 @@ def get_recent_rf_transactions(member_uuid):
             'transaction_id':t[4]
             })
     return results
-
-def remove_rf_transaction(member_uuid,transaction_id):
-    db = connect()
-    db.run(f"delete from rf_transactions where transaction_id = {transaction_id} and member_uuid = {member_uuid}")
-    db.commit()
-    db.close()
 
 def get_member_total(member_id):
     db = connect()
@@ -1039,7 +1042,13 @@ def get_rf_transactions_json(member_uuid):
 
         table['result'].append(line)
     
+    db.close()
     return(table)
+
+def rf_transaction_exists(member_uuid,transaction_id):
+    db = connect()
+    result = db.run(f"select count(*) from rf_transactions where member_uuid = '{member_uuid}' and transaction_id = {transaction_id}")[0][0]
+    print(result)
 
 def get_member_info_json(member_uuid):
     db = connect()
@@ -1048,7 +1057,7 @@ def get_member_info_json(member_uuid):
 
 @timer
 def main():
-    print(get_table_json(table_name='rf_transactions',where_col='member_uuid',where="'619e2d83-b9b6-43fe-bbd2-f148f1d98f76'",order='transaction_id'))
+    print(rf_transaction_exists('619e2d83-b9b6-43fe-bbd2-f148f1d98f76',1))
 
 if __name__ == '__main__':
     main()

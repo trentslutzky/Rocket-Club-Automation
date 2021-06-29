@@ -10,6 +10,7 @@ import rcCerts as rccerts
 import rcJourneys
 import qrcode
 import time
+import rcapi
 
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
@@ -517,7 +518,7 @@ def api_rf_transaction(action):
     data = {}
 
     if action == None:
-        data = pgtool.get_table_json(
+        data = rcapi.get_table_json(
                 table_name='rf_transactions',
                 where_col='member_uuid',
                 where="'"+member_uuid+"'",
@@ -532,23 +533,29 @@ def api_rf_transaction(action):
             return data
         else:
             message = 'transaction removed'
-            transaction = pgtool.get_table_dict('rf_transactions','transaction_id',transaction_id,'member_uuid',member_uuid)
-            if transaction == {} or transaction == -1:
+            transaction_exists = rcapi.rf_transaction_exists(member_uuid,transaction_id)
+            if transaction_exists == False:
                 message = 'transaction not found. Possibly incorrect member_uuid or transaction_id'
+                data = {'message':message,
+                        'transaction_id':transaction_id,
+                        'member_uuid':member_uuid}
+                return data
+            else:
+                transaction = rcapi.remove_rf_transaction(member_uuid,transaction_id)
             data = {'message':message,
                     'transaction':transaction,
-                    'transaction_id':transaction_id}
+                    'transaction_id':transaction_id,
+                    'member_uuid':member_uuid}
     
     #data['remote_addr'] = request.remote_addr
     return data
-    
+
 @app.route('/api/members/',defaults={'member_uuid':None})
 @app.route('/api/members/<member_uuid>')
 def api_members(member_uuid):
     if not member_uuid:
         return({'message':"no member_uuid provided."})
-    member_uuid = "'"+member_uuid+"'"
-    return(pgtool.get_table_json('rc_members','member_uuid',member_uuid))
+    return(rcapi.get_member_info(member_uuid))
 
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required

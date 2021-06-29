@@ -4,19 +4,69 @@ import { StaticRouter, BrowserRouter as Router, Switch, Route } from 'react-rout
 import styled, { css, createGlobalStyle } from 'styled-components';
 
 import RCLogo from '../images/rc_helmet.png';
+import AvatarIMG from '../images/rocketclub.png';
 
-export function TopBar() {
-    return (
-        <Bar>
-            <Logo src={RCLogo}></Logo>
-            <LeftTitle>Rocket Club<br/>Admin Dashboard</LeftTitle>
-        </Bar>
-    );
+class TopBar extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
+
+    accountClick() {
+        const popup = document.getElementById("account-popup");
+        console.log(popup.props);
+    }
+
+    render(props) {
+        return (
+            <Bar>
+                <Logo src={RCLogo}></Logo>
+                <LeftTitle>Rocket Club<br/>Admin Dashboard</LeftTitle>
+                <Avatar src={AvatarIMG} onClick={() => this.accountClick()}></Avatar>
+                <AccountPopup id="account-popup" opened="False">
+                    <h4>Rocket Club Admin</h4>
+                    <LogOutLink href="">Log Out</LogOutLink>
+                </AccountPopup>
+            </Bar>
+        );
+    }
 }
+
+const AccountPopup = styled.div`
+    height: 110px;
+    width: 175px;
+    background-color: var(--secondary-bg);
+    position: absolute;
+    top: 77px;
+    border-radius: 5px;
+    padding-left:20px;
+    transition 0.5s;
+`;
+
+const LogOutLink = styled.a`
+    position: inherit;
+    bottom: 16px;
+    right: 16px;
+`;
 
 const Logo = styled.img`
     height:60%;
     margin:15px;
+`;
+
+const Avatar = styled.img`
+    height: 30px;
+    width: auto;
+    border-radius: 25px;
+    border: 3px solid var(--accent-0);
+    position: absolute;
+    right: 10px;
+    background-color: var(--main-bg);
+    padding: 5px;
+    &:hover{
+        background-color: var(--secondary-bg);
+    }
+    cursor:pointer;
 `;
 
 const LeftTitle = styled.p`
@@ -33,3 +83,6 @@ const Bar = styled.div`
     display:flex;
     align-items:center;
 `;
+
+
+export { TopBar };
