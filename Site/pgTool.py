@@ -1,4 +1,4 @@
-################/ ########  IMPORTS  #################################
+########################  IMPORTS  #################################
 import pg8000
 import time
 import secret
@@ -518,7 +518,7 @@ def get_top_rf_monthly():
 def get_kahoot_monthly():
     db = connect()
     output = []
-    COMMAND = "select name,sum,team from (select member_uuid,sum(score) from kahoot_scores where extract(month from timestamp) = extract(month from now()) group by kahoot_scores.member_uuid)b left join (select * from rc_members)a on a.member_uuid = b.member_uuid where team not in ('Admin','instructor') order by sum desc limit 10"
+    COMMAND = "select b.name,a.sum from (select member_uuid,sum(amount) from rf_transactions where type = 'rcl' and subtype = 'kahoot' and extract(month from completed) = extract(month from now()) group by member_uuid) a left join (select * from rc_members) b on a.member_uuid=b.member_uuid where b.team !=      'Admin' and b.enrolled = True order by sum desc limit 10"
     result = db.run(COMMAND)
     for line in result:
         score = "{:,}".format(line[1])
@@ -531,7 +531,7 @@ def get_kahoot_monthly():
 def get_lifetime_kahoot():
     db = connect()
     output = []
-    COMMAND = "select name,sum,team from (select member_uuid,sum(score) from kahoot_scores group by kahoot_scores.member_uuid)b left join (select * from rc_members)a on a.member_uuid = b.member_uuid order by sum desc limit 10"
+    COMMAND = "select b.name,a.sum from (select member_uuid,sum(amount) from rf_transactions where type = 'rcl' and subtype in ('kahoot','trivia','kahoot_1','kahoot_2','kahoot_3') group by member_uuid) a left join (select * from rc_members) b on a.member_uuid=b.member_uuid where b.team != 'Admin' and b.enrolled = True order by sum desc limit 10"
     result = db.run(COMMAND)
     for line in result:
         score = "{:,}".format(line[1])
