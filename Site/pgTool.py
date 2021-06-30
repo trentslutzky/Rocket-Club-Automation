@@ -613,6 +613,7 @@ def get_recent_members(num):
 def add_new_member(member_id,name,division,team,grad_date):
     db = connect()
     command = f"INSERT INTO rc_members(member_id, name, team, division, grad_date) VALUES({member_id},'{name}','{team}',{division},'{grad_date}')"
+    print(command)
     db.run(command)
     db.commit()
     sleep(1)

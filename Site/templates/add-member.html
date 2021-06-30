@@ -24,23 +24,22 @@
             <h4>Member Info</h4>
             <h6>Member ID</h6><input class="form-control input-box" type="text" name="member_id_input" value="{{ next_member_id }}" required="">
             <h6 class="form-heading">Name</h6><input class="form-control input-box" type="text" name="name" required="">
-            <h6 class="form-heading">Division</h6><input class="form-control input-box" type="number" name="division" required="">
-            <h6 class="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team">
+            <h6 class="form-heading">Division</h6><input class="form-control input-box" type="number" name="division">
+            <h6 class="form-heading">Team</h6><select class="form-control input-box" id="select-input" type="text" name="team" required="">
     <optgroup label="select a team">
-        <option value="" selected="",id="default-option">Select Team</option>
         {% for team in teams %}
         <option value="{{ team }}">{{ team }}</option>
         {% endfor %}
     </optgroup>
 </select>
-            <h6 class="form-heading">Graduation Date</h6><input class="form-control input-box" type="text" name="grad_date" value="{{ default_grad_date }}" required="">
+            <h6 class="form-heading">Graduation Date</h6><input class="form-control input-box" type="text" name="grad_date" value="{{ default_grad_date }}" >
             <hr style="margin-top: 24px;margin-bottom: 17px;">
             <h4 style="margin-top: 13px;">Parent Info</h4>
-            <h6>Parent's Name</h6><input class="form-control input-box" type="text" name="parent_name" required="">
-            <h6 class="form-heading">&nbsp;Parent's Email</h6><input class="form-control input-box" type="email" name="parent_email" required="">
-            <h6 class="form-heading">Parent's Phone Number</h6><input class="form-control input-box" type="tel" name="parent_phone" required="">
-            <h6 class="form-heading">Membership Cost (before scholarship)</h6><input class="form-control input-box num-input" type="number" value="{{default_cost}}" name="cost" required="">
-            <h6 class="form-heading">Scholarship Amount</h6><input class="form-control input-box num-input" type="number" name="scholarship" required="">
+            <h6>Parent's Name</h6><input class="form-control input-box" type="text" name="parent_name" value="">
+            <h6 class="form-heading">&nbsp;Parent's Email</h6><input class="form-control input-box" type="text" name="parent_email" value="">
+            <h6 class="form-heading">Parent's Phone Number</h6><input class="form-control input-box" type="tel" name="parent_phone">
+            <h6 class="form-heading">Membership Cost (before scholarship)</h6><input class="form-control input-box num-input" type="number" name="cost" value=0>
+            <h6 class="form-heading">Scholarship Amount</h6><input class="form-control input-box num-input" type="number" name="scholarship" value=0>
             <div class="d-md-flex justify-content-md-start align-items-md-center" id="add-member-submit-area"><button class="btn btn-primary" id="submit-button" type="submit" onclick="add_button_clicked()">Submit</button><span id="add-member-confirmation">{{ confirmation }}</span><span id="add-member-warning">{{ warning }}</span></div>
         </form>
     </div>

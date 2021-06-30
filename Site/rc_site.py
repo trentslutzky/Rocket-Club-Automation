@@ -186,6 +186,7 @@ def add_member():
                 )
 
     elif flask.request.method == 'POST':
+        print(request.form)
         current_id = request.form['member_id_input']
         name = request.form['name']
         division = request.form['division']
@@ -199,10 +200,11 @@ def add_member():
 
         member_exists = pgtool.test_member_id(current_id)
 
+        if division == '':
+            division = '0'
+
         if(name == ''):
             warning = 'Invalid Name!'
-        elif(division == ''):
-            warning = 'Please enter a division!'
         elif(team == ''):
             warning = 'Please select a team!'
         elif(member_exists != 0):
@@ -211,6 +213,8 @@ def add_member():
             name = name.title()
             confirmation = 'Member Added ' + str(current_id) + ' ' + name
             pgtool.add_new_member(current_id,name,division,team,grad_date)
+
+        if(parent_name != ''):
             pgtool.add_parent(current_id,parent_name,parent_email,parent_phone,cost,scholarship)
 
         recent_members = pgtool.get_recent_members(num)
@@ -223,7 +227,7 @@ def add_member():
                 confirmation = confirmation,
                 defaut_grad_date = defaut_grad_date,
                 warning = warning
-                )
+        )
 
 @app.route('/edit-member', methods=['GET','POST'])
 @flask_login.login_required
@@ -554,7 +558,7 @@ def api_rf_transaction(action):
 @app.route('/api/members/<member_uuid>')
 def api_members(member_uuid):
     if not member_uuid:
-        return({'message':"no member_uuid provided."})
+        return(rcapi.get_all_members())
     return(rcapi.get_member_info(member_uuid))
 
 @app.route('/select-member/<string:destination>')

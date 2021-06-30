@@ -43,6 +43,10 @@ def get_member_info(member_uuid):
     db.close()
     return result
 
+def get_all_members():
+    members = get_table_json(table_name = 'rc_members')
+    return(members)
+
 def get_table_json(table_name,where_col=None,where=None,where_2_col=None,where_2=None,order=None,limit=None):
     print('GET Table JSON '+table_name)
     db = connect()
