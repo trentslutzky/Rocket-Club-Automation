@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import { StaticRouter, BrowserRouter as Router, Switch, Route, useLocation, useHistory, useParams } from 'react-router-dom';
 import styled, { css, createGlobalStyle } from 'styled-components';
 
+import { ToastContainer, toast } from 'react-toastify';
+import { injectStyle } from "react-toastify/dist/inject-style";
+
+
 import { SideBar } from './SideBar.jsx';
 import { TopBar } from './TopBar.jsx';
 
@@ -15,8 +19,10 @@ import { Loading } from './Loading.jsx';
 import { SelectMember } from './SelectMember.jsx';
 
 export default function App(){
+    injectStyle();
     return (
         <Router>
+            <ToastContainer />
             <GlobalStyle/>
                 <MainContainer>
                     <TopBar />
@@ -26,7 +32,7 @@ export default function App(){
                             <Switch>
                                 <Route exact path="/" component={ DashboardHome }/>
                                 <Route path="/add-member" component={ AddMember }/>
-                                <Route path="/edit-member" component={ MemberDetail }/>
+                                <Route path="/edit-member/:member_uuid" component={ MemberDetail }/>
                                 <Route path="/add-rf" component={ SelectMember }/>
                             </Switch>
                         </MainPage>
@@ -50,6 +56,8 @@ const GlobalStyle = createGlobalStyle`
         --button-foreground:white;
         --button-foreground-selected:white;
         --button-foreground-not-selected:#dddddd;
+        --table-row-select:#F0F0F0;
+        --table-border:#a6a6a6;
     }
     body {
         font-size:15px;
@@ -64,11 +72,11 @@ const GlobalStyle = createGlobalStyle`
         }
     }
     table {
+        width:100%;
         background-color:var(--secondary-bg);
         font-size:15px;
         border-collapse:collapse;
         border-radius:5px;
-        box-shadow:rgb(0, 0, 0) 0px 0px 12px -8px;
     }
     caption{
         font-size: 1.5rem;
@@ -89,6 +97,13 @@ const GlobalStyle = createGlobalStyle`
         font-size:16px;
         font-weight:bold;
     }
+
+    .Toastify__toast-container--top-right {
+        top:75px !important;
+    }
+    .Toastify__toast--info {
+        background-color:var(--accent-0) !important;
+    }
 `;
 
 const PageContainer = styled.div`
@@ -103,6 +118,7 @@ const MainContainer = styled.div`
     max-height:100vh;
     display:flex;
     overflow:hidden;
+    background:var(--main-bg);
 `;
 
 const MainPage = styled.div`
@@ -111,5 +127,11 @@ const MainPage = styled.div`
     height:100vh;
     width:100%;
     margin-top:65px;
-    margin-left:250px
+    margin-left:280px;
+    display:flex;
+
+    @media(min-width:1800px){
+        flex-direction:column;
+        align-items:center;
+    }
 `;

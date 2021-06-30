@@ -18,6 +18,7 @@ const LoadingImg = styled.img`
 `;
 
 const Page = styled.div`
+    width:100%;
     display: flex;
     flex-direction: column;
     align-items: center;

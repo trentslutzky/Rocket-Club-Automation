@@ -19,7 +19,7 @@ export function SideBar() {
             </FloatingButton>
             <FloatingButton to="/edit-member">
                 <SVGIcons.EditIcon />
-                <ButtonText>Edit Member</ButtonText>
+                <ButtonText>Member Details</ButtonText>
             </FloatingButton>
             <FloatingButton to="/add-rf">
                 <SVGIcons.RocketIcon />
