@@ -9,9 +9,10 @@ import { TopBar } from './TopBar.jsx';
 import BGImage from '../images/background_1.png';
 
 import { AddMember } from './AddMember.jsx';
-import { EditMember } from './EditMember.jsx';
+import { MemberDetail } from './MemberDetail/MemberDetail.jsx';
 import { DashboardHome } from './DashboardHome.jsx';
 import { Loading } from './Loading.jsx';
+import { SelectMember } from './SelectMember.jsx';
 
 export default function App(){
     return (
@@ -25,8 +26,8 @@ export default function App(){
                             <Switch>
                                 <Route exact path="/" component={ DashboardHome }/>
                                 <Route path="/add-member" component={ AddMember }/>
-                                <Route path="/edit-member" component={ EditMember }/>
-                                <Route path="/add-rf" component={ Loading }/>
+                                <Route path="/edit-member" component={ MemberDetail }/>
+                                <Route path="/add-rf" component={ SelectMember }/>
                             </Switch>
                         </MainPage>
                     </PageContainer>
