@@ -41,6 +41,7 @@ const AccountPopup = styled.div`
     border-radius: 5px;
     padding-left:20px;
     transition 0.5s;
+    right:-200px;
 `;
 
 const LogOutLink = styled.a`

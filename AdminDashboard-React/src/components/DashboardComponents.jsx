@@ -6,6 +6,10 @@ const fadeInAnimation = keyframes`
     to   { opacity:1; }
 `;
 
+export const PageTitle = styled.h1`
+    margin-bottom:0px;
+`;
+
 export const CardText = styled.div`
     margin-bottom:8px;
 `;
@@ -14,6 +18,13 @@ export const CardHeading = styled(CardText)`
     margin:0px;
     font-size:1.8rem;
     font-weight:bold;
+    margin-bottom:10px;
+    margin-top:10px;
+`;
+
+export const CardSubheading = styled.p`
+    font-size:1.3rem;
+    margin-top:6px;
     margin-bottom:10px;
 `;
 
@@ -39,11 +50,11 @@ export const PageNav = styled.span`
     display:flex;
     align-items:center;
     margin-bottom:-10px;
-    margin-left:5px;
-    animation: ${fadeInAnimation} 0.1s linear;
+    /* animation: ${fadeInAnimation} 0.1s linear; */
 `;
 
 export const PageNavButton = styled.button`
+    font-size:0.9rem;
     height: 35px;
     width: 192px;
     color: var(--accent-0);
@@ -61,7 +72,30 @@ export const PageNavButton = styled.button`
 `;
 
 export const Page = styled.div`
-    animation: ${fadeInAnimation} 0.15s linear;
+    /* animation: ${fadeInAnimation} 0.15s linear; */
+    margin-bottom:100px;
+    min-width:1000px;
+    height:max-content;
+`;
+
+export const FieldError = styled.p`
+    font-size:0.8rem;
+    color:red;
+    margin-top: -10px;
+    text-align:right;
+    margin-bottom:-6px;
+`;
+
+export const ListLine = styled.div`
+    font-size:15px;
+    margin-bottom: -4px;
+`;
+
+export const Checkbox = styled.input`
+    height:15px;
+    width:15px;
+    margin-right:10px;
+    cursor:pointer;
 `;
 
 export const PageNavButtonSelected = styled(PageNavButton)`

@@ -17,9 +17,9 @@ export function SideBar() {
                 <SVGIcons.UserIcon />
                 <ButtonText>Add Member</ButtonText>
             </FloatingButton>
-            <FloatingButton to="/edit-member">
+            <FloatingButton to="/members">
                 <SVGIcons.EditIcon />
-                <ButtonText>Member Details</ButtonText>
+                <ButtonText>Members</ButtonText>
             </FloatingButton>
             <FloatingButton to="/add-rf">
                 <SVGIcons.RocketIcon />
@@ -52,6 +52,16 @@ const Side = styled.aside`
 
     position:fixed;
     z-index:1;
+
+    transition: all 0.1s;
+
+    &:hover{
+        width:250px;
+    }
+
+    @media(max-width:1000px){
+        width:59px;
+    }
 `;
 
 const ButtonText = styled.p`

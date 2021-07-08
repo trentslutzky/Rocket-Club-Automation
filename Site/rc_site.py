@@ -506,6 +506,20 @@ def authorize():
             data = {'message':'unauthorized'}
             return data,401
 
+@app.route('/api/teams')
+def api_get_teams():
+    data = pgtool.get_table_json(
+            table_name='teams')
+    return(data)
+
+@app.route('/api/teams/teamnames')
+def api_get_team_names():
+    db = connect()
+    teams = db.run("SELECT team_name FROM teams")
+    result = {'team_names':[]}
+    for t in teams:
+        result['team_names'].append(t[0])
+    return(result)
 
 @app.route('/api/rf_transactions/',defaults={'action':None})
 @app.route('/api/rf_transactions/<action>')
@@ -560,6 +574,40 @@ def api_members(member_uuid):
     if not member_uuid:
         return(rcapi.get_all_members())
     return(rcapi.get_member_info(member_uuid))
+
+@app.route('/api/journeys/update',methods=['POST','GET'])
+def update_journeys():
+    data = request.get_json()
+    return(rcapi.update_member_journeys(data))
+
+@app.route('/api/awards/update',methods=['POST','GET'])
+def update_awards():
+    data = request.get_json()
+    return(rcapi.update_member_awards(data))
+
+@app.route('/api/edit/',defaults={'action':None}, methods=['POST','GET'])
+@app.route('/api/edit/<action>',methods=['POST','GET'])
+def edit_member_info(action):
+    data = request.get_json()
+    if not action:
+        return({'message':'no action provided.'})
+
+    if action == 'info':
+        return(rcapi.update_member_info(data))
+
+    if action == 'parent':
+        return(rcapi.update_parent_info(data))
+
+@app.route('/api/add_member/<action>')
+@app.route('/api/add_member/',defaults={'action':None}, methods=['POST'])
+@app.route('/api/add_member',defaults={'action':None}, methods=['POST'])
+def api_add_member(action):
+    data = request.get_json()
+    print('add_member')
+    if action == 'page_data':
+        return(rcapi.get_add_member_page())
+    else:
+        return(rcapi.add_new_member(data))
 
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required

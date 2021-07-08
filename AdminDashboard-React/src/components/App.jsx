@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { StaticRouter, BrowserRouter as Router, Switch, Route, useLocation, useHistory, useParams } from 'react-router-dom';
 import styled, { css, createGlobalStyle } from 'styled-components';
@@ -13,13 +13,27 @@ import { TopBar } from './TopBar.jsx';
 import BGImage from '../images/background_1.png';
 
 import { AddMember } from './AddMember.jsx';
-import { MemberDetail } from './MemberDetail/MemberDetail.jsx';
+import { Members } from './Members/Members.jsx';
 import { DashboardHome } from './DashboardHome.jsx';
 import { Loading } from './Loading.jsx';
 import { SelectMember } from './SelectMember.jsx';
+import { AddRF } from './AddRF.jsx';
+import { Login } from './Login.jsx'
 
 export default function App(){
     injectStyle();
+        
+    const [token, setToken] = useState('test');
+
+    if(!token){
+        return( 
+            <>
+            <GlobalStyle/>
+            <Login setToken={setToken}/>
+            </>
+        );
+    }
+
     return (
         <Router>
             <ToastContainer />
@@ -32,8 +46,11 @@ export default function App(){
                             <Switch>
                                 <Route exact path="/" component={ DashboardHome }/>
                                 <Route path="/add-member" component={ AddMember }/>
-                                <Route path="/edit-member/:member_uuid" component={ MemberDetail }/>
-                                <Route path="/add-rf" component={ SelectMember }/>
+                                <Route path="/members/:uuid" component={ Members }/>
+                                <Route path="/members" render={() => <SelectMember dest="members"/>}/>
+                                <Route path="/add-rf/:uuid" component={ AddRF }/>
+                                <Route path="/add-rf" render={() => <SelectMember dest="add-rf"/>}/>
+                                <Route path="/view-database" render={() => <Loading/> }/>
                             </Switch>
                         </MainPage>
                     </PageContainer>
@@ -97,6 +114,71 @@ const GlobalStyle = createGlobalStyle`
         font-size:16px;
         font-weight:bold;
     }
+    hr{
+        width:100%;
+        border:none;
+        border-bottom:1px solid var(--main-bg);
+        margin:0px;
+        margin-top:15px;
+        margin-bottom:15px;
+    }
+
+    form{
+        display:flex;
+        flex-direction:column;
+    }
+
+    input{
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 4px;
+        border: 1px solid var(--main-bg);
+        font-size: 16px;
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+
+    label{
+        margin-bottom:5px;
+        font-size:1rem;
+    }
+
+    select{
+        font-family: 'Montserrat', sans-serif;
+        height: 38px;
+        font-size: 1rem;
+        padding-left: 3px;
+        background-color: var(--secondary-foreground);
+        border: 1px solid var(--main-bg);
+        border-radius: 3px;
+        margin-bottom: 12px;
+        cursor:pointer;
+        &:hover{
+            background-color:var(--table-row-select);
+        }
+}
+    }
+
+    button{
+        font-family: 'Montserrat', sans-serif;
+        margin-right:25px;
+        height: 38px;
+        width: 100px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        background-color: var(--accent-0-darker);
+        border: none;
+        border-radius: 5px;
+        color: var(--secondary-foreground);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.1s;
+        &:hover{
+            transform:scale(1.1);
+        }
+        &:disabled{
+            opacity:0.5;
+        }
+    }
 
     .Toastify__toast-container--top-right {
         top:75px !important;
@@ -127,11 +209,18 @@ const MainPage = styled.div`
     height:100vh;
     width:100%;
     margin-top:65px;
-    margin-left:280px;
+    margin-left:250px;
+    padding-left:30px;
     display:flex;
 
     @media(min-width:1800px){
         flex-direction:column;
         align-items:center;
     }
+
+    @media(max-width:1000px){
+        margin-left:60px;
+    }
+
+    transition:all 0.1s;
 `;
