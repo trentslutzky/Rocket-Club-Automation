@@ -47,14 +47,14 @@ function sub_category_select(){
     else if (subcat_val == "kahoot_3") {
         amount_field.value = 150;
     }
-    else if (subcat_val == "parents_1_first" || subcat_val == "parents_2_first") {
-        amount_field.value = 3000;
-    }
-    else if (subcat_val == "parents_1_second" || subcat_val == "parents_2_second") {
-        amount_field.value = 1000;
-    }
-    else if (subcat_val == "parents_1_third" || subcat_val == "parents_2_third") {
+    else if (subcat_val == "parents_2_first") {
         amount_field.value = 500;
+    }
+    else if (subcat_val == "parents_2_second") {
+        amount_field.value = 250;
+    }
+    else if (subcat_val == "parents_2_third") {
+        amount_field.value = 150;
     }
     else {
         amount_field.value = null;

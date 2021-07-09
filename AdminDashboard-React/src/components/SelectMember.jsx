@@ -6,6 +6,8 @@ import { Loading } from './Loading.jsx';
 import { CardText, CardHeading, DashboardCard, PageNav, PageNavButton, PageNavButtonSelected, Page } from './DashboardComponents.jsx';
 import * as SVGIcons from '../images/SVGIcons.jsx';
 
+import { API_KEY, URL } from './api.js';
+
 function searchFilter(event){
     var filter = event.target.value.toUpperCase();
     var table = document.getElementById("member-search-table");
@@ -44,7 +46,7 @@ function SelectMember(props) {
     useEffect(() => {
         if(members == null){
             var API_KEY = 'gaiGGD3hpm6cddc67rgf';
-            fetch('http://localhost:5000/api/members/?api_key='+API_KEY)
+            fetch(URL+'/api/members/?api_key='+API_KEY)
                 .then(res => res.json())
                 .then((result) => {
                     setMembers(result);

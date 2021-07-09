@@ -4,3 +4,4 @@ credentials.json
 __pycache__/
 Site/__pycache__/*
 secret.py
+api.js
