@@ -48,13 +48,19 @@ function sub_category_select(){
         amount_field.value = 150;
     }
     else if (subcat_val == "parents_2_first") {
-        amount_field.value = 500;
+        amount_field.value = 3000;
     }
     else if (subcat_val == "parents_2_second") {
-        amount_field.value = 250;
+        amount_field.value = 500;
     }
     else if (subcat_val == "parents_2_third") {
+        amount_field.value = 250;
+    }
+    else if (subcat_val == "futurists") {
         amount_field.value = 150;
+    }
+    else if (subcat_val == "talent_show") {
+        amount_field.value = 500;
     }
     else {
         amount_field.value = null;
