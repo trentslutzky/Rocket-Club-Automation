@@ -19,6 +19,8 @@ import { CardText, CardHeading,
          FieldError,
          Page } from '../DashboardComponents.jsx';
 
+import { URL, API_KEY } from '../api.js';
+
 function Edit(props){
     
     const [member_data_state, setMemberData] = useState(props.data[0]);
@@ -34,11 +36,13 @@ function Edit(props){
     const member_data = props.data[0];
 
     function updateMemberInfo(info){
+        console.log(info);
         if(!member_info_loading){
             member_info_loading = true;
             document.getElementById("loading-icon-member-detail").style.visibility = "visible";
-            var API_KEY = 'gaiGGD3hpm6cddc67rgf';
-            fetch('http://192.168.1.188:5000/api/edit/info?api_key='+API_KEY,{
+            document.getElementById("member_info_message").style.visibility="hidden";
+            document.getElementById("member_info_button").disabled=true;
+            fetch(URL+'/api/edit/info?api_key='+API_KEY,{
                 method:'POST',
                 mode:'cors',
                 headers:{'Content-Type': 'application/json'},
@@ -46,11 +50,13 @@ function Edit(props){
             }).then(res => res.json()).then((result) => {
                 console.log(result);
                 if(result.updated == true){
-                    props.refresh();
+                    props.refresh(member_data);
                     toast.info('Updated member information for '+member_data.name);
                     setMemberInfoMessage(result.message);
                 }
                 document.getElementById("loading-icon-member-detail").style.visibility = "hidden";
+                document.getElementById("member_info_message").style.visibility="visible";
+                document.getElementById("member_info_button").disabled=false;
                 member_info_loading = false;
                 setMemberInfoMessage(result.message);
             });
@@ -58,11 +64,13 @@ function Edit(props){
     }
 
     function updateParentInfo(info){
+        console.log(info);
         if(!parent_info_loading){
             parent_info_loading = true;
             document.getElementById("loading-icon-parent").style.visibility = "visible";
-            var API_KEY = 'gaiGGD3hpm6cddc67rgf';
-            fetch('http://192.168.1.188:5000/api/edit/parent?api_key='+API_KEY,{
+            document.getElementById("parent_info_message").style.visibility="hidden";
+            document.getElementById("parent_info_button").disabled=true;
+            fetch(URL+'/api/edit/parent?api_key='+API_KEY,{
                 method:'POST',
                 mode:'cors',
                 headers:{'Content-Type': 'application/json'},
@@ -70,11 +78,13 @@ function Edit(props){
             }).then(res => res.json()).then((result) => {
                 console.log(result);
                 if(result.updated == true){
-                    props.refresh();
+                    props.refresh(member_data);
                     toast.info('Updated '+member_data.name+"'s parent info.");
                     setParentInfoMessage(result.message);
                 }
                 document.getElementById("loading-icon-parent").style.visibility = "hidden";
+                document.getElementById("parent_info_message").style.visibility="hidden";
+                document.getElementById("parent_info_button").disabled=false;
                 parent_info_loading = false;
                 setParentInfoMessage(result.message);
             });
@@ -86,6 +96,7 @@ function Edit(props){
             <>
                 <Formik
                     initialValues={{
+                        member_uuid:member_data.member_uuid,
                         name:member_data.name,
                         member_id:member_data.member_id,
                         division:member_data.division,
@@ -114,11 +125,11 @@ function Edit(props){
                     }}
                 >
                 {(props) => (
-                    <Form onSubmit={console.log('test')}>
+                    <Form>
                         <input
                             type="hidden" 
-                            defaultValue={member_data.member_uuid}
                             name="member_uuid"
+                            defaultValue={member_data.member_uuid}
                         />
                         <label htmlFor="name">Name</label>
                         <input
@@ -172,9 +183,9 @@ function Edit(props){
                             : <></> 
                         }
                         <div>
-                        <button type="submit">Save</button>
+                        <button id="member_info_button" type="submit">Save</button>
                         <LoadingIcon id="loading-icon-member-detail"src={AjaxLoaderGif}/>
-                        <span>{ member_info_message }</span>
+                        <span id="member_info_message">{ member_info_message }</span>
                         </div>
                     </Form>
                 )}
@@ -188,11 +199,12 @@ function Edit(props){
             <>
                 <Formik
                     initialValues={{
+                        member_uuid:member_data.member_uuid,
                         parent_name:member_data.parent.name,
                         email:member_data.parent.email,
                         phone:member_data.parent.phone,
                         tuition:member_data.parent.tuition,
-                        scholarshpi:member_data.parent.scholarship,
+                        scholarship:member_data.parent.scholarship,
                     }}
                     validationSchema={Yup.object({
                         parent_name: Yup.string()
@@ -216,7 +228,7 @@ function Edit(props){
                         member_data.parent.email = values.email;
                         member_data.parent.phone = values.phone;
                         member_data.parent.tuition = values.tuition;
-                        member_data.parent.scholarship = values.tuition;
+                        member_data.parent.scholarship = values.scholarship;
                         updateParentInfo(JSON.stringify(values,null,2));
                     }}
                 >
@@ -235,6 +247,11 @@ function Edit(props){
                             defaultValue={member_data.parent.name}
                             onChange={props.handleChange}
                         />
+                        {
+                            props.errors.parent_name
+                            ? <FieldError>{props.errors.parent_name}</FieldError>
+                            : <></> 
+                        }
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
@@ -243,6 +260,11 @@ function Edit(props){
                             defaultValue={member_data.parent.email}
                             onChange={props.handleChange}
                         />
+                        {
+                            props.errors.email
+                            ? <FieldError>{props.errors.email}</FieldError>
+                            : <></> 
+                        }
                         <label htmlFor="phone">Phone Number</label>
                         <input
                             id="phone"
@@ -251,6 +273,11 @@ function Edit(props){
                             defaultValue={member_data.parent.phone}
                             onChange={props.handleChange}
                         />
+                        {
+                            props.errors.phone
+                            ? <FieldError>{props.errors.phone}</FieldError>
+                            : <></> 
+                        }
                         <label htmlFor="tuition">Tuition</label>
                         <input
                             id="tuition"
@@ -259,6 +286,11 @@ function Edit(props){
                             defaultValue={member_data.parent.tuition}
                             onChange={props.handleChange}
                         />
+                        {
+                            props.errors.tuition
+                            ? <FieldError>{props.errors.tuition}</FieldError>
+                            : <></> 
+                        }
                         <label htmlFor="scholarship">Scholarship</label>
                         <input
                             id="scholarship"
@@ -267,10 +299,15 @@ function Edit(props){
                             defaultValue={member_data.parent.scholarship}
                             onChange={props.handleChange}
                         />
+                        {
+                            props.errors.scholarship
+                            ? <FieldError>{props.errors.scholarship}</FieldError>
+                            : <></> 
+                        }
                         <div>
-                        <button type="submit">Save</button>
+                        <button id="parent_info_button" type="submit">Save</button>
                         <LoadingIcon id="loading-icon-parent"src={AjaxLoaderGif}/>
-                        <span>{ parent_info_message }</span>
+                        <span id="parent_info_message">{ parent_info_message }</span>
                         </div>
                     </Form>
                 )}
@@ -295,12 +332,6 @@ function Edit(props){
 
 const LoadingIcon = styled.img`
     visibility:hidden;
-`;
-
-const ButtonDisabled = styled.button`
-    &:hover{
-        transform:scale(1.0);
-    }
 `;
 
 export { Edit };

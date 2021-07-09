@@ -164,6 +164,9 @@ def update_member_info(data):
             updated = True
 
     if(updated):
+        message = 'Updated.'
+
+    if(updated):
         db.commit()
     db.close()
     return({'updated':updated,'message':message})
@@ -342,23 +345,109 @@ def get_add_member_page():
     recent_members = get_table_json(table_name='rc_members',
             limit=20,order='member_id')['result']
 
-    upcoming_member_id = db.run("SELECT member_id from rc_members where member_id < 9000 limit 1")[0][0] + 1
+    upcoming_member_id = db.run("SELECT member_id from rc_members where member_id < 9000  order by member_id desc limit 1")[0][0] + 1
     upcoming_member_id_trial = db.run("SELECT member_id from rc_members limit 1")[0][0] + 1
 
     teams = get_table_json(table_name='teams')['result']
     grad_dates = get_table_json(table_name='graduation_dates')['result']
+
+    member_ids_db = db.run("SELECT member_id from rc_members")
+    member_ids = []
+    for m in member_ids_db:
+        member_ids.append(m[0])
+    print(member_ids)
 
     result['teams'] = teams
     result['grad_dates'] = grad_dates
     result['upcoming_member_id'] = upcoming_member_id
     result['upcoming_member_id_trial'] = upcoming_member_id_trial
     result['recent_members'] = recent_members
+    result['member_ids'] = member_ids
+    return(result)
+
+def get_add_rf_page(data):
+    member_uuid = data['member_uuid']
+    db = connect()
+    result = {}
+    # get most 10 most rement rf transactions for user 
+    transactions = get_table_json(
+            table_name="rf_transactions",
+            where_col="member_uuid",
+            where=f"'{member_uuid}'",
+            order="transaction_id",
+            limit=10)
+
+    communities = get_table_json(table_name="communities")
+
+    categories = [
+            {'category':'rcl','flair':'Rocket Club Live'},
+            {'category':'communities','flair':'Communities'},
+            {'category':'bonus','flair':'Bonus'},
+            {'category':'other','flair':'Other'},
+            {'category':'deduction','flair':'Deduction'},
+            ]
+
+    rcl_subcategories = [
+            {'category':'kahoot_1','flair':'Kahoot 1st Place'},
+            {'category':'kahoot_2','flair':'Kahoot 2nd Place'},
+            {'category':'kahoot_3','flair':'Kahoot 3rd Place'},
+            {'category':'wheel_of_names','flair':'Wheel of Names'},
+            {'category':'wheel_birthday','flair':'Birthday Wheel'},
+            {'category':'wheel_tech_tues','flair':'Techteusday Wheel'},
+            {'category':'bonus','flair':'Bonus'},
+            {'category':'competition','flair':'Competition'},
+            {'category':'parents_1_first','flair':'Parents Night (#1) 1st Place'},
+            {'category':'parents_1_second','flair':'Parents Night (#1) 2nd Place'},
+            {'category':'parents_1_third','flair':'Parents Night (#1) 3rd Place'},
+            {'category':'parents_2_first','flair':'Parents Night (#2) 1st Place'},
+            {'category':'parents_2_second','flair':'Parents Night (#2) 2nd Place'},
+            {'category':'parents_2_third','flair':'Parents Night (#2) 3rd Place'},
+            {'category':'showdown','flair':'Showdown'},
+            ]
+
+    member_data = get_table_json(table_name="rc_members",where_col="member_uuid",where=f"'{member_uuid}'")
+
+    result['transactions'] = transactions
+    result['communities'] = communities
+    result['categories'] = categories
+    result['member_data'] = member_data
+    result['rcl_subcategories'] = rcl_subcategories
+
+    db.close()
+    return(result)
+
+def add_rf(data):
+    db = connect()
+    print(data)
+    result = {}
+    updated = True
+    message = 'Updated.'
+    db.run(f"INSERT INTO rf_transactions(member_uuid,type,subtype,amount) VALUES('{data['member_uuid']}','{data['category']}','{data['subcategory']}',{data['amount']})")
+    result['updated'] = updated
+    result['message'] = message
+    db.commit()
+    db.close()
     return(result)
 
 def add_new_member(data):
+    db = connect()
+    updated = False
+    message = ''
     print(data)
-    sleep(2)
-    return({'updated':True})
+
+    member_id = data['member_id']
+    exists = db.run(f"SELECT count(*) FROM rc_members WHERE member_id = {member_id}")[0][0]
+
+    if(exists != 0):
+        updated=False
+        message='Member ID Exsists'
+
+    result = {}
+    result['updated'] = updated
+    result['message'] = message
+    #db.commit()
+    db.close()
+    return(result)
 
 def main():
     print(get_add_member_page())

@@ -45,6 +45,7 @@ export function AddMember() {
                 method:'GET',mode:'cors'})
             .then((res) => res.json())
             .then((result) => {
+                console.log(result);
                 // do something with the json data from the api
                 setPageData(result);
                 setTeamOptions( 
@@ -69,8 +70,19 @@ export function AddMember() {
             </Page>
         )
     }
-    
+
+    const recent_members = pageData.recent_members.map((m) => {
+        return(
+            <tr>
+                <td>{m.member_id}</td>
+                <td>{m.name}</td>
+                <td>{m.team}</td>
+            </tr>
+        )
+    })
+
     function handleAddNormalMember(data){
+        document.getElementById("submit_button").disabled = true;
         document.getElementById("normal-member-loader").style.visibility = 'visible';
         console.log(data);
         fetch(URL+'/api/add_member?api_key='+API_KEY,{
@@ -109,6 +121,7 @@ export function AddMember() {
                     validationSchema={Yup.object({
                         member_id: Yup.number()
                             .integer('invalid member id')
+                            .notOneOf(pageData.member_ids,'That member ID exists.')
                             .required('required'),
                         name: Yup.string()
                             .matches(/^[aA-zZ\s]+$/, "Invalid Name")
@@ -292,10 +305,9 @@ export function AddMember() {
                             </div>
                         </HiddenDiv>
                         <div>
-                        {props.isSubmitting
-                            ?<></>:<button type="submit">Save</button>}
-                        <LoadingIcon id="normal-member-loader"src={AjaxLoaderGif}/>
-                        <span></span>
+                            <button id="submit_button" type="submit">Save</button>
+                            <LoadingIcon id="normal-member-loader"src={AjaxLoaderGif}/>
+                            <span></span>
                         </div>
                     </Form>
                 )}
@@ -315,6 +327,21 @@ export function AddMember() {
                 <DashboardCard>
                     <CardHeading>Add New Member</CardHeading>
                     <AddNormalMemberForm />
+                </DashboardCard>
+                <DashboardCard>
+                    <CardHeading>Recently Added Members</CardHeading>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Team</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { recent_members }
+                        </tbody>
+                    </table>
                 </DashboardCard>
                 </>
             );

@@ -17,7 +17,7 @@ import { Members } from './Members/Members.jsx';
 import { DashboardHome } from './DashboardHome.jsx';
 import { Loading } from './Loading.jsx';
 import { SelectMember } from './SelectMember.jsx';
-import { AddRF } from './AddRF.jsx';
+import { AddRF } from './AddRF/AddRF.jsx';
 import { Login } from './Login.jsx'
 
 export default function App(){

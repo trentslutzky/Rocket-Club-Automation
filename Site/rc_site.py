@@ -609,6 +609,20 @@ def api_add_member(action):
     else:
         return(rcapi.add_new_member(data))
 
+@app.route('/api/page_data/<page>',methods=['POST','GET'])
+@app.route('/api/page_data/',defaults={'page':None},methods=['POST','GET'])
+def page_data(page):
+    data = request.get_json()
+    if page == None:
+        return({'message','No Page Requested!'})
+    elif page == 'add_rf':
+        return(rcapi.get_add_rf_page(data))
+
+@app.route('/api/add_rf',methods=['POST'])
+def api_add_rf():
+    data = request.get_json()
+    return(rcapi.add_rf(data))
+
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required
 def select_member(destination):
