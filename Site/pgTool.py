@@ -618,7 +618,7 @@ def add_new_member(member_id,name,division,team,grad_date):
     db.commit()
     sleep(1)
     uuid = get_member_uuid(member_id)
-    print(uuid)
+    print('member_uuid:',uuid)
     command = "INSERT INTO rf_transactions(member_uuid,type,amount) VALUES('%s','base_rf',250)" % (str(uuid))
     db.run(command)
     db.commit()

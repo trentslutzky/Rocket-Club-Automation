@@ -35,6 +35,17 @@ export function AddMember() {
 
     const [addParentAccount, setAddParentAccount] = useState(false);
 
+    function updatePageData(){
+            fetch(URL+'/api/add_member/page_data?api_key='+API_KEY,{
+                method:'GET',mode:'cors'})
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result);
+                // do something with the json data from the api
+                setPageData(result);
+            })
+    }
+
     useEffect(() => {
         if(pageUpdate == null){
             setPageUpdate(0);
@@ -77,6 +88,7 @@ export function AddMember() {
                 <td>{m.member_id}</td>
                 <td>{m.name}</td>
                 <td>{m.team}</td>
+                <td>{m.added}</td>
             </tr>
         )
     })
@@ -94,9 +106,12 @@ export function AddMember() {
                 console.log(result);
                 if(result.updated == true){   
                     toast.info('New Member Added!');
-                    setPageData(null);
-                }    
-                document.getElementById("normal-member-loader").style.visibility = 'hidden';
+                    updatePageData().then(() => {
+                        document.getElementById("normal-member-loader").style.visibility = 'hidden';
+                    })
+                } else {
+                    document.getElementById("normal-member-loader").style.visibility = 'hidden';
+                }
             });
     }
 
@@ -336,6 +351,7 @@ export function AddMember() {
                                 <th>Member ID</th>
                                 <th>Name</th>
                                 <th>Team</th>
+                                <th>Added</th>
                             </tr>
                         </thead>
                         <tbody>

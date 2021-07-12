@@ -1,6 +1,8 @@
 import pg8000
 import secret
 from time import sleep
+import pgTool as pgtool
+from flask_bcrypt import Bcrypt as bcrypt
 
 def connect():           
     db = pg8000.connect(secret.db['user'],
@@ -61,10 +63,21 @@ def get_member_info(member_uuid):
     member_journeys = get_member_journeys(member_uuid)
     print(member_journeys)
 
-    parent = get_table_json(table_name='parents',
-                            where_col='assoc_member',
-                            where=member_uuid,
-                            limit=1)['result'][0]
+    try:
+        parent = get_table_json(table_name='parents',
+                                where_col='assoc_member',
+                                where=member_uuid,
+                                limit=1)['result'][0]
+    except:
+        print('member does not have a parent account');
+        parent = {
+                'name':'',
+                'email':'',
+                'phone':'',
+                'temp_password':'',
+                'tuition':'',
+                'scholarship':'',
+                }
 
     result['result'][0]['parent'] = parent
     result['result'][0]['journeys'] = member_journeys
@@ -342,8 +355,17 @@ def get_add_member_page():
     db = connect()
     result = {}
     # get 20 most recently added members
-    recent_members = get_table_json(table_name='rc_members',
-            limit=20,order='member_id')['result']
+    recent_members_db = db.run("select member_id,name,team,TO_CHAR(completed,'Dy Mon DD YYYY - HH12:MI am') from rc_members left join (select completed,member_uuid from rf_transactions where type='base_rf')b on b.member_uuid = rc_members.member_uuid where team != 'Temp Member' order by member_id desc limit 20")
+    recent_members = []
+    for r in recent_members_db:
+        line = {}
+        line['member_id'] = r[0]
+        line['name'] = r[1]
+        line['team'] = r[2]
+        line['added'] = r[3]
+        recent_members.append(line)
+
+    print(recent_members)
 
     upcoming_member_id = db.run("SELECT member_id from rc_members where member_id < 9000  order by member_id desc limit 1")[0][0] + 1
     upcoming_member_id_trial = db.run("SELECT member_id from rc_members limit 1")[0][0] + 1
@@ -355,7 +377,6 @@ def get_add_member_page():
     member_ids = []
     for m in member_ids_db:
         member_ids.append(m[0])
-    print(member_ids)
 
     result['teams'] = teams
     result['grad_dates'] = grad_dates
@@ -438,15 +459,45 @@ def add_new_member(data):
     member_id = data['member_id']
     exists = db.run(f"SELECT count(*) FROM rc_members WHERE member_id = {member_id}")[0][0]
 
-    if(exists != 0):
-        updated=False
-        message='Member ID Exsists'
+    name = data['name']
+    division = data['division']
+    team = data['team']
+    grad_date = data['grad_date']
+    add_parent = data['add_parent']
+
+    try:
+        pgtool.add_new_member(member_id,name,division,team,grad_date)
+
+        if(add_parent == True):
+            parent_name = data['parent_name']
+            email = data['email']
+            phone = data['phone']
+            tuition = data['tuition']
+            scholarship = data['scholarship']
+            pgtool.add_parent(member_id,parent_name,email,phone,tuition,scholarship)
+        updated = True
+        message = 'Updated'
+    except Exception as error:
+        print(error)
+        updated = False
+        message = 'An error occured...'
 
     result = {}
     result['updated'] = updated
     result['message'] = message
-    #db.commit()
     db.close()
+    return(result)
+
+def handle_admin_dashboard_login(login):
+    print(login)
+    message = ''
+    logged_in = False
+    result = {}
+    print(bcrypt.generate_password_hash(password='Falcon2019!').decode('utf-8'))
+    print(bcrypt.generate_password_hash(password='RocketClubBlastOff').decode('utf-8'))
+    result['token'] = '123456789abc'
+    result['message'] = message
+    result['logged_in'] = logged_in
     return(result)
 
 def main():

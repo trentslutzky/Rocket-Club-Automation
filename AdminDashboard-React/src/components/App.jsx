@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { StaticRouter, BrowserRouter as Router, Switch, Route, useLocation, useHistory, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled, { css, createGlobalStyle } from 'styled-components';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { injectStyle } from "react-toastify/dist/inject-style";
 
 
@@ -20,10 +20,13 @@ import { SelectMember } from './SelectMember.jsx';
 import { AddRF } from './AddRF/AddRF.jsx';
 import { Login } from './Login.jsx'
 
+import useToken from './useToken.js';
+
 export default function App(){
-    injectStyle();
-        
-    const [token, setToken] = useState('test');
+    injectStyle(); // injectStyle for toastify notifications
+
+    // use custom hook for login tokens
+    const { token, setToken } = useToken();
 
     if(!token){
         return( 
@@ -39,7 +42,7 @@ export default function App(){
             <ToastContainer />
             <GlobalStyle/>
                 <MainContainer>
-                    <TopBar />
+                    <TopBar setToken={setToken}/>
                     <PageContainer>
                         <SideBar/>
                         <MainPage>

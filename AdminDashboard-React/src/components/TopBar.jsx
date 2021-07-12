@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { StaticRouter, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled, { css, createGlobalStyle } from 'styled-components';
@@ -6,48 +6,57 @@ import styled, { css, createGlobalStyle } from 'styled-components';
 import RCLogo from '../images/rc_helmet.png';
 import AvatarIMG from '../images/rocketclub.png';
 
-class TopBar extends React.Component {
+function TopBar(props) {
 
-    constructor(props){
-        super(props);
+    var [popup_closed, setPopupClosed] = useState(true) ;
+
+    function accountClick() {
+        var popup = document.getElementById("account-popup");
+        setPopupClosed(!popup_closed);
+        console.log(popup.isClosed);
     }
 
-    accountClick() {
-        const popup = document.getElementById("account-popup");
-        console.log(popup.props);
+    function logoutButtonClicked(){
+        sessionStorage.removeItem('token');
+        window.location = "/";
     }
 
-    render(props) {
-        return (
-            <Bar>
-                <Logo src={RCLogo}></Logo>
-                <LeftTitle>Rocket Club<br/>Admin Dashboard</LeftTitle>
-                <Avatar src={AvatarIMG} onClick={() => this.accountClick()}></Avatar>
-                <AccountPopup id="account-popup" opened="False">
-                    <h4>Rocket Club Admin</h4>
-                    <LogOutLink href="">Log Out</LogOutLink>
-                </AccountPopup>
-            </Bar>
-        );
-    }
+    return (
+        <Bar>
+            <Logo src={RCLogo}></Logo>
+            <LeftTitle>Rocket Club<br/>Admin Dashboard</LeftTitle>
+            <Avatar src={AvatarIMG} onClick={() => accountClick()}></Avatar>
+            <AccountPopup id="account-popup" isClosed={popup_closed}>
+                <h4>Rocket Club Admin</h4>
+                <LogOutLink onClick={logoutButtonClicked}>Log Out</LogOutLink>
+            </AccountPopup>
+        </Bar>
+    );
 }
 
 const AccountPopup = styled.div`
     height: 110px;
     width: 175px;
     background-color: var(--secondary-bg);
+    color:var(--main-foreground);
+    box-shadow: rgb(0, 0, 0) 0px 0px 12px -8px;
     position: absolute;
     top: 77px;
     border-radius: 5px;
     padding-left:20px;
     transition 0.5s;
-    right:-200px;
+    right:10px;
+    ${props => props.isClosed && `
+        right:-200px;
+    `}
 `;
 
-const LogOutLink = styled.a`
+const LogOutLink = styled.button`
     position: inherit;
     bottom: 16px;
     right: 16px;
+    background-color:var(--accent-0);
+    margin:0px;
 `;
 
 const Logo = styled.img`

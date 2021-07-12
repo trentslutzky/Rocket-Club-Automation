@@ -623,6 +623,57 @@ def api_add_rf():
     data = request.get_json()
     return(rcapi.add_rf(data))
 
+
+
+@app.route('/api/login',methods=['POST'])
+def dashboard_login():
+    db = connect()
+    message = ''
+    logged_in = False
+    token = ''
+    role = ''
+
+    data = request.get_json()
+
+    username = data['username']
+    password = data['password']
+
+    try:
+        result = db.run(f"SELECT username,pw_hash,login_token,role from admin_logins where username = '{username}'")[0]
+    except:
+        result = None
+
+    print(result)
+
+    if(result == None):
+        message = 'Incorrect username!'
+        logged_in = False
+        token = ''
+    else:
+    
+        password_correct = bcrypt.check_password_hash(result[1],password)
+
+        if(password_correct):
+            message = 'LOGGED IN ;)'
+            token = result[2]
+            role = result[3]
+            logged_in = True
+        else:
+            message = 'Incorrect password!'
+            logged_in = False
+
+    result = {}
+    result['token'] = token
+    result['message'] = message
+    result['logged_in'] = logged_in
+    result['role'] = role
+
+    print(result)
+
+    db.close()
+    return(result)
+
+
 @app.route('/select-member/<string:destination>')
 @flask_login.login_required
 def select_member(destination):

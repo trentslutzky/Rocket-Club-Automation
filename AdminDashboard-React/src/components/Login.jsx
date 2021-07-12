@@ -5,10 +5,41 @@ import * as Yup from 'yup';
 
 import RCLogo from '../images/rc_helmet.png';
 
+import LoadingIcon from '../images/loading-1.gif';
+
+import { API_KEY,URL } from './api.js';
+
 export function Login(props) {
 
     function handleSubmit(values){
         console.log(values);
+        var login_inputs = document.getElementsByClassName("login_input");
+        for (var i = 0; i < login_inputs.length; i++) {
+            login_inputs[i].style.visibility = 'hidden';
+        }
+        document.getElementById("login_loading_icon").style.visibility = 'visible';
+        document.getElementById("login_button").disabled = true;
+        document.getElementById("login_button").innerText = 'Loading...';
+        document.getElementById("error_message").innerText = '';
+        fetch(URL+'/api/login?api_key='+API_KEY,{    
+                method:'POST',    
+                mode:'cors',    
+                headers:{'Content-Type': 'application/json'},    
+                body:values
+        }).then((res)=>res.json()).then((result) => {
+            if(result.logged_in == true){
+                console.log('logging in!');
+                props.setToken({'token':result.token,'role':result.role});
+            } else {
+                for (var i = 0; i < login_inputs.length; i++) {
+                    login_inputs[i].style.visibility = 'visible';
+                }
+                document.getElementById("login_loading_icon").style.visibility = 'hidden';
+                document.getElementById("login_button").disabled = false;
+                document.getElementById("login_button").innerText = 'Login';
+                document.getElementById("error_message").innerText = result.message;
+            }
+        })
     }
 
     const LoginForm = () => {
@@ -34,6 +65,7 @@ export function Login(props) {
                             type="text"
                             name="username"
                             id="username"
+                            className="login_input"
                             placeholder="username"
                             onChange={props.handleChange}
                         />
@@ -41,6 +73,7 @@ export function Login(props) {
                             type="password"
                             name="password"
                             id="password"
+                            className="login_input"
                             placeholder="password"
                             onChange={props.handleChange}
                         />
@@ -49,11 +82,14 @@ export function Login(props) {
                                 type="checkbox"
                                 name="remember"
                                 id="remember"
+                                className="login_input"
                                 onChange={props.handleChange}
                             />
-                            <RememberLabel htmlFor="remember">Remember</RememberLabel>
+                            <RememberLabel className="login_input" htmlFor="remember">Remember</RememberLabel>
                         </RememberLine>
-                        <LoginSubmitButton type="submit">
+                        <ErrorMessage id="error_message"></ErrorMessage>
+                        <LoginSubmitButton type="submit"
+                            id="login_button">
                             Login
                         </LoginSubmitButton>
                     </Form>
@@ -67,6 +103,7 @@ export function Login(props) {
     return (
         <Page>
             <LoginCard>
+                <LoadingImage id="login_loading_icon" src={LoadingIcon}/>
                 <LogoContainer>
                     <RCimg src={RCLogo}></RCimg>
                 </LogoContainer>
@@ -76,6 +113,13 @@ export function Login(props) {
         </Page>
     );
 }
+
+const LoadingImage = styled.img`
+    position:absolute;
+    top:111px;
+    width:150px;
+    visibility:hidden;
+`;
 
 const Page = styled.div`
     background-color:var(--main-bg);
@@ -206,8 +250,19 @@ const RememberLine = styled.div`
     text-align:left;
     margin-bottom:-12px;
     margin-top:10px;
+    display:none;
 `;
 
 const RememberLabel = styled.label`
     margin-left:8px;
+`;
+
+const ErrorMessage = styled.p`
+    font-size: 1rem;
+    text-align: left;
+    margin: 0px;
+    margin-top: 10px;
+    padding-left: 5px;
+    padding-right: 10px;
+    color: red;
 `;

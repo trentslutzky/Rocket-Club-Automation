@@ -112,7 +112,8 @@ function Detail(props) {
                     <CardText><b>HQ Points:</b></CardText>
                 </div>
             </DashboardCardH>
-            <DashboardCard>
+            {member_detail.parent.name != ''
+            ?(<DashboardCard>
                 <div>
                     <CardHeading>Member's Parent</CardHeading>
                     <CardText><b>Name:</b> {member_detail.parent.name}</CardText>
@@ -122,7 +123,12 @@ function Detail(props) {
                     <CardText><b>Payment:</b></CardText>
                     <CardText>        Tuition ${member_detail.parent.tuition} - Scholarship ${member_detail.parent.scholarship}</CardText>
                 </div>
-            </DashboardCard>
+            </DashboardCard>):(
+                <DashboardCard>
+                    <CardHeading>Member's Parent</CardHeading>
+                    <CardText>Member does not have a parent account</CardText>
+                </DashboardCard>
+                    )}
             <DashboardCard>
                 <div>
                     <TableHeading>Recent RF Transactions</TableHeading>
