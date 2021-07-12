@@ -29,9 +29,13 @@ export function SideBar() {
                 <SVGIcons.CameraIcon />
                 <ButtonText>Rocket Club live</ButtonText>
             </FloatingButton>
-            <FloatingButton to="/view-database">
+            <FloatingButton to="/class-dashboard">
+                <SVGIcons.BookIcon />
+                <ButtonText>Class Rocket Fuel</ButtonText>
+            </FloatingButton>
+            <FloatingButton to="/reports">
                 <SVGIcons.FileIcon />
-                <ButtonText>View Database</ButtonText>
+                <ButtonText>Reports</ButtonText>
             </FloatingButton>
         </Side>
     );
